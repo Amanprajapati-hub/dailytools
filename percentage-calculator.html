@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate percentages easily with the free DailyTools Percentage Calculator.">
+  <title>Percentage Calculator | DailyTools</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .percentage-wrapper {
+      max-width: 760px;
+      margin: 60px auto;
+      padding: 35px;
+      background: #fff;
+      border: 1px solid #e9e9f1;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(30, 30, 60, 0.06);
+    }
+
+    .percentage-wrapper h1 { margin-bottom: 12px; }
+
+    .percentage-wrapper > p {
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    .calc-card {
+      padding: 22px;
+      margin-bottom: 18px;
+      border: 1px solid #e9e9f1;
+      border-radius: 14px;
+    }
+
+    .calc-card h2 {
+      font-size: 19px;
+      margin-bottom: 18px;
+    }
+
+    .calc-card label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .calc-card input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font: inherit;
+      margin-bottom: 15px;
+    }
+
+    .calc-button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 9px;
+      background: #635bff;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calc-button:hover { background: #5048e5; }
+
+    .calc-result {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f5f5ff;
+      border-radius: 9px;
+      color: #333;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .calc-error {
+      display: none;
+      color: #d93025;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .percentage-wrapper {
+        margin: 30px 15px;
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="percentage-wrapper">
+    <h1>Percentage Calculator</h1>
+    <p>Calculate percentages quickly and easily using these three calculators.</p>
+
+    <!-- Calculator 1 -->
+    <section class="calc-card">
+      <h2>1. What is X% of Y?</h2>
+
+      <label for="percent1">Percentage (%)</label>
+      <input type="number" id="percent1" placeholder="Enter percentage">
+
+      <label for="number1">Number</label>
+      <input type="number" id="number1" placeholder="Enter number">
+
+      <button class="calc-button" onclick="calculateFirst()">Calculate</button>
+      <div class="calc-result" id="result1" aria-live="polite"></div>
+      <div class="calc-error" id="error1" role="alert"></div>
+    </section>
+
+    <!-- Calculator 2 -->
+    <section class="calc-card">
+      <h2>2. X is what percentage of Y?</h2>
+
+      <label for="number2">First Number (X)</label>
+      <input type="number" id="number2" placeholder="Enter first number">
+
+      <label for="number3">Second Number (Y)</label>
+      <input type="number" id="number3" placeholder="Enter second number">
+
+      <button class="calc-button" onclick="calculateSecond()">Calculate</button>
+      <div class="calc-result" id="result2" aria-live="polite"></div>
+      <div class="calc-error" id="error2" role="alert"></div>
+    </section>
+
+    <!-- Calculator 3 -->
+    <section class="calc-card">
+      <h2>3. Percentage Increase / Decrease</h2>
+
+      <label for="oldValue">Original Value</label>
+      <input type="number" id="oldValue" placeholder="Enter original value">
+
+      <label for="newValue">New Value</label>
+      <input type="number" id="newValue" placeholder="Enter new value">
+
+      <button class="calc-button" onclick="calculateChange()">Calculate</button>
+      <div class="calc-result" id="result3" aria-live="polite"></div>
+      <div class="calc-error" id="error3" role="alert"></div>
+    </section>
+  </main>
+
+  <script>
+    function getNumber(id) {
+      const value = document.getElementById(id).value.trim();
+      return value === "" ? null : Number(value);
+    }
+
+    function showResult(id, message) {
+      const result = document.getElementById(id);
+      const error = document.getElementById(id.replace("result", "error"));
+
+      result.textContent = message;
+      result.style.display = "block";
+      error.style.display = "none";
+    }
+
+    function showError(id, message) {
+      const error = document.getElementById(id);
+      const result = document.getElementById(id.replace("error", "result"));
+
+      error.textContent = message;
+      error.style.display = "block";
+      result.style.display = "none";
+    }
+
+    function validNumbers(values) {
+      return values.every(value => value !== null && Number.isFinite(value));
+    }
+
+    function format(value) {
+      return Number(value.toFixed(6)).toLocaleString("en-US");
+    }
+
+    function calculateFirst() {
+      const percent = getNumber("percent1");
+      const number = getNumber("number1");
+
+      if (!validNumbers([percent, number])) {
+        showError("error1", "Please enter both valid numbers.");
+        return;
+      }
+
+      const answer = (percent / 100) * number;
+      showResult("result1", `${format(percent)}% of ${format(number)} = ${format(answer)}`);
+    }
+
+    function calculateSecond() {
+      const x = getNumber("number2");
+      const y = getNumber("number3");
+
+      if (!validNumbers([x, y])) {
+        showError("error2", "Please enter both valid numbers.");
+        return;
+      }
+
+      if (y === 0) {
+        showError("error2", "The second number cannot be zero.");
+        return;
+      }
+
+      const answer = (x / y) * 100;
+      showResult("result2", `${format(x)} is ${format(answer)}% of ${format(y)}.`);
+    }
+
+    function calculateChange() {
+      const oldValue = getNumber("oldValue");
+      const newValue = getNumber("newValue");
+
+      if (!validNumbers([oldValue, newValue])) {
+        showError("error3", "Please enter both valid numbers.");
+        return;
+      }
+
+      if (oldValue === 0) {
+        showError("error3", "Original value cannot be zero.");
+        return;
+      }
+
+      const change = ((newValue - oldValue) / Math.abs(oldValue)) * 100;
+
+      if (change > 0) {
+        showResult("result3", `Percentage Increase: ${format(change)}%`);
+      } else if (change < 0) {
+        showResult("result3", `Percentage Decrease: ${format(Math.abs(change))}%`);
+      } else {
+        showResult("result3", "No percentage change (0%).");
+      }
+    }
+  </script>
+
+</body>
+</html>

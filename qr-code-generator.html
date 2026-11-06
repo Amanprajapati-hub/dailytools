@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Generate and download QR codes for text and URLs instantly with the free DailyTools QR Code Generator.">
+
+  <title>QR Code Generator | DailyTools</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .qr-wrapper {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 35px;
+      background: #fff;
+      border: 1px solid #e9e9f1;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(30,30,60,.06);
+      text-align: center;
+    }
+
+    .qr-wrapper h1 { margin-bottom: 12px; }
+
+    .qr-wrapper > p {
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    .qr-field { text-align: left; }
+
+    .qr-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+    }
+
+    .qr-field textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font: inherit;
+      resize: vertical;
+      margin-bottom: 18px;
+    }
+
+    .qr-field select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font: inherit;
+      background: white;
+      margin-bottom: 20px;
+    }
+
+    .qr-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #635bff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .qr-button:hover { background: #5048e5; }
+
+    .qr-result {
+      display: none;
+      margin-top: 28px;
+      padding: 25px;
+      background: #f5f5ff;
+      border-radius: 14px;
+    }
+
+    #qrOutput {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 220px;
+      margin: 15px auto;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    #qrOutput canvas,
+    #qrOutput img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .qr-download {
+      margin-top: 15px;
+      background: #16a36a;
+    }
+
+    .qr-download:hover { background: #128455; }
+
+    .qr-error {
+      display: none;
+      color: #d93025;
+      text-align: left;
+      margin-top: 14px;
+    }
+
+    .qr-note {
+      color: #777;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .qr-wrapper {
+        margin: 30px 15px;
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="qr-wrapper">
+
+    <h1>QR Code Generator</h1>
+
+    <p>Create and download QR codes for your text, links and website URLs.</p>
+
+    <div class="qr-field">
+
+      <label for="qrText">Enter Text or URL</label>
+
+      <textarea
+        id="qrText"
+        placeholder="Enter your website URL or any text here..."
+        maxlength="2000"
+      ></textarea>
+
+      <label for="qrSize">Select QR Code Size</label>
+
+      <select id="qrSize">
+        <option value="200">Small (200 × 200)</option>
+        <option value="300" selected>Medium (300 × 300)</option>
+        <option value="400">Large (400 × 400)</option>
+      </select>
+
+    </div>
+
+    <button class="qr-button" id="generateBtn">
+      Generate QR Code
+    </button>
+
+    <p class="qr-error" id="errorMessage" role="alert"></p>
+
+    <section class="qr-result" id="result" aria-live="polite">
+
+      <h2>Your QR Code</h2>
+
+      <div id="qrOutput"></div>
+
+      <button class="qr-button qr-download" id="downloadBtn">
+        Download QR Code PNG
+      </button>
+
+    </section>
+
+    <p class="qr-note">
+      Your QR code is generated in your browser. Do not encode sensitive information.
+    </p>
+
+  </main>
+
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    const qrText = document.getElementById("qrText");
+    const qrSize = document.getElementById("qrSize");
+    const generateBtn = document.getElementById("generateBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const qrOutput = document.getElementById("qrOutput");
+    const result = document.getElementById("result");
+    const errorMessage = document.getElementById("errorMessage");
+
+    let qrCode = null;
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = "block";
+      result.style.display = "none";
+    }
+
+    function generateQR() {
+      const text = qrText.value.trim();
+      const size = Number(qrSize.value);
+
+      errorMessage.style.display = "none";
+      result.style.display = "none";
+
+      if (!text) {
+        showError("Please enter some text or a URL.");
+        return;
+      }
+
+      if (text.length > 2000) {
+        showError("Text is too long. Please enter less text.");
+        return;
+      }
+
+      if (typeof QRCode === "undefined") {
+        showError("QR library could not load. Please check your internet connection and refresh the page.");
+        return;
+      }
+
+      qrOutput.innerHTML = "";
+
+      try {
+        qrCode = new QRCode(qrOutput, {
+          text: text,
+          width: size,
+          height: size,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+
+        result.style.display = "block";
+
+      } catch (error) {
+        showError("Unable to generate QR code. Please try shorter text.");
+      }
+    }
+
+    function downloadQR() {
+      const canvas = qrOutput.querySelector("canvas");
+      const image = qrOutput.querySelector("img");
+
+      let imageURL;
+
+      if (canvas) {
+        imageURL = canvas.toDataURL("image/png");
+      } else if (image && image.src) {
+        imageURL = image.src;
+      } else {
+        showError("Please generate a QR code first.");
+        return;
+      }
+
+      const link = document.createElement("a");
+      link.href = imageURL;
+      link.download = "dailytools-qr-code.png";
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
+    generateBtn.addEventListener("click", generateQR);
+    downloadBtn.addEventListener("click", downloadQR);
+  </script>
+
+</body>
+</html>

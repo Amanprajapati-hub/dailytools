@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Calculate discounts, savings and final prices instantly with the free DailyTools Discount Calculator.">
+
+  <title>Discount Calculator | DailyTools</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .discount-wrapper {
+      max-width: 720px;
+      margin: 60px auto;
+      padding: 35px;
+      background: #fff;
+      border: 1px solid #e9e9f1;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(30,30,60,.06);
+    }
+
+    .discount-wrapper h1 { margin-bottom: 12px; }
+
+    .discount-wrapper > p {
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    .discount-field { margin-bottom: 20px; }
+
+    .discount-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+    }
+
+    .discount-field input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font: inherit;
+    }
+
+    .discount-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #635bff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .discount-button:hover { background: #5048e5; }
+
+    .discount-result {
+      display: none;
+      margin-top: 25px;
+      padding: 24px;
+      background: #f5f5ff;
+      border-radius: 14px;
+    }
+
+    .discount-result h2 {
+      margin-bottom: 18px;
+      font-size: 20px;
+    }
+
+    .discount-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e5ef;
+    }
+
+    .discount-row:last-child { border-bottom: none; }
+
+    .discount-row strong { text-align: right; }
+
+    .discount-total {
+      color: #635bff;
+      font-size: 21px;
+    }
+
+    .discount-error {
+      display: none;
+      color: #d93025;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .discount-wrapper {
+        margin: 30px 15px;
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="discount-wrapper">
+
+    <h1>Discount Calculator</h1>
+
+    <p>Calculate your discount, savings and final price instantly.</p>
+
+    <div class="discount-field">
+      <label for="originalPrice">Original Price (₹)</label>
+      <input
+        type="number"
+        id="originalPrice"
+        placeholder="e.g. 2000"
+        min="0"
+        step="any"
+      >
+    </div>
+
+    <div class="discount-field">
+      <label for="discountPercent">Discount Percentage (%)</label>
+      <input
+        type="number"
+        id="discountPercent"
+        placeholder="e.g. 20"
+        min="0"
+        max="100"
+        step="any"
+      >
+    </div>
+
+    <button class="discount-button" id="calculateBtn">
+      Calculate Discount
+    </button>
+
+    <p class="discount-error" id="errorMessage" role="alert"></p>
+
+    <section class="discount-result" id="result" aria-live="polite">
+
+      <h2>Your Discount Details</h2>
+
+      <div class="discount-row">
+        <span>Original Price</span>
+        <strong id="originalResult"></strong>
+      </div>
+
+      <div class="discount-row">
+        <span>Discount</span>
+        <strong id="discountResult"></strong>
+      </div>
+
+      <div class="discount-row">
+        <span>You Save</span>
+        <strong id="savingResult"></strong>
+      </div>
+
+      <div class="discount-row">
+        <span>Final Price</span>
+        <strong class="discount-total" id="finalResult"></strong>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    const originalPrice = document.getElementById("originalPrice");
+    const discountPercent = document.getElementById("discountPercent");
+
+    const calculateBtn = document.getElementById("calculateBtn");
+    const result = document.getElementById("result");
+    const errorMessage = document.getElementById("errorMessage");
+
+    function formatCurrency(value) {
+      return "₹" + value.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    calculateBtn.addEventListener("click", () => {
+
+      const priceText = originalPrice.value.trim();
+      const discountText = discountPercent.value.trim();
+
+      const price = Number(priceText);
+      const discount = Number(discountText);
+
+      result.style.display = "none";
+      errorMessage.style.display = "none";
+
+      if (
+        priceText === "" ||
+        discountText === "" ||
+        !Number.isFinite(price) ||
+        !Number.isFinite(discount) ||
+        price < 0 ||
+        discount < 0 ||
+        discount > 100
+      ) {
+        errorMessage.textContent =
+          "Please enter a valid price and a discount between 0 and 100.";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      const saving = price * discount / 100;
+      const finalPrice = price - saving;
+
+      document.getElementById("originalResult").textContent =
+        formatCurrency(price);
+
+      document.getElementById("discountResult").textContent =
+        discount + "%";
+
+      document.getElementById("savingResult").textContent =
+        formatCurrency(saving);
+
+      document.getElementById("finalResult").textContent =
+        formatCurrency(finalPrice);
+
+      result.style.display = "block";
+    });
+
+  </script>
+
+</body>
+</html>

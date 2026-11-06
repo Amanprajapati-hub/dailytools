@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online Word Counter. Instantly count words, characters and sentences in your text.">
+    <title>Word Counter | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 100px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        #textInput {
+            width: 100%;
+            min-height: 260px;
+            resize: vertical;
+            padding: 20px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.8;
+            outline: none;
+            color: #33334a;
+        }
+
+        #textInput:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 16px;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 650px) {
+            .counter-box {
+                padding: 18px;
+            }
+
+            .counter-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .counter-actions {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">DailyTools<span>.</span></a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+        </nav>
+        <a href="tools.html" class="btn btn-primary nav-cta">Explore Tools</a>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+            <h1>Word <span>Counter.</span></h1>
+            <p>Count words, characters and sentences instantly. Just type or paste your text below.</p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+            <div class="counter-box">
+
+                <label for="textInput">Enter or paste your text</label>
+
+                <textarea
+                    id="textInput"
+                    placeholder="Start typing or paste your text here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div class="counter-actions">
+                    <span id="statusText">Ready to count</span>
+                    <button type="button" id="clearButton">Clear Text</button>
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+                    <div class="stat-card">
+                        <strong id="wordCount">0</strong>
+                        <span>WORDS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="charCount">0</strong>
+                        <span>CHARACTERS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="charNoSpace">0</strong>
+                        <span>NO SPACES</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="sentenceCount">0</strong>
+                        <span>SENTENCES</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="index.html" class="logo">DailyTools<span>.</span></a>
+        <p>Simple tools for everyday tasks.</p>
+        <p class="copyright">© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+    const wordCount = document.getElementById("wordCount");
+    const charCount = document.getElementById("charCount");
+    const charNoSpace = document.getElementById("charNoSpace");
+    const sentenceCount = document.getElementById("sentenceCount");
+    const clearButton = document.getElementById("clearButton");
+    const statusText = document.getElementById("statusText");
+
+    function updateCounts() {
+        const text = textInput.value;
+
+        const words = text.trim()
+            ? text.trim().split(/\s+/u).length
+            : 0;
+
+        const sentences = text.trim()
+            ? (text.match(/[.!?]+(?=\s|$)/g) || []).length
+            : 0;
+
+        wordCount.textContent = words;
+        charCount.textContent = text.length;
+        charNoSpace.textContent = text.replace(/\s/g, "").length;
+        sentenceCount.textContent = sentences;
+
+        statusText.textContent = text.length
+            ? "Counting your text..."
+            : "Ready to count";
+    }
+
+    textInput.addEventListener("input", updateCounts);
+
+    clearButton.addEventListener("click", function () {
+        textInput.value = "";
+        updateCounts();
+        textInput.focus();
+    });
+</script>
+
+</body>
+</html>

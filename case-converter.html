@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert text to uppercase, lowercase, title case and sentence case for free with DailyTools Case Converter.">
+    <title>Case Converter | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .converter-section {
+            padding: 65px 0 100px;
+        }
+
+        .converter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .converter-box label {
+            display: block;
+            color: #17172b;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        #inputText, #outputText {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            resize: vertical;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            outline: none;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #33334a;
+        }
+
+        #inputText:focus, #outputText:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .converter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 22px 0 30px;
+        }
+
+        .converter-buttons button,
+        .output-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 12px 18px;
+            border-radius: 9px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .converter-buttons button:hover,
+        .output-actions button:hover {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .output-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 12px;
+        }
+
+        .output-heading label {
+            margin: 0;
+        }
+
+        .output-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .output-actions .primary-button {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .output-actions .primary-button:hover {
+            background: #5048e5;
+        }
+
+        #statusMessage {
+            margin-top: 14px;
+            color: #635bff;
+            font-size: 13px;
+            min-height: 20px;
+        }
+
+        @media (max-width: 650px) {
+            .converter-box {
+                padding: 18px;
+            }
+
+            .converter-buttons button,
+            .output-actions button {
+                flex: 1 1 42%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">DailyTools<span>.</span></a>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+        </nav>
+
+        <a href="tools.html" class="btn btn-primary nav-cta">Explore Tools</a>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+            <h1>Case <span>Converter.</span></h1>
+            <p>Change your text into different letter cases instantly with one click.</p>
+        </div>
+    </section>
+
+    <section class="converter-section">
+        <div class="container">
+            <div class="converter-box">
+
+                <label for="inputText">Enter your text</label>
+
+                <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+
+                <div class="converter-buttons">
+                    <button type="button" data-case="upper">UPPERCASE</button>
+                    <button type="button" data-case="lower">lowercase</button>
+                    <button type="button" data-case="title">Title Case</button>
+                    <button type="button" data-case="sentence">Sentence case</button>
+                </div>
+
+                <div class="output-heading">
+                    <label for="outputText">Converted text</label>
+                </div>
+
+                <textarea id="outputText" placeholder="Your converted text will appear here..." readonly></textarea>
+
+                <div class="output-actions">
+                    <button type="button" class="primary-button" id="copyButton">Copy Text</button>
+                    <button type="button" id="clearButton">Clear All</button>
+                </div>
+
+                <p id="statusMessage" role="status" aria-live="polite"></p>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="index.html" class="logo">DailyTools<span>.</span></a>
+        <p>Simple tools for everyday tasks.</p>
+        <p class="copyright">© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const inputText = document.getElementById("inputText");
+    const outputText = document.getElementById("outputText");
+    const statusMessage = document.getElementById("statusMessage");
+
+    function convertText(type) {
+        const text = inputText.value;
+        let result = "";
+
+        if (!text.trim()) {
+            statusMessage.textContent = "Please enter some text first.";
+            outputText.value = "";
+            return;
+        }
+
+        switch (type) {
+            case "upper":
+                result = text.toUpperCase();
+                break;
+
+            case "lower":
+                result = text.toLowerCase();
+                break;
+
+            case "title":
+                result = text.toLowerCase().replace(
+                    /(^|[\s-])([\p{L}\p{N}])/gu,
+                    (match, separator, character) =>
+                        separator + character.toUpperCase()
+                );
+                break;
+
+            case "sentence":
+                result = text.toLowerCase().replace(
+                    /(^\s*|[.!?]\s+)([\p{L}])/gu,
+                    (match, separator, character) =>
+                        separator + character.toUpperCase()
+                );
+                break;
+        }
+
+        outputText.value = result;
+        statusMessage.textContent = "Text converted successfully!";
+    }
+
+    document.querySelectorAll("[data-case]").forEach(button => {
+        button.addEventListener("click", () => {
+            convertText(button.dataset.case);
+        });
+    });
+
+    document.getElementById("copyButton").addEventListener("click", async () => {
+        if (!outputText.value) {
+            statusMessage.textContent = "Nothing to copy yet.";
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(outputText.value);
+            statusMessage.textContent = "Converted text copied!";
+        } catch {
+            outputText.focus();
+            outputText.select();
+            const copied = document.execCommand("copy");
+            statusMessage.textContent = copied
+                ? "Converted text copied!"
+                : "Please select and copy the text manually.";
+        }
+    });
+
+    document.getElementById("clearButton").addEventListener("click", () => {
+        inputText.value = "";
+        outputText.value = "";
+        statusMessage.textContent = "All text cleared.";
+        inputText.focus();
+    });
+</script>
+
+</body>
+</html>

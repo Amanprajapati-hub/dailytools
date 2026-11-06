@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate GST, tax amount and final price easily with the free DailyTools GST Calculator.">
+  <title>GST Calculator | DailyTools</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .gst-wrapper {
+      max-width: 720px;
+      margin: 60px auto;
+      padding: 35px;
+      background: #fff;
+      border: 1px solid #e9e9f1;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(30,30,60,.06);
+    }
+
+    .gst-wrapper h1 { margin-bottom: 12px; }
+    .gst-wrapper > p { color: #666; margin-bottom: 28px; }
+
+    .gst-field { margin-bottom: 20px; }
+
+    .gst-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+    }
+
+    .gst-field input,
+    .gst-field select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font: inherit;
+      background: #fff;
+    }
+
+    .gst-mode {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .gst-mode button {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .gst-mode button.active {
+      background: #635bff;
+      border-color: #635bff;
+      color: white;
+    }
+
+    .gst-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #635bff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .gst-button:hover { background: #5048e5; }
+
+    .gst-result {
+      display: none;
+      margin-top: 25px;
+      padding: 22px;
+      background: #f5f5ff;
+      border-radius: 14px;
+    }
+
+    .gst-result h2 {
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .gst-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e5ef;
+    }
+
+    .gst-row:last-child { border-bottom: none; }
+
+    .gst-row strong { text-align: right; }
+
+    .gst-total {
+      color: #635bff;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .gst-error {
+      display: none;
+      color: #d93025;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .gst-wrapper { margin: 30px 15px; padding: 22px; }
+      .gst-mode { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="gst-wrapper">
+    <h1>GST Calculator</h1>
+    <p>Calculate GST amount and final price quickly and easily.</p>
+
+    <div class="gst-mode">
+      <button type="button" id="exclusiveBtn" class="active">
+        Add GST
+      </button>
+      <button type="button" id="inclusiveBtn">
+        Remove GST
+      </button>
+    </div>
+
+    <div class="gst-field">
+      <label for="amount">Enter Amount (₹)</label>
+      <input type="number" id="amount" placeholder="e.g. 1000" min="0" step="any">
+    </div>
+
+    <div class="gst-field">
+      <label for="gstRate">GST Rate (%)</label>
+      <select id="gstRate">
+        <option value="5">5%</option>
+        <option value="12">12%</option>
+        <option value="18" selected>18%</option>
+        <option value="28">28%</option>
+      </select>
+    </div>
+
+    <button type="button" class="gst-button" id="calculateBtn">
+      Calculate GST
+    </button>
+
+    <p class="gst-error" id="errorMessage" role="alert"></p>
+
+    <section class="gst-result" id="result" aria-live="polite">
+      <h2>Calculation Result</h2>
+
+      <div class="gst-row">
+        <span id="baseLabel">Base Amount</span>
+        <strong id="baseAmount"></strong>
+      </div>
+
+      <div class="gst-row">
+        <span>GST Amount</span>
+        <strong id="gstAmount"></strong>
+      </div>
+
+      <div class="gst-row">
+        <span>CGST</span>
+        <strong id="cgstAmount"></strong>
+      </div>
+
+      <div class="gst-row">
+        <span>SGST</span>
+        <strong id="sgstAmount"></strong>
+      </div>
+
+      <div class="gst-row">
+        <span>Final Total</span>
+        <strong class="gst-total" id="finalAmount"></strong>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const amountInput = document.getElementById("amount");
+    const gstRateInput = document.getElementById("gstRate");
+    const result = document.getElementById("result");
+    const errorMessage = document.getElementById("errorMessage");
+
+    let mode = "exclusive";
+
+    const exclusiveBtn = document.getElementById("exclusiveBtn");
+    const inclusiveBtn = document.getElementById("inclusiveBtn");
+
+    function setMode(selectedMode) {
+      mode = selectedMode;
+
+      exclusiveBtn.classList.toggle("active", mode === "exclusive");
+      inclusiveBtn.classList.toggle("active", mode === "inclusive");
+
+      result.style.display = "none";
+      errorMessage.style.display = "none";
+    }
+
+    exclusiveBtn.addEventListener("click", () => setMode("exclusive"));
+    inclusiveBtn.addEventListener("click", () => setMode("inclusive"));
+
+    function formatCurrency(value) {
+      return "₹" + value.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", () => {
+      const amount = Number(amountInput.value);
+      const rate = Number(gstRateInput.value);
+
+      result.style.display = "none";
+      errorMessage.style.display = "none";
+
+      if (
+        amountInput.value.trim() === "" ||
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ) {
+        errorMessage.textContent = "Please enter a valid amount greater than zero.";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      let baseAmount;
+      let gstAmount;
+      let finalAmount;
+
+      if (mode === "exclusive") {
+        baseAmount = amount;
+        gstAmount = amount * rate / 100;
+        finalAmount = amount + gstAmount;
+      } else {
+        finalAmount = amount;
+        baseAmount = amount * 100 / (100 + rate);
+        gstAmount = amount - baseAmount;
+      }
+
+      const cgst = gstAmount / 2;
+      const sgst = gstAmount / 2;
+
+      document.getElementById("baseLabel").textContent =
+        mode === "exclusive" ? "Base Amount" : "Amount Before GST";
+
+      document.getElementById("baseAmount").textContent =
+        formatCurrency(baseAmount);
+
+      document.getElementById("gstAmount").textContent =
+        formatCurrency(gstAmount);
+
+      document.getElementById("cgstAmount").textContent =
+        formatCurrency(cgst);
+
+      document.getElementById("sgstAmount").textContent =
+        formatCurrency(sgst);
+
+      document.getElementById("finalAmount").textContent =
+        formatCurrency(finalAmount);
+
+      result.style.display = "block";
+    });
+  </script>
+</body>
+</html>

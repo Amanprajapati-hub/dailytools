@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert length, weight and temperature units instantly with the free DailyTools Unit Converter.">
+  <title>Unit Converter | DailyTools</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .converter-wrapper {
+      max-width: 720px;
+      margin: 60px auto;
+      padding: 35px;
+      background: #fff;
+      border: 1px solid #e9e9f1;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(30,30,60,.06);
+    }
+
+    .converter-wrapper h1 { margin-bottom: 12px; }
+
+    .converter-wrapper > p {
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    .converter-field { margin-bottom: 20px; }
+
+    .converter-field label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 9px;
+    }
+
+    .converter-field input,
+    .converter-field select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font: inherit;
+      background: white;
+    }
+
+    .converter-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #635bff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .converter-button:hover { background: #5048e5; }
+
+    .converter-result {
+      display: none;
+      margin-top: 25px;
+      padding: 25px;
+      background: #f5f5ff;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .converter-result span {
+      display: block;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .converter-result strong {
+      display: block;
+      color: #635bff;
+      font-size: 30px;
+      overflow-wrap: anywhere;
+    }
+
+    .converter-error {
+      display: none;
+      color: #d93025;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .converter-wrapper {
+        margin: 30px 15px;
+        padding: 22px;
+      }
+
+      .converter-result strong { font-size: 24px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="converter-wrapper">
+
+    <h1>Unit Converter</h1>
+    <p>Convert length, weight and temperature units quickly and easily.</p>
+
+    <div class="converter-field">
+      <label for="category">Select Category</label>
+      <select id="category">
+        <option value="length">Length</option>
+        <option value="weight">Weight</option>
+        <option value="temperature">Temperature</option>
+      </select>
+    </div>
+
+    <div class="converter-field">
+      <label for="fromUnit">From</label>
+      <select id="fromUnit"></select>
+    </div>
+
+    <div class="converter-field">
+      <label for="toUnit">To</label>
+      <select id="toUnit"></select>
+    </div>
+
+    <div class="converter-field">
+      <label for="inputValue">Enter Value</label>
+      <input type="number" id="inputValue" placeholder="Enter a number" step="any">
+    </div>
+
+    <button class="converter-button" id="convertBtn">
+      Convert
+    </button>
+
+    <p class="converter-error" id="errorMessage" role="alert"></p>
+
+    <section class="converter-result" id="result" aria-live="polite">
+      <span>Converted Result</span>
+      <strong id="outputValue"></strong>
+    </section>
+
+  </main>
+
+  <script>
+    const units = {
+      length: {
+        meter: { label: "Meter (m)", factor: 1 },
+        kilometer: { label: "Kilometer (km)", factor: 1000 },
+        centimeter: { label: "Centimeter (cm)", factor: 0.01 },
+        millimeter: { label: "Millimeter (mm)", factor: 0.001 },
+        mile: { label: "Mile (mi)", factor: 1609.344 },
+        yard: { label: "Yard (yd)", factor: 0.9144 },
+        foot: { label: "Foot (ft)", factor: 0.3048 },
+        inch: { label: "Inch (in)", factor: 0.0254 }
+      },
+
+      weight: {
+        kilogram: { label: "Kilogram (kg)", factor: 1 },
+        gram: { label: "Gram (g)", factor: 0.001 },
+        milligram: { label: "Milligram (mg)", factor: 0.000001 },
+        pound: { label: "Pound (lb)", factor: 0.45359237 },
+        ounce: { label: "Ounce (oz)", factor: 0.028349523125 },
+        tonne: { label: "Metric Tonne (t)", factor: 1000 }
+      },
+
+      temperature: {
+        celsius: { label: "Celsius (°C)" },
+        fahrenheit: { label: "Fahrenheit (°F)" },
+        kelvin: { label: "Kelvin (K)" }
+      }
+    };
+
+    const category = document.getElementById("category");
+    const fromUnit = document.getElementById("fromUnit");
+    const toUnit = document.getElementById("toUnit");
+    const inputValue = document.getElementById("inputValue");
+    const result = document.getElementById("result");
+    const outputValue = document.getElementById("outputValue");
+    const errorMessage = document.getElementById("errorMessage");
+
+    function populateUnits() {
+      const selectedCategory = category.value;
+      const options = units[selectedCategory];
+
+      fromUnit.innerHTML = "";
+      toUnit.innerHTML = "";
+
+      Object.entries(options).forEach(([key, unit]) => {
+        fromUnit.add(new Option(unit.label, key));
+        toUnit.add(new Option(unit.label, key));
+      });
+
+      if (selectedCategory === "length") {
+        fromUnit.value = "meter";
+        toUnit.value = "kilometer";
+      } else if (selectedCategory === "weight") {
+        fromUnit.value = "kilogram";
+        toUnit.value = "gram";
+      } else {
+        fromUnit.value = "celsius";
+        toUnit.value = "fahrenheit";
+      }
+
+      result.style.display = "none";
+      errorMessage.style.display = "none";
+    }
+
+    function convertTemperature(value, from, to) {
+      let celsius;
+
+      if (from === "celsius") {
+        celsius = value;
+      } else if (from === "fahrenheit") {
+        celsius = (value - 32) * 5 / 9;
+      } else {
+        celsius = value - 273.15;
+      }
+
+      if (to === "celsius") return celsius;
+      if (to === "fahrenheit") return (celsius * 9 / 5) + 32;
+      return celsius + 273.15;
+    }
+
+    function formatNumber(value) {
+      return Number(value.toPrecision(10)).toLocaleString("en-US", {
+        maximumFractionDigits: 8
+      });
+    }
+
+    function convert() {
+      result.style.display = "none";
+      errorMessage.style.display = "none";
+
+      const rawValue = inputValue.value.trim();
+      const value = Number(rawValue);
+      const selectedCategory = category.value;
+      const from = fromUnit.value;
+      const to = toUnit.value;
+
+      if (rawValue === "" || !Number.isFinite(value)) {
+        showError("Please enter a valid number.");
+        return;
+      }
+
+      let converted;
+
+      if (selectedCategory === "temperature") {
+        if (from === "kelvin" && value < 0) {
+          showError("Kelvin cannot be below absolute zero (0 K).");
+          return;
+        }
+
+        if (from === "celsius" && value < -273.15) {
+          showError("Celsius cannot be below absolute zero (-273.15 °C).");
+          return;
+        }
+
+        if (from === "fahrenheit" && value < -459.67) {
+          showError("Fahrenheit cannot be below absolute zero (-459.67 °F).");
+          return;
+        }
+
+        converted = convertTemperature(value, from, to);
+
+      } else {
+        const fromFactor = units[selectedCategory][from].factor;
+        const toFactor = units[selectedCategory][to].factor;
+
+        converted = (value * fromFactor) / toFactor;
+      }
+
+      if (!Number.isFinite(converted)) {
+        showError("This value is too large to convert.");
+        return;
+      }
+
+      outputValue.textContent = formatNumber(converted) +
+        " " + units[selectedCategory][to].label;
+
+      result.style.display = "block";
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = "block";
+    }
+
+    category.addEventListener("change", populateUnits);
+    document.getElementById("convertBtn").addEventListener("click", convert);
+
+    populateUnits();
+  </script>
+
+</body>
+</html>
