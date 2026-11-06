@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Main Pages -->
+    <url>
+        <loc>https://dailytools-six.vercel.app/</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/tools.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/about.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/contact.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/privacy-policy.html</loc>
+    </url>
+
+    <!-- Tools -->
+    <url>
+        <loc>https://dailytools-six.vercel.app/word-counter.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/case-converter.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/password-generator.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/age-calculator.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/percentage-calculator.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/random-number-generator.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/gst-calculator.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/discount-calculator.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/unit-converter.html</loc>
+    </url>
+
+    <url>
+        <loc>https://dailytools-six.vercel.app/qr-code-generator.html</loc>
+    </url>
+
+</urlset>
