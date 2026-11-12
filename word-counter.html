@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free online Word Counter. Instantly count words, characters and sentences in your text.">
-    <title>Word Counter | DailyTools</title>
+
+    <meta name="description" content="Use the free online Word Counter by DailyTools to count words, characters, characters without spaces and sentences. Check text length instantly while typing or pasting.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Word Counter Online - Count Words & Characters | DailyTools</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
     <style>
         .counter-section {
-            padding: 65px 0 100px;
+            padding: 65px 0 80px;
         }
 
         .counter-box {
@@ -44,6 +48,7 @@
             line-height: 1.8;
             outline: none;
             color: #33334a;
+            box-sizing: border-box;
         }
 
         #textInput:focus {
@@ -55,6 +60,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             gap: 15px;
             margin-top: 16px;
         }
@@ -73,9 +79,14 @@
             background: #e5e3ff;
         }
 
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+
         .counter-stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
             margin-top: 28px;
         }
@@ -86,6 +97,7 @@
             border-radius: 14px;
             padding: 20px 12px;
             text-align: center;
+            min-width: 0;
         }
 
         .stat-card strong {
@@ -93,6 +105,7 @@
             color: #635bff;
             font-size: 30px;
             margin-bottom: 6px;
+            overflow-wrap: anywhere;
         }
 
         .stat-card span {
@@ -101,17 +114,145 @@
             font-weight: 600;
         }
 
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
         @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
             .counter-box {
                 padding: 18px;
             }
 
+            #textInput {
+                min-height: 220px;
+                padding: 14px;
+            }
+
             .counter-stats {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .stat-card strong {
+                font-size: 25px;
             }
 
             .counter-actions {
-                align-items: flex-start;
+                align-items: center;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
         }
     </style>
@@ -120,29 +261,41 @@
 <body>
 
 <header class="header">
-    <div class="container nav-container">
-        <a href="index.html" class="logo">DailyTools<span>.</span></a>
-        <nav class="nav-links">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="tools.html" class="active">All Tools</a>
             <a href="index.html#categories">Categories</a>
             <a href="about.html">About</a>
-        </nav>
-        <a href="tools.html" class="btn btn-primary nav-cta">Explore Tools</a>
-    </div>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
 </header>
 
 <main>
+
     <section class="page-hero">
         <div class="container">
             <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+
             <h1>Word <span>Counter.</span></h1>
-            <p>Count words, characters and sentences instantly. Just type or paste your text below.</p>
+
+            <p>
+                Count words, characters, characters without spaces and sentences
+                in your text. Type or paste your content to see the results instantly.
+            </p>
         </div>
     </section>
 
     <section class="counter-section">
         <div class="container">
+
             <div class="counter-box">
 
                 <label for="textInput">Enter or paste your text</label>
@@ -151,14 +304,21 @@
                     id="textInput"
                     placeholder="Start typing or paste your text here..."
                     spellcheck="true"
+                    aria-describedby="statusText"
                 ></textarea>
 
                 <div class="counter-actions">
-                    <span id="statusText">Ready to count</span>
-                    <button type="button" id="clearButton">Clear Text</button>
+                    <span id="statusText" role="status" aria-live="polite">
+                        Ready to count
+                    </span>
+
+                    <button type="button" id="clearButton">
+                        Clear Text
+                    </button>
                 </div>
 
                 <div class="counter-stats" aria-live="polite">
+
                     <div class="stat-card">
                         <strong id="wordCount">0</strong>
                         <span>WORDS</span>
@@ -178,18 +338,344 @@
                         <strong id="sentenceCount">0</strong>
                         <span>SENTENCES</span>
                     </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Word Counter?</h2>
+
+                    <p>
+                        A word counter is an online writing tool that measures
+                        the length of a piece of text. It helps you find out how
+                        many words and characters your writing contains without
+                        counting them manually.
+                    </p>
+
+                    <p>
+                        Whether you are preparing a school assignment, writing
+                        an article, creating a social media caption or drafting
+                        an email, checking text length can help you keep your
+                        writing within a required limit.
+                    </p>
+
+                    <p>
+                        The DailyTools Word Counter displays four useful
+                        measurements: words, total characters, characters
+                        without whitespace and an estimated sentence count.
+                        The results change automatically whenever you edit
+                        the text.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Word Counter</h2>
+
+                    <p>
+                        You can use this tool with newly written text or content
+                        copied from another document. Follow these steps:
+                    </p>
+
+                    <ol>
+                        <li>Open the text box under the Word Counter heading.</li>
+                        <li>Type your content or paste text from a document.</li>
+                        <li>Wait for the four statistics to update automatically.</li>
+                        <li>Check the word count if you have a specific word limit.</li>
+                        <li>Review the character and sentence counts when needed.</li>
+                        <li>Select Clear Text to remove the current content and begin again.</li>
+                    </ol>
+
+                    <p>
+                        There is no separate calculation button. The tool
+                        processes your text as you type, paste or delete
+                        characters.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Four Word Counter Results</h2>
+
+                    <p>
+                        Each statistic describes a different part of your text.
+                        Knowing the difference can help you choose the right
+                        measurement for your writing task.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Word Count</h3>
+                            <p>
+                                Shows the number of groups of text separated
+                                by whitespace. It is useful for checking essay,
+                                article and assignment word limits.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Character Count</h3>
+                            <p>
+                                Measures all characters in the entered text,
+                                including letters, numbers, punctuation and
+                                spaces.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Characters Without Spaces</h3>
+                            <p>
+                                Measures the text after whitespace characters
+                                such as spaces, tabs and line breaks are
+                                excluded.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Sentence Count</h3>
+                            <p>
+                                Provides an estimate based on common sentence
+                                endings, including periods, question marks and
+                                exclamation marks.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Sentence counts are estimates. Abbreviations, decimal
+                        numbers and unusual punctuation can affect the result.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Word Count vs. Character Count</h2>
+
+                    <p>
+                        Word count and character count measure different
+                        things. A word count measures groups of text, while
+                        a character count measures the individual characters
+                        that make up the content.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Example text:</strong></p>
+
+                        <p>
+                            DailyTools makes everyday tasks easier.
+                        </p>
+
+                        <p>
+                            This example contains 5 words. Its character count
+                            also includes the spaces and the full stop at the
+                            end of the sentence.
+                        </p>
+                    </div>
+
+                    <p>
+                        For an assignment with a 500-word requirement, the
+                        word count is usually the important measurement.
+                        For a form with a character limit, the total character
+                        count may be more useful.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>When Should You Use a Word Counter?</h2>
+
+                    <p>
+                        Checking text length is useful in many writing and
+                        communication tasks. Here are some common examples:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Students:</strong> Check essays, reports
+                            and assignments against their required word limits.
+                        </li>
+
+                        <li>
+                            <strong>Bloggers and writers:</strong> Monitor
+                            article length and review drafts before publishing.
+                        </li>
+
+                        <li>
+                            <strong>Job applicants:</strong> Check the length
+                            of application answers, personal statements and
+                            professional summaries.
+                        </li>
+
+                        <li>
+                            <strong>Social media users:</strong> Review captions,
+                            posts and other short-form writing.
+                        </li>
+
+                        <li>
+                            <strong>Website owners:</strong> Measure page
+                            descriptions, introductions and other website text.
+                        </li>
+
+                        <li>
+                            <strong>Professionals:</strong> Check emails,
+                            proposals and reports before sharing them.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Better Word Count Management</h2>
+
+                    <ul>
+                        <li>
+                            Check the required word limit before starting
+                            an assignment or article.
+                        </li>
+
+                        <li>
+                            Leave a little room below the maximum limit if
+                            you expect to make further edits.
+                        </li>
+
+                        <li>
+                            Use character count when a form or platform
+                            specifies a character restriction.
+                        </li>
+
+                        <li>
+                            Remove unnecessary repetition to make writing
+                            clearer and more concise.
+                        </li>
+
+                        <li>
+                            Review the final version of your text after
+                            editing, rather than relying on an earlier count.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>Is the DailyTools Word Counter free?</h3>
+
+                        <p>
+                            Yes. You can use the Word Counter to check words,
+                            characters and sentences without creating an
+                            account or paying a usage fee.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Does the word count update automatically?</h3>
+
+                        <p>
+                            Yes. The results update when you type, paste,
+                            remove or edit text. You do not need to press
+                            a separate calculate button.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Are spaces included in the character count?</h3>
+
+                        <p>
+                            Yes. The total character count includes spaces
+                            and line breaks. The separate No Spaces result
+                            excludes whitespace characters.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>How does this tool count words?</h3>
+
+                        <p>
+                            It treats groups of characters separated by
+                            whitespace as words. Multiple spaces or line
+                            breaks between words do not create additional
+                            word counts.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>How accurate is the sentence count?</h3>
+
+                        <p>
+                            The sentence count is an estimate based on
+                            common sentence-ending punctuation. It may
+                            not identify every sentence correctly when
+                            abbreviations or unusual punctuation are used.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I count text copied from a document?</h3>
+
+                        <p>
+                            Yes. Copy text from a document, email or other
+                            text editor and paste it into the input box.
+                            The statistics will update automatically.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Does the tool count words in different paragraphs?</h3>
+
+                        <p>
+                            Yes. Words separated by spaces, tabs or line
+                            breaks are counted. You can paste multiple
+                            paragraphs into the same text box.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I clear the text and start again?</h3>
+
+                        <p>
+                            Yes. Select the Clear Text button to remove
+                            the current text and reset all four statistics
+                            to zero.
+                        </p>
+                    </div>
+
                 </div>
 
             </div>
         </div>
     </section>
+
 </main>
 
 <footer class="footer">
     <div class="container footer-content">
-        <a href="index.html" class="logo">DailyTools<span>.</span></a>
-        <p>Simple tools for everyday tasks.</p>
-        <p class="copyright">© 2026 DailyTools. All rights reserved.</p>
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
     </div>
 </footer>
 
@@ -205,21 +691,31 @@
     function updateCounts() {
         const text = textInput.value;
 
+        // Count groups of text separated by whitespace.
         const words = text.trim()
             ? text.trim().split(/\s+/u).length
             : 0;
 
+        // Estimate sentences using common ending punctuation.
         const sentences = text.trim()
             ? (text.match(/[.!?]+(?=\s|$)/g) || []).length
             : 0;
 
+        // Array.from counts Unicode code points more accurately
+        // than string.length for many emoji and special characters.
+        const characters = Array.from(text).length;
+
+        const charactersWithoutSpaces = Array.from(text)
+            .filter(character => !/\s/u.test(character))
+            .length;
+
         wordCount.textContent = words;
-        charCount.textContent = text.length;
-        charNoSpace.textContent = text.replace(/\s/g, "").length;
+        charCount.textContent = characters;
+        charNoSpace.textContent = charactersWithoutSpaces;
         sentenceCount.textContent = sentences;
 
         statusText.textContent = text.length
-            ? "Counting your text..."
+            ? "Your text statistics are updated"
             : "Ready to count";
     }
 
@@ -230,6 +726,9 @@
         updateCounts();
         textInput.focus();
     });
+
+    // Initialize the statistics when the page loads.
+    updateCounts();
 </script>
 
 </body>

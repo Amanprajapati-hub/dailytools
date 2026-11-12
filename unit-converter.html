@@ -1,297 +1,954 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Convert length, weight and temperature units instantly with the free DailyTools Unit Converter.">
-  <title>Unit Converter | DailyTools</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+    <meta name="description" content="Use the free DailyTools Unit Converter to convert length, weight and temperature units instantly. Convert meters, kilometers, kilograms, pounds, Celsius, Fahrenheit and more.">
 
-  <style>
-    .converter-wrapper {
-      max-width: 720px;
-      margin: 60px auto;
-      padding: 35px;
-      background: #fff;
-      border: 1px solid #e9e9f1;
-      border-radius: 20px;
-      box-shadow: 0 10px 35px rgba(30,30,60,.06);
-    }
+    <meta name="robots" content="index, follow">
 
-    .converter-wrapper h1 { margin-bottom: 12px; }
+    <title>Free Unit Converter Online - Length, Weight & Temperature | DailyTools</title>
 
-    .converter-wrapper > p {
-      color: #666;
-      margin-bottom: 28px;
-    }
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-    .converter-field { margin-bottom: 20px; }
+    <style>
+        .converter-section {
+            padding: 65px 0 80px;
+        }
 
-    .converter-field label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 9px;
-    }
+        .converter-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 32px;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
 
-    .converter-field input,
-    .converter-field select {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font: inherit;
-      background: white;
-    }
+        .converter-wrapper > p {
+            color: #66667a;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
 
-    .converter-button {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      background: #635bff;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+        .converter-field {
+            margin-bottom: 22px;
+        }
 
-    .converter-button:hover { background: #5048e5; }
+        .converter-field label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 10px;
+        }
 
-    .converter-result {
-      display: none;
-      margin-top: 25px;
-      padding: 25px;
-      background: #f5f5ff;
-      border-radius: 14px;
-      text-align: center;
-    }
+        .converter-field input,
+        .converter-field select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            background: #fff;
+            outline: none;
+            box-sizing: border-box;
+        }
 
-    .converter-result span {
-      display: block;
-      color: #666;
-      margin-bottom: 10px;
-    }
+        .converter-field input:focus,
+        .converter-field select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
 
-    .converter-result strong {
-      display: block;
-      color: #635bff;
-      font-size: 30px;
-      overflow-wrap: anywhere;
-    }
+        .converter-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #635bff;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
-    .converter-error {
-      display: none;
-      color: #d93025;
-      margin-top: 14px;
-    }
+        .converter-button:hover {
+            background: #5048e5;
+        }
 
-    @media (max-width: 600px) {
-      .converter-wrapper {
-        margin: 30px 15px;
-        padding: 22px;
-      }
+        .converter-result {
+            display: none;
+            margin-top: 28px;
+            padding: 25px;
+            background: #f5f5ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            text-align: center;
+        }
 
-      .converter-result strong { font-size: 24px; }
-    }
-  </style>
+        .converter-result span {
+            display: block;
+            color: #66667a;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .converter-result strong {
+            display: block;
+            color: #635bff;
+            font-size: 30px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .converter-error {
+            display: none;
+            color: #d93025;
+            background: #fff1f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .converter-section {
+                padding: 40px 0 55px;
+            }
+
+            .converter-wrapper {
+                padding: 20px;
+            }
+
+            .converter-result {
+                padding: 20px;
+            }
+
+            .converter-result strong {
+                font-size: 24px;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <main class="converter-wrapper">
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
 
-    <h1>Unit Converter</h1>
-    <p>Convert length, weight and temperature units quickly and easily.</p>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
 
-    <div class="converter-field">
-      <label for="category">Select Category</label>
-      <select id="category">
-        <option value="length">Length</option>
-        <option value="weight">Weight</option>
-        <option value="temperature">Temperature</option>
-      </select>
-    </div>
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
 
-    <div class="converter-field">
-      <label for="fromUnit">From</label>
-      <select id="fromUnit"></select>
-    </div>
+<main>
 
-    <div class="converter-field">
-      <label for="toUnit">To</label>
-      <select id="toUnit"></select>
-    </div>
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE CONVERSION TOOL</span>
 
-    <div class="converter-field">
-      <label for="inputValue">Enter Value</label>
-      <input type="number" id="inputValue" placeholder="Enter a number" step="any">
-    </div>
+            <h1>Unit <span>Converter.</span></h1>
 
-    <button class="converter-button" id="convertBtn">
-      Convert
-    </button>
-
-    <p class="converter-error" id="errorMessage" role="alert"></p>
-
-    <section class="converter-result" id="result" aria-live="polite">
-      <span>Converted Result</span>
-      <strong id="outputValue"></strong>
+            <p>
+                Convert length, weight and temperature units quickly and easily.
+                Enter a value, select your units and get an accurate conversion
+                result instantly.
+            </p>
+        </div>
     </section>
 
-  </main>
+    <section class="converter-section">
+        <div class="container">
 
-  <script>
+            <div class="converter-wrapper">
+
+                <p>
+                    Choose a conversion category, select your starting
+                    and target units, and enter the value you want to convert.
+                </p>
+
+                <div class="converter-field">
+                    <label for="category">Select Category</label>
+
+                    <select id="category">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                    </select>
+                </div>
+
+                <div class="converter-field">
+                    <label for="fromUnit">Convert From</label>
+                    <select id="fromUnit"></select>
+                </div>
+
+                <div class="converter-field">
+                    <label for="toUnit">Convert To</label>
+                    <select id="toUnit"></select>
+                </div>
+
+                <div class="converter-field">
+                    <label for="inputValue">Enter Value</label>
+
+                    <input
+                        type="number"
+                        id="inputValue"
+                        placeholder="Enter a number"
+                        step="any"
+                        inputmode="decimal"
+                    >
+                </div>
+
+                <button
+                    type="button"
+                    class="converter-button"
+                    id="convertBtn"
+                >
+                    Convert
+                </button>
+
+                <p
+                    class="converter-error"
+                    id="errorMessage"
+                    role="alert"
+                ></p>
+
+                <section
+                    class="converter-result"
+                    id="result"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                    <span>Converted Result</span>
+                    <strong id="outputValue"></strong>
+                </section>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Unit Converter?</h2>
+
+                    <p>
+                        A unit converter is an online tool that changes
+                        a measurement from one unit into another equivalent
+                        unit. It makes it easier to understand and compare
+                        measurements without performing manual calculations.
+                    </p>
+
+                    <p>
+                        Different countries, industries and everyday
+                        activities use different measurement systems.
+                        For example, distance may be measured in kilometers
+                        or miles, weight in kilograms or pounds, and
+                        temperature in Celsius or Fahrenheit.
+                    </p>
+
+                    <p>
+                        The DailyTools Unit Converter supports three
+                        measurement categories: length, weight and
+                        temperature. Select the units you need and
+                        calculate the converted value instantly.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Unit Converter</h2>
+
+                    <p>
+                        Follow these steps to convert a measurement:
+                    </p>
+
+                    <ol>
+                        <li>
+                            Select a category: Length, Weight or Temperature.
+                        </li>
+
+                        <li>
+                            Choose the original measurement unit from
+                            the Convert From dropdown.
+                        </li>
+
+                        <li>
+                            Select the unit you want to convert into
+                            from the Convert To dropdown.
+                        </li>
+
+                        <li>
+                            Enter the numerical value in the input field.
+                        </li>
+
+                        <li>
+                            Select the Convert button to calculate
+                            the result.
+                        </li>
+
+                        <li>
+                            Read the converted value displayed below
+                            the calculator.
+                        </li>
+                    </ol>
+
+                    <p>
+                        You can change the category or units whenever
+                        needed and perform another conversion.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Available Unit Conversion Categories</h2>
+
+                    <p>
+                        The calculator includes three commonly used
+                        measurement categories with several units
+                        in each category.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Length Conversion</h3>
+                            <p>
+                                Convert meters, kilometers, centimeters,
+                                millimeters, miles, yards, feet and inches.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weight Conversion</h3>
+                            <p>
+                                Convert kilograms, grams, milligrams,
+                                pounds, ounces and metric tonnes.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Temperature Conversion</h3>
+                            <p>
+                                Convert between Celsius, Fahrenheit
+                                and Kelvin temperature scales.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Length Conversion Explained</h2>
+
+                    <p>
+                        Length measures the distance between two points.
+                        It is commonly used in construction, education,
+                        travel, manufacturing and everyday activities.
+                    </p>
+
+                    <p>
+                        The metric system uses meters as its basic
+                        length unit, while other measurement systems
+                        commonly use feet, inches and miles.
+                    </p>
+
+                    <h3>Common Length Conversion Formulas</h3>
+
+                    <ul>
+                        <li>1 kilometer = 1,000 meters</li>
+                        <li>1 meter = 100 centimeters</li>
+                        <li>1 meter = 1,000 millimeters</li>
+                        <li>1 inch = 2.54 centimeters</li>
+                        <li>1 foot = 0.3048 meters</li>
+                        <li>1 mile = 1,609.344 meters</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <p><strong>Example: Convert 5 Kilometers to Meters</strong></p>
+
+                        <p>1 kilometer = 1,000 meters</p>
+
+                        <p>5 × 1,000 = 5,000 meters</p>
+
+                        <p>
+                            Therefore, 5 kilometers equals 5,000 meters.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Weight Conversion Explained</h2>
+
+                    <p>
+                        Weight measurements are commonly used when
+                        measuring food ingredients, luggage, packages,
+                        body weight and industrial materials.
+                    </p>
+
+                    <p>
+                        Kilograms and grams are part of the metric system.
+                        Pounds and ounces are commonly used in other
+                        measurement systems.
+                    </p>
+
+                    <h3>Common Weight Conversion Formulas</h3>
+
+                    <ul>
+                        <li>1 kilogram = 1,000 grams</li>
+                        <li>1 gram = 1,000 milligrams</li>
+                        <li>1 kilogram ≈ 2.20462 pounds</li>
+                        <li>1 pound = 16 ounces</li>
+                        <li>1 metric tonne = 1,000 kilograms</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <p><strong>Example: Convert 3 Kilograms to Grams</strong></p>
+
+                        <p>1 kilogram = 1,000 grams</p>
+
+                        <p>3 × 1,000 = 3,000 grams</p>
+
+                        <p>
+                            Therefore, 3 kilograms equals 3,000 grams.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Temperature Conversion Explained</h2>
+
+                    <p>
+                        Temperature describes how hot or cold something is.
+                        Celsius, Fahrenheit and Kelvin are three commonly
+                        used temperature scales.
+                    </p>
+
+                    <p>
+                        Celsius is widely used in everyday life and
+                        scientific applications. Fahrenheit is used
+                        in some countries, while Kelvin is commonly
+                        used in scientific measurements.
+                    </p>
+
+                    <h3>Temperature Conversion Formulas</h3>
+
+                    <ul>
+                        <li>
+                            Celsius to Fahrenheit:
+                            (°C × 9/5) + 32
+                        </li>
+
+                        <li>
+                            Fahrenheit to Celsius:
+                            (°F − 32) × 5/9
+                        </li>
+
+                        <li>
+                            Celsius to Kelvin:
+                            °C + 273.15
+                        </li>
+
+                        <li>
+                            Kelvin to Celsius:
+                            K − 273.15
+                        </li>
+                    </ul>
+
+                    <div class="example-box">
+                        <p><strong>Example: Convert 25°C to Fahrenheit</strong></p>
+
+                        <p>Formula: (25 × 9/5) + 32</p>
+
+                        <p>Result: 77°F</p>
+
+                        <p>
+                            Therefore, 25 degrees Celsius equals
+                            77 degrees Fahrenheit.
+                        </p>
+                    </div>
+                </div>
+
+                
+
+                <div class="content-block">
+                    <h2>Tips for Accurate Unit Conversion</h2>
+
+                    <ul>
+                        <li>
+                            Always select the correct measurement
+                            category before converting.
+                        </li>
+
+                        <li>
+                            Check both the original and target units
+                            before entering a value.
+                        </li>
+
+                        <li>
+                            Make sure the entered value uses the
+                            correct measurement unit.
+                        </li>
+
+                        <li>
+                            Remember that temperature conversions
+                            use different formulas from length and weight.
+                        </li>
+
+                        <li>
+                            Keep sufficient decimal precision when
+                            working with scientific or technical values.
+                        </li>
+
+                        <li>
+                            Check the result's unit label to avoid
+                            confusing similar measurements.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>Is the DailyTools Unit Converter free?</h3>
+
+                        <p>
+                            Yes. You can use the Unit Converter for
+                            length, weight and temperature conversions
+                            without creating an account or paying a fee.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Which measurement categories are supported?</h3>
+
+                        <p>
+                            The calculator currently supports length,
+                            weight and temperature conversions.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I convert kilometers into miles?</h3>
+
+                        <p>
+                            Yes. Select Length, choose Kilometer as
+                            the starting unit and Mile as the target unit.
+                            Enter the value and select Convert.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I convert kilograms into pounds?</h3>
+
+                        <p>
+                            Yes. Select Weight, choose Kilogram as
+                            the original unit and Pound as the target unit.
+                            The calculator will display the equivalent
+                            weight in pounds.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I convert Celsius to Fahrenheit?</h3>
+
+                        <p>
+                            Yes. Select Temperature, choose Celsius
+                            as the starting unit and Fahrenheit as
+                            the target unit.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Does the converter support decimal values?</h3>
+
+                        <p>
+                            Yes. You can enter decimal numbers such as
+                            2.5, 10.75 or 0.25. The calculator supports
+                            decimal measurements.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I convert negative temperatures?</h3>
+
+                        <p>
+                            Yes. Negative Celsius and Fahrenheit values
+                            are supported. However, temperatures below
+                            absolute zero are not valid and will display
+                            an error message.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can Kelvin have a negative value?</h3>
+
+                        <p>
+                            No. Kelvin cannot be lower than absolute
+                            zero, which is 0 K. The calculator checks
+                            this condition before performing a conversion.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>How many decimal places are displayed?</h3>
+
+                        <p>
+                            The calculator displays up to eight decimal
+                            places, depending on the converted value.
+                            Trailing unnecessary zeros are removed.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Does the converter work on mobile devices?</h3>
+
+                        <p>
+                            Yes. The page uses responsive styling so
+                            the calculator can be used on supported
+                            mobile phones, tablets and desktop browsers.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
     const units = {
-      length: {
-        meter: { label: "Meter (m)", factor: 1 },
-        kilometer: { label: "Kilometer (km)", factor: 1000 },
-        centimeter: { label: "Centimeter (cm)", factor: 0.01 },
-        millimeter: { label: "Millimeter (mm)", factor: 0.001 },
-        mile: { label: "Mile (mi)", factor: 1609.344 },
-        yard: { label: "Yard (yd)", factor: 0.9144 },
-        foot: { label: "Foot (ft)", factor: 0.3048 },
-        inch: { label: "Inch (in)", factor: 0.0254 }
-      },
+        length: {
+            meter: { label: "Meter (m)", factor: 1 },
+            kilometer: { label: "Kilometer (km)", factor: 1000 },
+            centimeter: { label: "Centimeter (cm)", factor: 0.01 },
+            millimeter: { label: "Millimeter (mm)", factor: 0.001 },
+            mile: { label: "Mile (mi)", factor: 1609.344 },
+            yard: { label: "Yard (yd)", factor: 0.9144 },
+            foot: { label: "Foot (ft)", factor: 0.3048 },
+            inch: { label: "Inch (in)", factor: 0.0254 }
+        },
 
-      weight: {
-        kilogram: { label: "Kilogram (kg)", factor: 1 },
-        gram: { label: "Gram (g)", factor: 0.001 },
-        milligram: { label: "Milligram (mg)", factor: 0.000001 },
-        pound: { label: "Pound (lb)", factor: 0.45359237 },
-        ounce: { label: "Ounce (oz)", factor: 0.028349523125 },
-        tonne: { label: "Metric Tonne (t)", factor: 1000 }
-      },
+        weight: {
+            kilogram: { label: "Kilogram (kg)", factor: 1 },
+            gram: { label: "Gram (g)", factor: 0.001 },
+            milligram: { label: "Milligram (mg)", factor: 0.000001 },
+            pound: { label: "Pound (lb)", factor: 0.45359237 },
+            ounce: { label: "Ounce (oz)", factor: 0.028349523125 },
+            tonne: { label: "Metric Tonne (t)", factor: 1000 }
+        },
 
-      temperature: {
-        celsius: { label: "Celsius (°C)" },
-        fahrenheit: { label: "Fahrenheit (°F)" },
-        kelvin: { label: "Kelvin (K)" }
-      }
+        temperature: {
+            celsius: { label: "Celsius (°C)" },
+            fahrenheit: { label: "Fahrenheit (°F)" },
+            kelvin: { label: "Kelvin (K)" }
+        }
     };
 
     const category = document.getElementById("category");
     const fromUnit = document.getElementById("fromUnit");
     const toUnit = document.getElementById("toUnit");
     const inputValue = document.getElementById("inputValue");
+
+    const convertBtn = document.getElementById("convertBtn");
     const result = document.getElementById("result");
     const outputValue = document.getElementById("outputValue");
     const errorMessage = document.getElementById("errorMessage");
 
+    function hideMessages() {
+        result.style.display = "none";
+        errorMessage.style.display = "none";
+    }
+
     function populateUnits() {
-      const selectedCategory = category.value;
-      const options = units[selectedCategory];
+        const selectedCategory = category.value;
+        const options = units[selectedCategory];
 
-      fromUnit.innerHTML = "";
-      toUnit.innerHTML = "";
+        fromUnit.innerHTML = "";
+        toUnit.innerHTML = "";
 
-      Object.entries(options).forEach(([key, unit]) => {
-        fromUnit.add(new Option(unit.label, key));
-        toUnit.add(new Option(unit.label, key));
-      });
+        Object.entries(options).forEach(([key, unit]) => {
+            fromUnit.add(new Option(unit.label, key));
+            toUnit.add(new Option(unit.label, key));
+        });
 
-      if (selectedCategory === "length") {
-        fromUnit.value = "meter";
-        toUnit.value = "kilometer";
-      } else if (selectedCategory === "weight") {
-        fromUnit.value = "kilogram";
-        toUnit.value = "gram";
-      } else {
-        fromUnit.value = "celsius";
-        toUnit.value = "fahrenheit";
-      }
+        if (selectedCategory === "length") {
+            fromUnit.value = "meter";
+            toUnit.value = "kilometer";
+        } else if (selectedCategory === "weight") {
+            fromUnit.value = "kilogram";
+            toUnit.value = "gram";
+        } else {
+            fromUnit.value = "celsius";
+            toUnit.value = "fahrenheit";
+        }
 
-      result.style.display = "none";
-      errorMessage.style.display = "none";
+        hideMessages();
     }
 
     function convertTemperature(value, from, to) {
-      let celsius;
+        let celsius;
 
-      if (from === "celsius") {
-        celsius = value;
-      } else if (from === "fahrenheit") {
-        celsius = (value - 32) * 5 / 9;
-      } else {
-        celsius = value - 273.15;
-      }
+        if (from === "celsius") {
+            celsius = value;
+        } else if (from === "fahrenheit") {
+            celsius = (value - 32) * 5 / 9;
+        } else {
+            celsius = value - 273.15;
+        }
 
-      if (to === "celsius") return celsius;
-      if (to === "fahrenheit") return (celsius * 9 / 5) + 32;
-      return celsius + 273.15;
+        if (to === "celsius") return celsius;
+
+        if (to === "fahrenheit") {
+            return (celsius * 9 / 5) + 32;
+        }
+
+        return celsius + 273.15;
     }
 
     function formatNumber(value) {
-      return Number(value.toPrecision(10)).toLocaleString("en-US", {
-        maximumFractionDigits: 8
-      });
-    }
-
-    function convert() {
-      result.style.display = "none";
-      errorMessage.style.display = "none";
-
-      const rawValue = inputValue.value.trim();
-      const value = Number(rawValue);
-      const selectedCategory = category.value;
-      const from = fromUnit.value;
-      const to = toUnit.value;
-
-      if (rawValue === "" || !Number.isFinite(value)) {
-        showError("Please enter a valid number.");
-        return;
-      }
-
-      let converted;
-
-      if (selectedCategory === "temperature") {
-        if (from === "kelvin" && value < 0) {
-          showError("Kelvin cannot be below absolute zero (0 K).");
-          return;
-        }
-
-        if (from === "celsius" && value < -273.15) {
-          showError("Celsius cannot be below absolute zero (-273.15 °C).");
-          return;
-        }
-
-        if (from === "fahrenheit" && value < -459.67) {
-          showError("Fahrenheit cannot be below absolute zero (-459.67 °F).");
-          return;
-        }
-
-        converted = convertTemperature(value, from, to);
-
-      } else {
-        const fromFactor = units[selectedCategory][from].factor;
-        const toFactor = units[selectedCategory][to].factor;
-
-        converted = (value * fromFactor) / toFactor;
-      }
-
-      if (!Number.isFinite(converted)) {
-        showError("This value is too large to convert.");
-        return;
-      }
-
-      outputValue.textContent = formatNumber(converted) +
-        " " + units[selectedCategory][to].label;
-
-      result.style.display = "block";
+        return Number(value.toPrecision(10)).toLocaleString("en-US", {
+            maximumFractionDigits: 8
+        });
     }
 
     function showError(message) {
-      errorMessage.textContent = message;
-      errorMessage.style.display = "block";
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+    }
+
+    function convert() {
+        hideMessages();
+
+        const rawValue = inputValue.value.trim();
+        const value = Number(rawValue);
+
+        const selectedCategory = category.value;
+        const from = fromUnit.value;
+        const to = toUnit.value;
+
+        if (rawValue === "" || !Number.isFinite(value)) {
+            showError("Please enter a valid number.");
+            return;
+        }
+
+        let converted;
+
+        if (selectedCategory === "temperature") {
+
+            if (from === "kelvin" && value < 0) {
+                showError("Kelvin cannot be below absolute zero (0 K).");
+                return;
+            }
+
+            if (from === "celsius" && value < -273.15) {
+                showError("Celsius cannot be below absolute zero (-273.15 °C).");
+                return;
+            }
+
+            if (from === "fahrenheit" && value < -459.67) {
+                showError("Fahrenheit cannot be below absolute zero (-459.67 °F).");
+                return;
+            }
+
+            converted = convertTemperature(value, from, to);
+
+        } else {
+
+            const fromFactor = units[selectedCategory][from].factor;
+            const toFactor = units[selectedCategory][to].factor;
+
+            converted = (value * fromFactor) / toFactor;
+        }
+
+        if (!Number.isFinite(converted)) {
+            showError("This value is too large to convert.");
+            return;
+        }
+
+        outputValue.textContent =
+            formatNumber(converted) + " " +
+            units[selectedCategory][to].label;
+
+        result.style.display = "block";
     }
 
     category.addEventListener("change", populateUnits);
-    document.getElementById("convertBtn").addEventListener("click", convert);
 
+    convertBtn.addEventListener("click", convert);
+
+    inputValue.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            convert();
+        }
+    });
+
+    fromUnit.addEventListener("change", hideMessages);
+    toUnit.addEventListener("change", hideMessages);
+
+    inputValue.addEventListener("input", hideMessages);
+
+    // Initialize unit dropdowns when the page loads.
     populateUnits();
-  </script>
+
+</script>
 
 </body>
 </html>

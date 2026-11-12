@@ -1,124 +1,258 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convert text to uppercase, lowercase, title case and sentence case for free with DailyTools Case Converter.">
-    <title>Case Converter | DailyTools</title>
+
+    <meta name="description" content="Use the free online Case Converter by DailyTools to convert text to uppercase, lowercase, title case and sentence case instantly.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Case Converter Online - Change Text Case | DailyTools</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
     <style>
         .converter-section {
-            padding: 65px 0 100px;
+            padding: 65px 0 80px;
         }
 
         .converter-box {
             max-width: 850px;
             margin: 0 auto;
-            padding: 32px;
             background: #fff;
             border: 1px solid #e9e9f1;
             border-radius: 20px;
+            padding: 32px;
             box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
         }
 
         .converter-box label {
             display: block;
-            color: #17172b;
             font-weight: 700;
+            color: #17172b;
             margin-bottom: 14px;
         }
 
-        #inputText, #outputText {
+        #inputText,
+        #outputText {
             width: 100%;
-            min-height: 200px;
-            padding: 20px;
+            min-height: 220px;
             resize: vertical;
+            padding: 20px;
             border: 1px solid #dedee9;
             border-radius: 12px;
-            outline: none;
             font: inherit;
             font-size: 15px;
             line-height: 1.8;
+            outline: none;
             color: #33334a;
+            box-sizing: border-box;
         }
 
-        #inputText:focus, #outputText:focus {
+        #inputText:focus,
+        #outputText:focus {
             border-color: #635bff;
             box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        #outputText {
+            background: #fafaff;
         }
 
         .converter-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin: 22px 0 30px;
+            margin: 20px 0 28px;
         }
 
         .converter-buttons button,
-        .output-actions button {
+        .converter-actions button {
             border: none;
             background: #f0efff;
             color: #635bff;
-            padding: 12px 18px;
-            border-radius: 9px;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .converter-buttons button:hover,
-        .output-actions button:hover {
-            background: #635bff;
-            color: #fff;
+        .converter-actions button:hover {
+            background: #e5e3ff;
         }
 
-        .output-heading {
+        .output-label {
+            margin-top: 10px;
+        }
+
+        .converter-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 16px;
         }
 
-        .output-heading label {
-            margin: 0;
-        }
-
-        .output-actions {
+        .converter-action-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 15px;
         }
 
-        .output-actions .primary-button {
+        .converter-actions .primary-button {
             background: #635bff;
             color: #fff;
         }
 
-        .output-actions .primary-button:hover {
+        .converter-actions .primary-button:hover {
             background: #5048e5;
         }
 
         #statusMessage {
-            margin-top: 14px;
-            color: #635bff;
+            color: #77778a;
             font-size: 13px;
-            min-height: 20px;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
         }
 
         @media (max-width: 650px) {
+            .converter-section {
+                padding: 40px 0 55px;
+            }
+
             .converter-box {
                 padding: 18px;
             }
 
-            .converter-buttons button,
-            .output-actions button {
-                flex: 1 1 42%;
+            #inputText,
+            #outputText {
+                min-height: 190px;
+                padding: 14px;
+            }
+
+            .converter-buttons {
+                gap: 10px;
+            }
+
+            .converter-buttons button {
+                flex: 1 1 calc(50% - 10px);
+                padding: 10px 12px;
+            }
+
+            .converter-actions {
+                align-items: center;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
         }
     </style>
@@ -127,36 +261,50 @@
 <body>
 
 <header class="header">
-    <div class="container nav-container">
-        <a href="index.html" class="logo">DailyTools<span>.</span></a>
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
 
-        <nav class="nav-links">
+        <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="tools.html" class="active">All Tools</a>
             <a href="index.html#categories">Categories</a>
             <a href="about.html">About</a>
-        </nav>
+            <a href="contact.html">Contact</a>
+        </div>
 
-        <a href="tools.html" class="btn btn-primary nav-cta">Explore Tools</a>
-    </div>
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
 </header>
 
 <main>
+
     <section class="page-hero">
         <div class="container">
             <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+
             <h1>Case <span>Converter.</span></h1>
-            <p>Change your text into different letter cases instantly with one click.</p>
+
+            <p>
+                Convert your text to uppercase, lowercase, title case or
+                sentence case instantly with a single click.
+            </p>
         </div>
     </section>
 
     <section class="converter-section">
         <div class="container">
+
             <div class="converter-box">
 
-                <label for="inputText">Enter your text</label>
+                <label for="inputText">Enter or paste your text</label>
 
-                <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+                <textarea
+                    id="inputText"
+                    placeholder="Start typing or paste your text here..."
+                    spellcheck="true"
+                ></textarea>
 
                 <div class="converter-buttons">
                     <button type="button" data-case="upper">UPPERCASE</button>
@@ -165,29 +313,302 @@
                     <button type="button" data-case="sentence">Sentence case</button>
                 </div>
 
-                <div class="output-heading">
-                    <label for="outputText">Converted text</label>
+                <label class="output-label" for="outputText">Converted text</label>
+
+                <textarea
+                    id="outputText"
+                    placeholder="Your converted text will appear here..."
+                    readonly
+                ></textarea>
+
+                <div class="converter-actions">
+                    <span id="statusMessage" role="status" aria-live="polite">
+                        Ready to convert
+                    </span>
+
+                    <div class="converter-action-buttons">
+                        <button type="button" class="primary-button" id="copyButton">
+                            Copy Text
+                        </button>
+
+                        <button type="button" id="clearButton">
+                            Clear All
+                        </button>
+                    </div>
                 </div>
-
-                <textarea id="outputText" placeholder="Your converted text will appear here..." readonly></textarea>
-
-                <div class="output-actions">
-                    <button type="button" class="primary-button" id="copyButton">Copy Text</button>
-                    <button type="button" id="clearButton">Clear All</button>
-                </div>
-
-                <p id="statusMessage" role="status" aria-live="polite"></p>
 
             </div>
         </div>
     </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Case Converter?</h2>
+
+                    <p>
+                        A case converter is an online text tool that changes the
+                        capitalization of letters in your writing. Instead of
+                        manually editing every word, you can paste your text and
+                        convert it into a different letter case instantly.
+                    </p>
+
+                    <p>
+                        The DailyTools Case Converter provides four useful
+                        formatting options: uppercase, lowercase, title case and
+                        sentence case. Each option changes the capitalization of
+                        your text in a different way.
+                    </p>
+
+                    <p>
+                        This can be useful when preparing documents, writing
+                        headings, editing copied text or making capitalization
+                        more consistent.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Case Converter</h2>
+
+                    <p>
+                        You can convert a single word, a sentence or multiple
+                        paragraphs. Follow these simple steps:
+                    </p>
+
+                    <ol>
+                        <li>Enter or paste your text into the input box.</li>
+                        <li>Choose the type of text case you want to use.</li>
+                        <li>Wait for the converted text to appear below.</li>
+                        <li>Review the converted result.</li>
+                        <li>Select Copy Text to copy the result.</li>
+                        <li>Use Clear All when you want to start again.</li>
+                    </ol>
+
+                    <p>
+                        You can try different conversion options using the same
+                        input text without entering it again.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Different Text Cases</h2>
+
+                    <p>
+                        Each text case has a different purpose. Understanding
+                        these formats can help you choose the right option for
+                        your writing.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>UPPERCASE</h3>
+                            <p>
+                                Changes all letters into capital letters.
+                                For example, hello world becomes HELLO WORLD.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>lowercase</h3>
+                            <p>
+                                Changes all letters into lowercase letters.
+                                For example, HELLO WORLD becomes hello world.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Title Case</h3>
+                            <p>
+                                Capitalizes the first letter of each word.
+                                For example, learning new skills becomes
+                                Learning New Skills.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Sentence Case</h3>
+                            <p>
+                                Capitalizes the beginning of each sentence
+                                while changing the remaining text to lowercase.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Text Case Conversion Examples</h2>
+
+                    <p>
+                        The following example shows how the same text can look
+                        when different capitalization options are used.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Original text:</strong></p>
+                        <p>the quick brown fox jumps over the lazy dog.</p>
+
+                        <p><strong>UPPERCASE:</strong></p>
+                        <p>THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.</p>
+
+                        <p><strong>lowercase:</strong></p>
+                        <p>the quick brown fox jumps over the lazy dog.</p>
+
+                        <p><strong>Title Case:</strong></p>
+                        <p>The Quick Brown Fox Jumps Over The Lazy Dog.</p>
+
+                        <p><strong>Sentence case:</strong></p>
+                        <p>The quick brown fox jumps over the lazy dog.</p>
+                    </div>
+                </div>
+
+                
+
+                <div class="content-block">
+                    <h2>Tips for Better Text Formatting</h2>
+
+                    <ul>
+                        <li>
+                            Use uppercase carefully because large amounts of
+                            capitalized text can be difficult to read.
+                        </li>
+
+                        <li>
+                            Use title case for headings when it matches your
+                            preferred writing style.
+                        </li>
+
+                        <li>
+                            Use sentence case for regular paragraphs and
+                            everyday written content.
+                        </li>
+
+                        <li>
+                            Review names, abbreviations and special terms after
+                            automatic conversion.
+                        </li>
+
+                        <li>
+                            Check the final result before publishing or sharing
+                            important text.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>Is the DailyTools Case Converter free?</h3>
+
+                        <p>
+                            Yes. You can use the Case Converter for free without
+                            creating an account or paying a usage fee.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>What does uppercase conversion do?</h3>
+
+                        <p>
+                            Uppercase conversion changes lowercase letters into
+                            capital letters. For example, hello becomes HELLO.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>What does lowercase conversion do?</h3>
+
+                        <p>
+                            Lowercase conversion changes capital letters into
+                            lowercase letters. For example, WELCOME becomes
+                            welcome.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>What is title case?</h3>
+
+                        <p>
+                            Title case capitalizes the first letter of each
+                            word. It is commonly used for headings and titles.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>What is sentence case?</h3>
+
+                        <p>
+                            Sentence case capitalizes the first letter at the
+                            beginning of a sentence while the remaining text is
+                            generally converted to lowercase.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I convert multiple paragraphs?</h3>
+
+                        <p>
+                            Yes. You can paste one or multiple paragraphs into
+                            the input box and convert the text.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Can I copy the converted text?</h3>
+
+                        <p>
+                            Yes. Select the Copy Text button to copy the
+                            converted result to your clipboard.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Does the converter change the meaning of my text?</h3>
+
+                        <p>
+                            No. The tool changes letter capitalization only.
+                            However, you should review names and abbreviations
+                            after conversion.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer class="footer">
     <div class="container footer-content">
-        <a href="index.html" class="logo">DailyTools<span>.</span></a>
-        <p>Simple tools for everyday tasks.</p>
-        <p class="copyright">© 2026 DailyTools. All rights reserved.</p>
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
     </div>
 </footer>
 
@@ -195,28 +616,30 @@
     const inputText = document.getElementById("inputText");
     const outputText = document.getElementById("outputText");
     const statusMessage = document.getElementById("statusMessage");
+    const copyButton = document.getElementById("copyButton");
+    const clearButton = document.getElementById("clearButton");
 
     function convertText(type) {
         const text = inputText.value;
-        let result = "";
+        let convertedText = "";
 
         if (!text.trim()) {
-            statusMessage.textContent = "Please enter some text first.";
             outputText.value = "";
+            statusMessage.textContent = "Please enter some text first.";
             return;
         }
 
         switch (type) {
             case "upper":
-                result = text.toUpperCase();
+                convertedText = text.toUpperCase();
                 break;
 
             case "lower":
-                result = text.toLowerCase();
+                convertedText = text.toLowerCase();
                 break;
 
             case "title":
-                result = text.toLowerCase().replace(
+                convertedText = text.toLowerCase().replace(
                     /(^|[\s-])([\p{L}\p{N}])/gu,
                     (match, separator, character) =>
                         separator + character.toUpperCase()
@@ -224,7 +647,7 @@
                 break;
 
             case "sentence":
-                result = text.toLowerCase().replace(
+                convertedText = text.toLowerCase().replace(
                     /(^\s*|[.!?]\s+)([\p{L}])/gu,
                     (match, separator, character) =>
                         separator + character.toUpperCase()
@@ -232,8 +655,8 @@
                 break;
         }
 
-        outputText.value = result;
-        statusMessage.textContent = "Text converted successfully!";
+        outputText.value = convertedText;
+        statusMessage.textContent = "Your text has been converted successfully.";
     }
 
     document.querySelectorAll("[data-case]").forEach(button => {
@@ -242,7 +665,7 @@
         });
     });
 
-    document.getElementById("copyButton").addEventListener("click", async () => {
+    copyButton.addEventListener("click", async () => {
         if (!outputText.value) {
             statusMessage.textContent = "Nothing to copy yet.";
             return;
@@ -250,21 +673,23 @@
 
         try {
             await navigator.clipboard.writeText(outputText.value);
-            statusMessage.textContent = "Converted text copied!";
+            statusMessage.textContent = "Converted text copied successfully.";
         } catch {
             outputText.focus();
             outputText.select();
+
             const copied = document.execCommand("copy");
+
             statusMessage.textContent = copied
-                ? "Converted text copied!"
+                ? "Converted text copied successfully."
                 : "Please select and copy the text manually.";
         }
     });
 
-    document.getElementById("clearButton").addEventListener("click", () => {
+    clearButton.addEventListener("click", () => {
         inputText.value = "";
         outputText.value = "";
-        statusMessage.textContent = "All text cleared.";
+        statusMessage.textContent = "Ready to convert";
         inputText.focus();
     });
 </script>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-    <!-- Main Pages -->
+    <!-- Main Website Pages -->
     <url>
         <loc>https://dailytools-six.vercel.app/</loc>
     </url>
@@ -22,7 +22,11 @@
         <loc>https://dailytools-six.vercel.app/privacy-policy.html</loc>
     </url>
 
-    <!-- Tools -->
+    <url>
+        <loc>https://dailytools-six.vercel.app/terms-of-service.html</loc>
+    </url>
+
+    <!-- Online Tools -->
     <url>
         <loc>https://dailytools-six.vercel.app/word-counter.html</loc>
     </url>

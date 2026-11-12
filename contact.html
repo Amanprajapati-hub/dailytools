@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,11 +85,40 @@
             background: #5048e5;
         }
 
+        .contact-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
         .form-note {
             margin-top: 15px;
             font-size: 13px;
             color: #777;
             text-align: center;
+        }
+
+        .form-status {
+            display: none;
+            margin-top: 20px;
+            padding: 13px 15px;
+            border-radius: 9px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-status.success {
+            display: block;
+            color: #176b38;
+            background: #eaf8ef;
+            border: 1px solid #bce7ca;
+        }
+
+        .form-status.error {
+            display: block;
+            color: #a12626;
+            background: #fff0f0;
+            border: 1px solid #f1c2c2;
         }
 
         @media (max-width: 600px) {
@@ -136,38 +166,81 @@
 
                 <span class="eyebrow">GET IN TOUCH</span>
                 <h1>Contact Us</h1>
-                <p>Have a question, suggestion or feedback? We'd love to hear from you.</p>
 
-                <form action="https://formsubmit.co/companyinfo7977@gmail.com" method="POST">
+                <p>
+                    Have a question, suggestion or feedback?
+                    We'd love to hear from you.
+                </p>
 
-                <input type="hidden" name="_subject" value="New Contact Message - DailyTools">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="true">
-                <input type="text" name="_honey" style="display:none">
+                <form id="contact-form"
+                      action="https://formspree.io/f/xyewylng"
+                      method="POST">
+
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="New Contact Message - DailyTools"
+                    >
+
+                    <!-- HONEYPOT SPAM PROTECTION -->
+                    <input
+                        type="text"
+                        name="_gotcha"
+                        style="display:none"
+                        tabindex="-1"
+                        autocomplete="off"
+                    >
 
                     <div class="form-group">
                         <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            required
+                        >
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
                     </div>
 
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
                     </div>
 
-                    <button type="submit" class="contact-button">
+                    <button type="submit" class="contact-button" id="submit-button">
                         Send Message
                     </button>
+
+                    <div
+                        id="form-status"
+                        class="form-status"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
 
                 </form>
 
                 <p class="form-note">
-                    Please do not share sensitive or confidential information through this form.
+                    Please do not share sensitive or confidential
+                    information through this form.
                 </p>
 
             </div>
@@ -192,6 +265,7 @@
                 <a href="tools.html">All Tools</a>
                 <a href="about.html">About</a>
                 <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
                 <a href="contact.html">Contact</a>
             </div>
 
@@ -202,6 +276,58 @@
         </div>
 
     </footer>
+
+    <!-- AJAX FORM SUBMISSION -->
+    <script>
+        const contactForm = document.getElementById("contact-form");
+        const submitButton = document.getElementById("submit-button");
+        const formStatus = document.getElementById("form-status");
+
+        contactForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            formStatus.className = "form-status";
+            formStatus.textContent = "";
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: "POST",
+                    body: new FormData(contactForm),
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    formStatus.textContent = "✓ Message sent successfully!";
+                    formStatus.className = "form-status success";
+
+                    contactForm.reset();
+                } else {
+                    const result = await response.json().catch(() => ({}));
+
+                    formStatus.textContent =
+                        result.errors?.map(error => error.message).join(", ") ||
+                        "Something went wrong. Please try again.";
+
+                    formStatus.className = "form-status error";
+                }
+
+            } catch (error) {
+                formStatus.textContent =
+                    "Unable to send your message. Please check your internet connection and try again.";
+
+                formStatus.className = "form-status error";
+
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = "Send Message";
+            }
+        });
+    </script>
 
 </body>
 </html>
