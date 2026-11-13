@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free online Text Reverser by DailyTools to reverse text, words and characters instantly. Paste or type your text and get the reversed result in one click.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Text Reverser Online - Reverse Text Instantly | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .tool-section {
+            padding: 65px 0 80px;
+        }
+
+        .tool-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .tool-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        .text-area {
+            width: 100%;
+            min-height: 220px;
+            resize: vertical;
+            padding: 20px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.8;
+            outline: none;
+            color: #33334a;
+            box-sizing: border-box;
+        }
+
+        .text-area:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+
+        .tool-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tool-actions button.primary-action {
+            background: #635bff;
+            color: #ffffff;
+        }
+
+        .tool-actions button.primary-action:hover {
+            background: #5048e5;
+        }
+
+        .tool-actions button:not(.primary-action):hover {
+            background: #e5e3ff;
+        }
+
+        .result-label {
+            margin-top: 25px;
+        }
+
+        #statusText {
+            display: block;
+            margin-top: 14px;
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .tool-section {
+                padding: 40px 0 55px;
+            }
+
+            .tool-box {
+                padding: 18px;
+            }
+
+            .text-area {
+                min-height: 180px;
+                padding: 14px;
+            }
+
+            .tool-actions {
+                gap: 10px;
+            }
+
+            .tool-actions button {
+                flex: 1 1 auto;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+
+    </nav>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="container">
+
+            <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+
+            <h1>Text <span>Reverser.</span></h1>
+
+            <p>
+                Reverse text instantly. Type or paste your content and
+                get the characters in reverse order with one click.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- TOOL -->
+    <section class="tool-section">
+        <div class="container">
+
+            <div class="tool-box">
+
+                <label for="textInput">Enter or paste your text</label>
+
+                <textarea
+                    id="textInput"
+                    class="text-area"
+                    placeholder="Type or paste your text here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div class="tool-actions">
+
+                    <button
+                        type="button"
+                        class="primary-action"
+                        id="reverseButton"
+                    >
+                        Reverse Text
+                    </button>
+
+                    <button
+                        type="button"
+                        id="clearButton"
+                    >
+                        Clear
+                    </button>
+
+                    <button
+                        type="button"
+                        id="copyButton"
+                    >
+                        Copy Result
+                    </button>
+
+                </div>
+
+                <label for="resultOutput" class="result-label">
+                    Reversed text
+                </label>
+
+                <textarea
+                    id="resultOutput"
+                    class="text-area"
+                    placeholder="Your reversed text will appear here..."
+                    readonly
+                ></textarea>
+
+                <span id="statusText" role="status" aria-live="polite">
+                    Enter text to get started
+                </span>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INFORMATION CONTENT -->
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+
+                    <h2>What Is a Text Reverser?</h2>
+
+                    <p>
+                        A text reverser is an online tool that changes the
+                        order of characters in a piece of text. The first
+                        character becomes the last, and the last character
+                        becomes the first.
+                    </p>
+
+                    <p>
+                        Instead of manually rearranging letters, you can paste
+                        text into the input box and generate the reversed
+                        result instantly. The original text remains unchanged
+                        in the input area while the reversed version appears
+                        separately.
+                    </p>
+
+                    <p>
+                        The DailyTools Text Reverser is simple to use and works
+                        directly in your browser. You can reverse short words,
+                        sentences or longer pieces of text.
+                    </p>
+
+                </div>
+
+                <div class="content-block">
+
+                    <h2>How to Use the Text Reverser</h2>
+
+                    <p>
+                        Reversing your text only takes a few simple steps:
+                    </p>
+
+                    <ol>
+                        <li>Type or paste your text into the input box.</li>
+                        <li>Select the Reverse Text button.</li>
+                        <li>View the reversed result in the output box.</li>
+                        <li>Select Copy Result to copy the reversed text.</li>
+                        <li>Use Clear to remove both the input and result.</li>
+                    </ol>
+
+                    <p>
+                        You can edit the original text and select Reverse Text
+                        again whenever you want to create a new result.
+                    </p>
+
+                </div>
+
+                <div class="content-block">
+
+                    <h2>How Text Reversal Works</h2>
+
+                    <p>
+                        Text reversal changes the sequence of characters.
+                        Each character is placed in the opposite position
+                        from its original location.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Original Order</h3>
+
+                            <p>
+                                The characters appear in their normal sequence,
+                                from the first character to the last.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Reversed Order</h3>
+
+                            <p>
+                                The sequence is flipped so the last character
+                                appears first and the first character appears last.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Spaces Included</h3>
+
+                            <p>
+                                Spaces and punctuation are treated as part of
+                                the text and are included in the reversal.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Original Text Preserved</h3>
+
+                            <p>
+                                Your input remains in the first box while the
+                                reversed result is displayed separately.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="content-block">
+
+                    <h2>Text Reversal Examples</h2>
+
+                    <p>
+                        Here are a few simple examples showing how the
+                        order of characters changes:
+                    </p>
+
+                    <div class="example-box">
+
+                        <p><strong>Example 1</strong></p>
+
+                        <p>
+                            <strong>Original:</strong> Hello
+                        </p>
+
+                        <p>
+                            <strong>Reversed:</strong> olleH
+                        </p>
+
+                    </div>
+
+                    <div class="example-box">
+
+                        <p><strong>Example 2</strong></p>
+
+                        <p>
+                            <strong>Original:</strong> DailyTools
+                        </p>
+
+                        <p>
+                            <strong>Reversed:</strong> slooTyliaD
+                        </p>
+
+                    </div>
+
+                    <div class="example-box">
+
+                        <p><strong>Example 3</strong></p>
+
+                        <p>
+                            <strong>Original:</strong> Hello World!
+                        </p>
+
+                        <p>
+                            <strong>Reversed:</strong> !dlroW olleH
+                        </p>
+
+                    </div>
+
+                    <p>
+                        Notice that spaces and punctuation also move to their
+                        reversed positions because they are included as part
+                        of the complete text.
+                    </p>
+
+                </div>
+
+                <div class="content-block">
+
+                    <h2>Character Reversal and Word Reversal</h2>
+
+                    <p>
+                        Character reversal and word reversal are two different
+                        operations. This tool reverses the complete sequence
+                        of characters rather than simply changing the order
+                        of individual words.
+                    </p>
+
+                    <div class="example-box">
+
+                        <p>
+                            <strong>Original:</strong> One Two Three
+                        </p>
+
+                        <p>
+                            <strong>Character reversal:</strong> eerhT owT enO
+                        </p>
+
+                        <p>
+                            A word-order reversal would produce a different
+                            result by keeping each word unchanged and changing
+                            only the order of the words.
+                        </p>
+
+                    </div>
+
+                    <p>
+                        The DailyTools Text Reverser focuses on reversing
+                        every character in the entered text.
+                    </p>
+
+                </div>
+
+                <div class="content-block">
+
+                    <h2>Tips for Reversing Text</h2>
+
+                    <ul>
+                        <li>
+                            Review the original text before generating the
+                            reversed result.
+                        </li>
+
+                        <li>
+                            Remember that spaces and punctuation are included
+                            in the character sequence.
+                        </li>
+
+                        <li>
+                            Use the Copy Result button to quickly copy the
+                            completed output.
+                        </li>
+
+                        <li>
+                            Keep the original input available if you need to
+                            compare it with the reversed version.
+                        </li>
+
+                        <li>
+                            Select Clear when you are ready to start with
+                            completely new text.
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="content-block">
+
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+
+                        <h3>1. Is the DailyTools Text Reverser free?</h3>
+
+                        <p>
+                            Yes. The Text Reverser is free to use without
+                            creating an account.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-item">
+
+                        <h3>2. Does the tool change my original text?</h3>
+
+                        <p>
+                            No. Your original text stays in the input box.
+                            The reversed version is shown separately in
+                            the result box.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-item">
+
+                        <h3>3. Are spaces included when reversing text?</h3>
+
+                        <p>
+                            Yes. Spaces are treated as characters and their
+                            positions are also reversed along with letters,
+                            numbers and punctuation.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-item">
+
+                        <h3>4. Can I copy the reversed result?</h3>
+
+                        <p>
+                            Yes. Select the Copy Result button to copy the
+                            reversed text to your clipboard.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-item">
+
+                        <h3>5. Can I reverse numbers and punctuation?</h3>
+
+                        <p>
+                            Yes. Numbers, punctuation and other characters
+                            entered into the text box are included in the
+                            reversal.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-item">
+
+                        <h3>6. Can I reverse multiple lines of text?</h3>
+
+                        <p>
+                            Yes. You can enter multiple lines. Line breaks
+                            are included as part of the text sequence when
+                            the complete content is reversed.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-item">
+
+                        <h3>7. What happens when I select Clear?</h3>
+
+                        <p>
+                            The Clear button removes the original text and
+                            the reversed result, allowing you to start again.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+    const resultOutput = document.getElementById("resultOutput");
+    const reverseButton = document.getElementById("reverseButton");
+    const clearButton = document.getElementById("clearButton");
+    const copyButton = document.getElementById("copyButton");
+    const statusText = document.getElementById("statusText");
+
+    function reverseText() {
+        const text = textInput.value;
+
+        if (!text.trim()) {
+            resultOutput.value = "";
+            statusText.textContent = "Please enter some text to reverse";
+            textInput.focus();
+            return;
+        }
+
+        // Array.from handles many Unicode characters more reliably
+        // than splitting a string character by character.
+        resultOutput.value = Array.from(text).reverse().join("");
+
+        statusText.textContent = "Your text has been reversed successfully";
+    }
+
+    reverseButton.addEventListener("click", reverseText);
+
+    clearButton.addEventListener("click", function () {
+        textInput.value = "";
+        resultOutput.value = "";
+        statusText.textContent = "Enter text to get started";
+        textInput.focus();
+    });
+
+    copyButton.addEventListener("click", async function () {
+        if (!resultOutput.value) {
+            statusText.textContent = "There is no result to copy";
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(resultOutput.value);
+            statusText.textContent = "Reversed text copied successfully";
+        } catch (error) {
+            resultOutput.select();
+            document.execCommand("copy");
+            statusText.textContent = "Reversed text copied successfully";
+        }
+    });
+</script>
+
+</body>
+</html>

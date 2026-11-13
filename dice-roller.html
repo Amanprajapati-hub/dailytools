@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Roll virtual dice online with this free Dice Roller tool. Roll one or multiple dice, view random results, and calculate the total instantly.">
+    <meta name="robots" content="index, follow">
+    <title>Dice Roller - Free Online Dice Tool | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+        #diceCount {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 16px;
+            outline: none;
+            color: #33334a;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        #diceCount:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+        .input-group {
+            margin-bottom: 22px;
+        }
+        .dice-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            min-height: 145px;
+            margin: 25px 0;
+        }
+        .die {
+            width: 82px;
+            height: 82px;
+            flex-shrink: 0;
+            background: #fff;
+            border: 2px solid #635bff;
+            border-radius: 16px;
+            box-shadow: 0 5px 16px rgba(99, 91, 255, 0.12);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 12px;
+            box-sizing: border-box;
+        }
+        .dot {
+            width: 11px;
+            height: 11px;
+            background: #635bff;
+            border-radius: 50%;
+            align-self: center;
+            justify-self: center;
+            visibility: hidden;
+        }
+        .dot.show {
+            visibility: visible;
+        }
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 16px;
+        }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .counter-actions button:first-child {
+            background: #635bff;
+            color: #fff;
+        }
+        .counter-actions button:first-child:hover {
+            background: #5148e5;
+        }
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 30px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .history-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+        }
+        .history-box h3 {
+            color: #25253d;
+            font-size: 18px;
+            margin: 0 0 12px;
+        }
+        #rollHistory {
+            color: #66667a;
+            font-size: 14px;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        /* INFORMATION CONTENT */
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+        .content-block {
+            margin-bottom: 42px;
+        }
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+        .content-block li {
+            margin-bottom: 9px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+            .counter-box {
+                padding: 18px;
+            }
+            .dice-display {
+                gap: 10px;
+            }
+            .die {
+                width: 68px;
+                height: 68px;
+                padding: 9px;
+            }
+            .dot {
+                width: 9px;
+                height: 9px;
+            }
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+            .stat-card {
+                padding: 17px 10px;
+            }
+            .stat-card strong {
+                font-size: 25px;
+            }
+            .counter-actions {
+                align-items: center;
+            }
+            .tool-content {
+                margin-bottom: 60px;
+            }
+            .content-block h2 {
+                font-size: 22px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="tools.html" class="active">All Tools</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <a href="tools.html" class="nav-button">Explore Tools</a>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE RANDOM TOOL</span>
+            <h1>Dice <span>Roller.</span></h1>
+            <p>Roll virtual dice online with one click. Choose how many dice you want to roll, get random results, and calculate your total score instantly.</p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+            <div class="counter-box">
+
+                <div class="input-group">
+                    <label for="diceCount">Select Number of Dice</label>
+                    <select id="diceCount">
+                        <option value="1">1 Die</option>
+                        <option value="2">2 Dice</option>
+                        <option value="3">3 Dice</option>
+                        <option value="4">4 Dice</option>
+                        <option value="5">5 Dice</option>
+                        <option value="6">6 Dice</option>
+                    </select>
+                </div>
+
+                <div class="dice-display" id="diceDisplay" aria-live="polite"></div>
+
+                <div class="counter-actions">
+                    <span id="statusText" role="status" aria-live="polite">Ready to roll</span>
+                    <div class="action-buttons">
+                        <button type="button" id="rollButton">Roll Dice</button>
+                        <button type="button" id="clearButton">Clear</button>
+                    </div>
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+                    <div class="stat-card">
+                        <strong id="totalScore">0</strong>
+                        <span>TOTAL SCORE</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong id="diceRolled">0</strong>
+                        <span>DICE ROLLED</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong id="highestRoll">-</strong>
+                        <span>HIGHEST ROLL</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong id="lowestRoll">-</strong>
+                        <span>LOWEST ROLL</span>
+                    </div>
+                </div>
+
+                <div class="history-box">
+                    <h3>Roll History</h3>
+                    <div id="rollHistory">Your dice rolls will appear here.</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <main class="tool-content">
+
+        <section class="content-block">
+            <h2>What Is an Online Dice Roller?</h2>
+            <p>An online Dice Roller is a digital tool that simulates rolling physical dice. Instead of using real dice, you can generate random results directly on your computer, tablet, or mobile phone.</p>
+            <p>This free tool allows you to roll between one and six standard six-sided dice. Each die produces a random number from 1 to 6, and the tool calculates the combined total automatically.</p>
+        </section>
+
+        <section class="content-block">
+            <h2>How to Use the Dice Roller</h2>
+            <ol>
+                <li>Choose the number of dice you want to roll from the dropdown menu.</li>
+                <li>The selected number of dice will appear on the screen, each showing 6.</li>
+                <li>Click the Roll Dice button to generate random results.</li>
+                <li>Check the total score, highest roll, and lowest roll.</li>
+                <li>View your previous results in the Roll History section.</li>
+                <li>Click Clear to reset the results and history.</li>
+            </ol>
+        </section>
+
+        <section class="content-block">
+            <h2>Understanding Standard Dice</h2>
+            <p>A standard six-sided die has six faces, numbered from 1 to 6. Each face has an equal chance of appearing in a fair roll.</p>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Single Die</h3>
+                    <p>One die produces a result between 1 and 6. It is useful for simple board games and quick decisions.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Multiple Dice</h3>
+                    <p>Rolling multiple dice produces several individual results. Their values can be added together to calculate a total score.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2>How Dice Rolling Works</h2>
+            <p>Each die roll generates a random integer between 1 and 6. When you roll multiple dice, the tool generates a separate result for each die and adds all the values together.</p>
+
+            <div class="example-box">
+                <h3 style="margin-top:0;">Example: Rolling Three Dice</h3>
+                <p>First die: 4</p>
+                <p>Second die: 2</p>
+                <p>Third die: 6</p>
+                <p><strong>Total score = 4 + 2 + 6 = 12</strong></p>
+                <p>The total of three standard dice can range from 3 to 18.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2>Probability of Rolling a Die</h2>
+            <p>For a fair six-sided die, every individual face has the same probability of appearing in a single roll.</p>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Probability of One Number</h3>
+                    <p>The chance of rolling any specific number, such as 4, is 1 out of 6, or approximately 16.67%.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Possible Outcomes</h3>
+                    <p>A single die has six possible outcomes: 1, 2, 3, 4, 5, and 6. Multiple dice create more possible combinations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2>Common Uses of a Dice Roller</h2>
+            <ul>
+                <li>Playing board games that require dice.</li>
+                <li>Choosing random numbers during group activities.</li>
+                <li>Practising probability and basic mathematics.</li>
+                <li>Generating random game scores.</li>
+                <li>Replacing physical dice when they are not available.</li>
+            </ul>
+        </section>
+
+        <section class="content-block">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>1. Is this Dice Roller free to use?</h3>
+                <p>Yes. This online Dice Roller is completely free to use without registration or software installation.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>2. How many dice can I roll at once?</h3>
+                <p>You can roll between one and six standard six-sided dice in a single roll.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>3. Are the dice results random?</h3>
+                <p>Yes. The tool uses JavaScript's random number generation to produce a result from 1 to 6 for each die.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>4. What is the maximum score with six dice?</h3>
+                <p>The maximum possible total is 36 when all six dice show 6.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>5. Can I see my previous dice rolls?</h3>
+                <p>Yes. The Roll History section displays your previous rolls during the current page session.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>6. Can I use this tool on my mobile phone?</h3>
+                <p>Yes. The Dice Roller works in modern mobile and desktop browsers.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <a href="index.html" class="logo">
+                    Daily<span>Tools.</span>
+                </a>
+                <p>Everyday tools, made simple.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="tools.html">All Tools</a>
+                <a href="about.html">About</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>© 2026 DailyTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const diceCount = document.getElementById("diceCount");
+        const diceDisplay = document.getElementById("diceDisplay");
+        const rollButton = document.getElementById("rollButton");
+        const clearButton = document.getElementById("clearButton");
+
+        const totalScore = document.getElementById("totalScore");
+        const diceRolled = document.getElementById("diceRolled");
+        const highestRoll = document.getElementById("highestRoll");
+        const lowestRoll = document.getElementById("lowestRoll");
+
+        const statusText = document.getElementById("statusText");
+        const rollHistory = document.getElementById("rollHistory");
+
+        let history = [];
+
+        const dicePatterns = {
+            1: [4],
+            2: [0, 8],
+            3: [0, 4, 8],
+            4: [0, 2, 6, 8],
+            5: [0, 2, 4, 6, 8],
+            6: [0, 2, 3, 5, 6, 8]
+        };
+
+        function createDie(value) {
+            const die = document.createElement("div");
+            die.className = "die";
+            die.setAttribute("aria-label", "Dice showing " + value);
+
+            for (let i = 0; i < 9; i++) {
+                const dot = document.createElement("span");
+                dot.className = "dot";
+
+                if (dicePatterns[value].includes(i)) {
+                    dot.classList.add("show");
+                }
+
+                die.appendChild(dot);
+            }
+
+            return die;
+        }
+
+        // Show the selected number of dice before rolling.
+        // Every preview die displays 6.
+        function showDicePreview() {
+            const count = Number(diceCount.value);
+
+            diceDisplay.innerHTML = "";
+
+            for (let i = 0; i < count; i++) {
+                diceDisplay.appendChild(createDie(6));
+            }
+
+            statusText.textContent = "Ready to roll";
+
+            totalScore.textContent = "0";
+            diceRolled.textContent = "0";
+            highestRoll.textContent = "-";
+            lowestRoll.textContent = "-";
+        }
+
+        function rollDice() {
+            const count = Number(diceCount.value);
+            const results = [];
+
+            for (let i = 0; i < count; i++) {
+                results.push(Math.floor(Math.random() * 6) + 1);
+            }
+
+            const total = results.reduce((sum, value) => sum + value, 0);
+            const highest = Math.max(...results);
+            const lowest = Math.min(...results);
+
+            diceDisplay.innerHTML = "";
+
+            results.forEach(value => {
+                diceDisplay.appendChild(createDie(value));
+            });
+
+            totalScore.textContent = total;
+            diceRolled.textContent = count;
+            highestRoll.textContent = highest;
+            lowestRoll.textContent = lowest;
+
+            history.unshift(results);
+            history = history.slice(0, 10);
+
+            updateHistory();
+
+            statusText.textContent = "Dice rolled successfully!";
+        }
+
+        function updateHistory() {
+            if (history.length === 0) {
+                rollHistory.textContent = "Your dice rolls will appear here.";
+                return;
+            }
+
+            rollHistory.innerHTML = "";
+
+            history.forEach((results, index) => {
+                const item = document.createElement("p");
+                item.style.margin = "0 0 6px";
+
+                item.textContent =
+                    "Roll " + (history.length - index) + ": " +
+                    results.join(" + ") + " = " +
+                    results.reduce((sum, value) => sum + value, 0);
+
+                rollHistory.appendChild(item);
+            });
+        }
+
+        function clearDice() {
+            history = [];
+
+            updateHistory();
+
+            // Keep the currently selected number of dice visible,
+            // with every die showing 6.
+            showDicePreview();
+
+            statusText.textContent = "Ready to roll";
+        }
+
+        // Update the visible dice immediately when selection changes.
+        diceCount.addEventListener("change", showDicePreview);
+
+        // Random results appear only after clicking Roll Dice.
+        rollButton.addEventListener("click", rollDice);
+
+        clearButton.addEventListener("click", clearDice);
+
+        // Show one die with 6 when the page first loads.
+        showDicePreview();
+    </script>
+
+</body>
+</html>

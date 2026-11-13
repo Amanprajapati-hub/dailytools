@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="DailyTools offers free online tools including word counter, password generator, age calculator, GST calculator, QR code generator and more. Simple, fast and easy to use.">
+    <meta name="description" content="Explore 30 free online tools at DailyTools. Find text tools, calculators, finance tools, converters, date calculators and generators for everyday tasks.">
 
-    <meta name="keywords" content="free online tools, word counter, password generator, age calculator, GST calculator, discount calculator, unit converter, QR code generator">
+    <meta name="keywords" content="free online tools, word counter, calculators, finance tools, password generator, QR code generator, text tools, converters">
 
     <meta name="author" content="DailyTools">
     <meta name="robots" content="index, follow">
@@ -23,6 +24,198 @@
     <script src="js/main.js" defer></script>
 
     <meta name="google-site-verification" content="uCiR8kNHUvKvnlty5_U4Z9S7lkQzMO8E9j71trSo480" />
+
+    <style>
+        /* HERO SIDE SEARCH LAYOUT */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 55px;
+            padding-top: 75px;
+            padding-bottom: 75px;
+        }
+
+        .hero-content {
+            min-width: 0;
+        }
+
+        .hero-search-panel {
+            width: 100%;
+            max-width: 440px;
+            margin-left: auto;
+            padding: 28px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            box-sizing: border-box;
+        }
+
+        .hero-search-panel h2 {
+            font-size: 1.45rem;
+            margin-bottom: 8px;
+        }
+
+        .hero-search-panel > p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .home-search-box {
+            position: relative;
+        }
+
+        .home-search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        #homeToolSearch {
+            width: 100%;
+            padding: 15px 14px 15px 44px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            color: var(--text);
+            font: inherit;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        #homeToolSearch:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+        }
+
+        .home-search-results {
+            display: none;
+            margin-top: 12px;
+            max-height: 310px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+        }
+
+        .home-search-results.active {
+            display: block;
+        }
+
+        .home-search-results a {
+            display: block;
+            padding: 12px 14px;
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s ease;
+        }
+
+        .home-search-results a:last-child {
+            border-bottom: none;
+        }
+
+        .home-search-results a:hover,
+        .home-search-results a:focus {
+            background: rgba(127,127,127,0.08);
+        }
+
+        .home-search-results a strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .home-search-results a small {
+            opacity: 0.7;
+        }
+
+        .home-search-empty {
+            padding: 15px;
+            text-align: center;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .search-hint {
+            display: block;
+            margin-top: 13px;
+            font-size: 0.82rem;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .search-popular {
+            margin-top: 22px;
+        }
+
+        .search-popular h3 {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .search-quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .search-quick-links a {
+            padding: 7px 11px;
+            font-size: 0.78rem;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text);
+            transition: background 0.2s ease;
+        }
+
+        .search-quick-links a:hover {
+            background: rgba(127,127,127,0.1);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr 0.9fr;
+                gap: 25px;
+            }
+
+            .hero-search-panel {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding-top: 45px;
+                padding-bottom: 45px;
+            }
+
+            .hero-search-panel {
+                max-width: 100%;
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero-search-panel {
+                padding: 18px;
+            }
+
+            #homeToolSearch {
+                padding: 13px 12px 13px 40px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -51,9 +244,10 @@
     </header>
 
 
-    <!-- HERO SECTION -->
+    <!-- MAIN CONTENT -->
     <main>
 
+        <!-- HERO WITH RIGHT SIDE SEARCH -->
         <section class="hero container">
 
             <div class="hero-content">
@@ -70,6 +264,8 @@
                 <p>
                     Powerful, simple and free online tools
                     designed to make your everyday tasks easier.
+                    From calculations and text editing to conversions
+                    and useful generators, find everything in one place.
                 </p>
 
                 <div class="hero-actions">
@@ -86,6 +282,66 @@
 
             </div>
 
+
+            <!-- RIGHT SIDE SEARCH -->
+            <div class="hero-search-panel">
+
+                <h2>Find Your Tool</h2>
+
+                <p>
+                    Search our collection and find the right tool
+                    for your everyday task.
+                </p>
+
+                <div class="home-search-box">
+
+                    <span class="home-search-icon">🔍</span>
+
+                    <input
+                        type="search"
+                        id="homeToolSearch"
+                        placeholder="Search tools..."
+                        autocomplete="off"
+                        aria-label="Search all DailyTools tools"
+                        aria-controls="homeSearchResults"
+                    >
+
+                </div>
+
+                <div
+                    class="home-search-results"
+                    id="homeSearchResults"
+                    role="listbox"
+                    aria-label="Search results"
+                ></div>
+
+                <span class="search-hint">
+                    Search by tool name or category.
+                </span>
+
+
+                <div class="search-popular">
+
+                    <h3>Popular Searches</h3>
+
+                    <div class="search-quick-links">
+
+                        <a href="word-counter.html">Word Counter</a>
+
+                        <a href="password-generator.html">Password</a>
+
+                        <a href="age-calculator.html">Age Calculator</a>
+
+                        <a href="qr-code-generator.html">QR Code</a>
+
+                        <a href="gst-calculator.html">GST Calculator</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
 
@@ -93,6 +349,7 @@
         <section class="popular-section container">
 
             <div class="section-heading">
+
                 <div>
                     <span class="eyebrow">GET STARTED</span>
                     <h2>Popular Tools</h2>
@@ -102,7 +359,9 @@
                 <a href="tools.html" class="text-link">
                     View all tools →
                 </a>
+
             </div>
+
 
             <div class="tool-grid">
 
@@ -185,16 +444,20 @@
         <section class="categories-section container" id="categories">
 
             <div class="section-heading">
+
                 <div>
                     <span class="eyebrow">EXPLORE COLLECTIONS</span>
                     <h2>Browse by Category</h2>
                     <p>Explore different collections and find a useful tool for your task.</p>
                 </div>
+
             </div>
+
 
             <div class="category-grid">
 
-                <a href="tools.html" class="category-card">
+                <!-- TEXT TOOLS -->
+                <a href="tools.html?category=text-tools" class="category-card">
                     <span>📝</span>
                     <div>
                         <h3>Text Tools</h3>
@@ -203,7 +466,8 @@
                     <span class="category-arrow">→</span>
                 </a>
 
-                <a href="tools.html" class="category-card">
+                <!-- GENERATORS -->
+                <a href="tools.html?category=generators" class="category-card">
                     <span>🔐</span>
                     <div>
                         <h3>Generators</h3>
@@ -212,7 +476,8 @@
                     <span class="category-arrow">→</span>
                 </a>
 
-                <a href="tools.html" class="category-card">
+                <!-- CALCULATORS -->
+                <a href="tools.html?category=calculators" class="category-card">
                     <span>🧮</span>
                     <div>
                         <h3>Calculators</h3>
@@ -221,7 +486,8 @@
                     <span class="category-arrow">→</span>
                 </a>
 
-                <a href="tools.html" class="category-card">
+                <!-- FINANCE TOOLS -->
+                <a href="tools.html?category=finance-tools" class="category-card">
                     <span>💰</span>
                     <div>
                         <h3>Finance Tools</h3>
@@ -230,7 +496,8 @@
                     <span class="category-arrow">→</span>
                 </a>
 
-                <a href="tools.html" class="category-card">
+                <!-- CONVERTERS -->
+                <a href="tools.html?category=converters" class="category-card">
                     <span>📏</span>
                     <div>
                         <h3>Converters</h3>
@@ -239,11 +506,12 @@
                     <span class="category-arrow">→</span>
                 </a>
 
-                <a href="tools.html" class="category-card">
-                    <span>📱</span>
+                <!-- DATE & TIME -->
+                <a href="tools.html?category=date-time" class="category-card">
+                    <span>📅</span>
                     <div>
-                        <h3>QR Code Tools</h3>
-                        <p>Create QR codes from text or website links for convenient digital sharing.</p>
+                        <h3>Date & Time</h3>
+                        <p>Calculate dates, compare days between dates and work out time durations.</p>
                     </div>
                     <span class="category-arrow">→</span>
                 </a>
@@ -257,10 +525,15 @@
         <section class="why-section container">
 
             <div class="section-heading centered">
+
                 <span class="eyebrow">WHY DAILYTOOLS?</span>
+
                 <h2>Less Effort. More Done.</h2>
+
                 <p>Useful features and a simple experience for everyday digital tasks.</p>
+
             </div>
+
 
             <div class="benefit-grid">
 
@@ -316,6 +589,7 @@
                 <a href="index.html" class="logo">
                     Daily<span>Tools.</span>
                 </a>
+
                 <p>Everyday tools, made simple.</p>
             </div>
 
@@ -335,6 +609,146 @@
         </div>
 
     </footer>
+
+
+    <!-- HOMEPAGE SEARCH SCRIPT -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const searchInput = document.getElementById("homeToolSearch");
+        const resultsBox = document.getElementById("homeSearchResults");
+
+        if (!searchInput || !resultsBox) return;
+
+        // All 30 DailyTools pages
+        const tools = [
+            { name: "Word Counter", file: "word-counter.html", category: "Text Tools", keywords: "words characters sentences text" },
+            { name: "Case Converter", file: "case-converter.html", category: "Text Tools", keywords: "uppercase lowercase title case text" },
+            { name: "Text Reverser", file: "text-reverser.html", category: "Text Tools", keywords: "reverse words characters" },
+            { name: "Remove Extra Spaces", file: "remove-extra-spaces.html", category: "Text Tools", keywords: "clean spaces whitespace text" },
+            { name: "Text Repeater", file: "text-repeater.html", category: "Text Tools", keywords: "repeat duplicate text" },
+            { name: "Word Frequency Counter", file: "word-frequency-counter.html", category: "Text Tools", keywords: "word frequency count analysis" },
+
+            { name: "Lorem Ipsum Generator", file: "lorem-ipsum-generator.html", category: "Generators", keywords: "placeholder dummy text paragraphs" },
+            { name: "Password Generator", file: "password-generator.html", category: "Generators", keywords: "random secure strong password" },
+            { name: "Random Number Generator", file: "random-number-generator.html", category: "Generators", keywords: "random numbers range" },
+            { name: "Random Name Picker", file: "random-name-picker.html", category: "Generators", keywords: "pick choose random name winner" },
+            { name: "Username Generator", file: "username-generator.html", category: "Generators", keywords: "create username account name" },
+            { name: "UUID Generator", file: "uuid-generator.html", category: "Generators", keywords: "unique identifier uuid id" },
+            { name: "Dice Roller", file: "dice-roller.html", category: "Generators", keywords: "dice roll random game" },
+            { name: "QR Code Generator", file: "qr-code-generator.html", category: "Generators", keywords: "qr code create scan url" },
+
+            { name: "Age Calculator", file: "age-calculator.html", category: "Calculators", keywords: "date of birth age years months days" },
+            { name: "Percentage Calculator", file: "percentage-calculator.html", category: "Calculators", keywords: "percent percentage increase decrease" },
+            { name: "Average Calculator", file: "average-calculator.html", category: "Calculators", keywords: "mean average numbers" },
+            { name: "BMI Calculator", file: "bmi-calculator.html", category: "Calculators", keywords: "body mass index height weight" },
+
+            { name: "GST Calculator", file: "gst-calculator.html", category: "Finance Tools", keywords: "tax goods services tax price" },
+            { name: "Discount Calculator", file: "discount-calculator.html", category: "Finance Tools", keywords: "sale savings offer price" },
+            { name: "EMI Calculator", file: "emi-calculator.html", category: "Finance Tools", keywords: "loan monthly installment interest" },
+            { name: "Simple Interest Calculator", file: "simple-interest-calculator.html", category: "Finance Tools", keywords: "principal rate time interest" },
+            { name: "Compound Interest Calculator", file: "compound-interest-calculator.html", category: "Finance Tools", keywords: "investment compound growth returns" },
+
+            { name: "Date Calculator", file: "date-calculator.html", category: "Date & Time", keywords: "add subtract days calendar date" },
+            { name: "Days Between Dates", file: "days-between-dates-calculator.html", category: "Date & Time", keywords: "difference between two dates days" },
+            { name: "Time Duration Calculator", file: "time-duration-calculator.html", category: "Date & Time", keywords: "hours minutes time difference duration" },
+
+            { name: "Unit Converter", file: "unit-converter.html", category: "Converters", keywords: "length weight temperature measurement" },
+            { name: "Number to Words", file: "number-to-words-converter.html", category: "Converters", keywords: "number spelling words amount" },
+            { name: "Roman Numeral Converter", file: "roman-numeral-converter.html", category: "Converters", keywords: "roman numerals convert" },
+            { name: "Decimal to Binary", file: "decimal-to-binary-converter.html", category: "Converters", keywords: "decimal binary number computer" }
+        ];
+
+        function renderResults(query) {
+
+            const searchTerm = query.toLowerCase().trim();
+
+            resultsBox.innerHTML = "";
+
+            if (!searchTerm) {
+                resultsBox.classList.remove("active");
+                return;
+            }
+
+            const matches = tools.filter(function(tool) {
+
+                const searchable = (
+                    tool.name + " " +
+                    tool.category + " " +
+                    tool.keywords
+                ).toLowerCase();
+
+                return searchable.includes(searchTerm);
+            });
+
+            resultsBox.classList.add("active");
+
+            if (matches.length === 0) {
+
+                resultsBox.innerHTML =
+                    '<div class="home-search-empty">No matching tools found. Try another keyword.</div>';
+
+                return;
+            }
+
+            matches.forEach(function(tool) {
+
+                const link = document.createElement("a");
+
+                link.href = tool.file;
+                link.setAttribute("role", "option");
+
+                const title = document.createElement("strong");
+                title.textContent = tool.name;
+
+                const category = document.createElement("small");
+                category.textContent = tool.category + " · Open Tool →";
+
+                link.appendChild(title);
+                link.appendChild(category);
+
+                resultsBox.appendChild(link);
+
+            });
+
+        }
+
+        searchInput.addEventListener("input", function() {
+            renderResults(searchInput.value);
+        });
+
+        searchInput.addEventListener("keydown", function(event) {
+
+            if (event.key === "Escape") {
+                resultsBox.classList.remove("active");
+                searchInput.blur();
+            }
+
+            if (event.key === "Enter") {
+
+                const firstResult = resultsBox.querySelector("a");
+
+                if (firstResult) {
+                    window.location.href = firstResult.href;
+                }
+
+            }
+
+        });
+
+        document.addEventListener("click", function(event) {
+
+            if (
+                !searchInput.contains(event.target) &&
+                !resultsBox.contains(event.target)
+            ) {
+                resultsBox.classList.remove("active");
+            }
+
+        });
+
+    });
+    </script>
 
 </body>
 </html>

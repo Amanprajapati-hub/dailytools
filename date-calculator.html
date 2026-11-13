@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free DailyTools Date Calculator to add or subtract days, weeks, months and years from any date. Calculate a new date instantly with this online tool.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Date Calculator Online - Add or Subtract Days | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        .date-field {
+            margin-bottom: 22px;
+        }
+
+        .date-field input,
+        .date-field select {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 14px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            outline: none;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .date-field input:focus,
+        .date-field select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .date-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .date-actions {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .date-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 11px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .date-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 25px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
+            .counter-box {
+                padding: 18px;
+            }
+
+            .date-options {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .date-actions {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .stat-card strong {
+                font-size: 22px;
+            }
+
+            .counter-actions {
+                align-items: center;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE DATE TOOL</span>
+
+            <h1>Date <span>Calculator.</span></h1>
+
+            <p>
+                Add or subtract days, weeks, months and years from any date.
+                Calculate your new date instantly with this free online date calculator.
+            </p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+
+            <div class="counter-box">
+
+                <div class="date-field">
+                    <label for="baseDate">Starting Date</label>
+                    <input type="date" id="baseDate">
+                </div>
+
+                <div class="date-options">
+
+                    <div class="date-field">
+                        <label for="operation">Calculation Type</label>
+                        <select id="operation">
+                            <option value="add">Add to Date</option>
+                            <option value="subtract">Subtract from Date</option>
+                        </select>
+                    </div>
+
+                    <div class="date-field">
+                        <label for="amount">Enter Amount</label>
+                        <input
+                            type="number"
+                            id="amount"
+                            min="0"
+                            step="1"
+                            value="10"
+                            placeholder="Enter a number"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="date-field">
+                    <label for="unit">Select Time Unit</label>
+                    <select id="unit">
+                        <option value="days">Days</option>
+                        <option value="weeks">Weeks</option>
+                        <option value="months">Months</option>
+                        <option value="years">Years</option>
+                    </select>
+                </div>
+
+                <div class="date-actions">
+                    <button type="button" data-amount="7" data-unit="days">7 Days</button>
+                    <button type="button" data-amount="30" data-unit="days">30 Days</button>
+                    <button type="button" data-amount="3" data-unit="months">3 Months</button>
+                    <button type="button" data-amount="1" data-unit="years">1 Year</button>
+                </div>
+
+                <div class="counter-actions">
+                    <span id="statusText" role="status" aria-live="polite">
+                        Select a date to calculate
+                    </span>
+
+                    <button type="button" id="clearButton">
+                        Clear All
+                    </button>
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+
+                    <div class="stat-card">
+                        <strong id="resultDate">--</strong>
+                        <span>CALCULATED DATE</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="resultDay">--</strong>
+                        <span>DAY OF WEEK</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="resultDays">0</strong>
+                        <span>DAYS CHANGED</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="resultMonth">--</strong>
+                        <span>MONTH</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Date Calculator?</h2>
+
+                    <p>
+                        A Date Calculator is an online tool that helps you
+                        find a future or past date by adding or subtracting
+                        a specific amount of time from a starting date.
+                    </p>
+
+                    <p>
+                        You can enter a date, choose whether to add or
+                        subtract time, enter a number and select days,
+                        weeks, months or years as the unit.
+                    </p>
+
+                    <p>
+                        The DailyTools Date Calculator automatically
+                        calculates the resulting date and displays
+                        additional information, including the weekday,
+                        month and number of calendar days changed.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Date Calculator</h2>
+
+                    <p>
+                        Follow these steps to calculate a new date:
+                    </p>
+
+                    <ol>
+                        <li>Select your starting date using the date field.</li>
+                        <li>Choose Add to Date or Subtract from Date.</li>
+                        <li>Enter the number of days, weeks, months or years.</li>
+                        <li>Select the required time unit from the dropdown.</li>
+                        <li>Review the calculated date and other results.</li>
+                        <li>Use Clear All to reset the calculator.</li>
+                    </ol>
+
+                    <p>
+                        The result updates automatically whenever you
+                        change the date, calculation type, amount or unit.
+                        You do not need to press a separate calculate button.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Date Calculator Results</h2>
+
+                    <p>
+                        The calculator displays four results to help
+                        you understand the calculated date.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Calculated Date</h3>
+                            <p>
+                                Shows the new calendar date after adding
+                                or subtracting your selected time period.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Day of Week</h3>
+                            <p>
+                                Displays the weekday of the calculated
+                                date, such as Monday, Tuesday or Friday.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Days Changed</h3>
+                            <p>
+                                Shows the actual number of calendar days
+                                between the starting date and the
+                                calculated date.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Month</h3>
+                            <p>
+                                Displays the name of the month in which
+                                the calculated date falls.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Adding Time to a Date</h2>
+
+                    <p>
+                        The Add to Date option moves the starting date
+                        forward by the selected amount of time.
+                    </p>
+
+                    <p>
+                        You can add a number of days, weeks, months or years.
+                        The calculator then displays the resulting future date.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Example:</strong></p>
+
+                        <p>
+                            Starting Date: January 1, 2026
+                        </p>
+
+                        <p>
+                            Calculation: Add 30 Days
+                        </p>
+
+                        <p>
+                            Result: January 31, 2026
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Subtracting Time from a Date</h2>
+
+                    <p>
+                        The Subtract from Date option moves the starting
+                        date backward by the selected amount of time.
+                    </p>
+
+                    <p>
+                        You can use the same time units: days, weeks,
+                        months and years. The calculator will display
+                        the resulting date in the past.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Example:</strong></p>
+
+                        <p>
+                            Starting Date: June 15, 2026
+                        </p>
+
+                        <p>
+                            Calculation: Subtract 10 Days
+                        </p>
+
+                        <p>
+                            Result: June 5, 2026
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding Date Calculation Units</h2>
+
+                    <p>
+                        You can select from four different time units.
+                        Each unit changes the starting date in a different way.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Days</h3>
+                            <p>
+                                Adds or subtracts individual calendar days.
+                                For example, adding 10 days moves the
+                                date forward by 10 calendar days.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weeks</h3>
+                            <p>
+                                Each week represents 7 calendar days.
+                                Adding 2 weeks moves the date forward
+                                by 14 days.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Months</h3>
+                            <p>
+                                Moves the date forward or backward
+                                by calendar months. Month lengths
+                                are handled automatically.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Years</h3>
+                            <p>
+                                Changes the calendar year while
+                                preserving the month and day whenever
+                                that date exists in the target year.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>How Date Calculations Work</h2>
+
+                    <p>
+                        Date calculations depend on the selected starting
+                        date, operation, amount and time unit.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Basic Calculation:</strong></p>
+
+                        <p>
+                            New Date = Starting Date + Selected Time
+                        </p>
+
+                        <p>
+                            For subtraction:
+                        </p>
+
+                        <p>
+                            New Date = Starting Date − Selected Time
+                        </p>
+                    </div>
+
+                    <p>
+                        Days and weeks are calculated using calendar-day
+                        changes. Months and years use calendar-based
+                        calculations, accounting for different month
+                        lengths and leap years.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Important Notes About Date Calculations</h2>
+
+                    <ul>
+                        <li>
+                            Months do not all have the same number of days.
+                        </li>
+
+                        <li>
+                            February has 28 days in a common year and
+                            29 days in a leap year.
+                        </li>
+
+                        <li>
+                            Adding one month to a date near the end of
+                            a month may result in the last valid day
+                            of the target month.
+                        </li>
+
+                        <li>
+                            Adding weeks is equivalent to adding
+                            seven calendar days per week.
+                        </li>
+
+                        <li>
+                            The result depends on the selected date
+                            and the time unit.
+                        </li>
+
+                        <li>
+                            Always check the calculated date before
+                            using it in an important schedule.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the DailyTools Date Calculator free?</h3>
+
+                        <p>
+                            Yes. The Date Calculator is free to use.
+                            You can add or subtract time from dates
+                            without creating an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. Can I add days to a date?</h3>
+
+                        <p>
+                            Yes. Select Add to Date, enter the number
+                            of days and choose Days as the time unit.
+                            The calculator will display the new date.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can I subtract months or years?</h3>
+
+                        <p>
+                            Yes. Choose Subtract from Date and select
+                            Months or Years. The calculator will
+                            automatically calculate the earlier date.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. How many days are in one week?</h3>
+
+                        <p>
+                            One week contains 7 calendar days.
+                            For example, adding 3 weeks is the same
+                            as adding 21 days.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Does the calculator handle leap years?</h3>
+
+                        <p>
+                            Yes. The calculator uses calendar-based
+                            date calculations and automatically
+                            accounts for February 29 during leap years.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. What happens when the target month has fewer days?</h3>
+
+                        <p>
+                            If the original day does not exist in the
+                            target month, the calculator uses the last
+                            valid day of that month. For example,
+                            January 31 plus one month becomes February 28
+                            in a non-leap year.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Can I calculate dates in different years?</h3>
+
+                        <p>
+                            Yes. You can select a starting date from
+                            any supported year and add or subtract
+                            days, weeks, months or years.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Does the result update automatically?</h3>
+
+                        <p>
+                            Yes. The result updates whenever you
+                            change the starting date, operation,
+                            amount or time unit.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const baseDate = document.getElementById("baseDate");
+    const operation = document.getElementById("operation");
+    const amount = document.getElementById("amount");
+    const unit = document.getElementById("unit");
+
+    const resultDate = document.getElementById("resultDate");
+    const resultDay = document.getElementById("resultDay");
+    const resultDays = document.getElementById("resultDays");
+    const resultMonth = document.getElementById("resultMonth");
+
+    const clearButton = document.getElementById("clearButton");
+    const statusText = document.getElementById("statusText");
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+
+    function parseDate(dateString) {
+        if (!dateString) {
+            return null;
+        }
+
+        const [year, month, day] = dateString.split("-").map(Number);
+
+        const date = new Date(Date.UTC(year, month - 1, day));
+
+        if (
+            date.getUTCFullYear() !== year ||
+            date.getUTCMonth() !== month - 1 ||
+            date.getUTCDate() !== day
+        ) {
+            return null;
+        }
+
+        return date;
+    }
+
+    function formatDate(date) {
+        return date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            timeZone: "UTC"
+        });
+    }
+
+    function addMonths(date, months) {
+        const year = date.getUTCFullYear();
+        const month = date.getUTCMonth();
+        const day = date.getUTCDate();
+
+        const targetMonthIndex = month + months;
+        const targetYear = year + Math.floor(targetMonthIndex / 12);
+        const normalizedMonth = ((targetMonthIndex % 12) + 12) % 12;
+
+        const lastDayOfTargetMonth = new Date(
+            Date.UTC(targetYear, normalizedMonth + 1, 0)
+        ).getUTCDate();
+
+        const targetDay = Math.min(day, lastDayOfTargetMonth);
+
+        return new Date(
+            Date.UTC(targetYear, normalizedMonth, targetDay)
+        );
+    }
+
+    function addYears(date, years) {
+        return addMonths(date, years * 12);
+    }
+
+    function calculateDate() {
+        const selectedDate = parseDate(baseDate.value);
+        const enteredAmount = Number(amount.value);
+
+        if (!baseDate.value) {
+            resetResults();
+            statusText.textContent = "Select a starting date";
+            return;
+        }
+
+        if (!selectedDate) {
+            resetResults();
+            statusText.textContent = "Please select a valid date";
+            return;
+        }
+
+        if (
+            amount.value.trim() === "" ||
+            !Number.isSafeInteger(enteredAmount) ||
+            enteredAmount < 0
+        ) {
+            resetResults();
+            statusText.textContent = "Enter a valid whole number";
+            return;
+        }
+
+        if (!Number.isSafeInteger(enteredAmount * (
+            unit.value === "weeks" ? 7 :
+            unit.value === "years" ? 12 : 1
+        ))) {
+            resetResults();
+            statusText.textContent = "Please enter a smaller amount";
+            return;
+        }
+
+        const direction = operation.value === "add" ? 1 : -1;
+
+        let calculatedDate = new Date(selectedDate.getTime());
+
+        if (unit.value === "days") {
+            calculatedDate = new Date(
+                selectedDate.getTime() +
+                direction * enteredAmount * millisecondsPerDay
+            );
+        }
+
+        if (unit.value === "weeks") {
+            calculatedDate = new Date(
+                selectedDate.getTime() +
+                direction * enteredAmount * 7 * millisecondsPerDay
+            );
+        }
+
+        if (unit.value === "months") {
+            calculatedDate = addMonths(
+                selectedDate,
+                direction * enteredAmount
+            );
+        }
+
+        if (unit.value === "years") {
+            calculatedDate = addYears(
+                selectedDate,
+                direction * enteredAmount
+            );
+        }
+
+        if (Number.isNaN(calculatedDate.getTime())) {
+            resetResults();
+            statusText.textContent = "Unable to calculate this date";
+            return;
+        }
+
+        const dayDifference = Math.abs(
+            calculatedDate.getTime() - selectedDate.getTime()
+        ) / millisecondsPerDay;
+
+        const dayName = calculatedDate.toLocaleDateString("en-IN", {
+            weekday: "long",
+            timeZone: "UTC"
+        });
+
+        const monthName = calculatedDate.toLocaleDateString("en-IN", {
+            month: "long",
+            timeZone: "UTC"
+        });
+
+        resultDate.textContent = formatDate(calculatedDate);
+        resultDay.textContent = dayName;
+        resultDays.textContent = dayDifference.toLocaleString("en-IN");
+        resultMonth.textContent = monthName;
+
+        statusText.textContent = "Date calculated successfully";
+    }
+
+    function resetResults() {
+        resultDate.textContent = "--";
+        resultDay.textContent = "--";
+        resultDays.textContent = "0";
+        resultMonth.textContent = "--";
+    }
+
+    baseDate.addEventListener("change", calculateDate);
+    operation.addEventListener("change", calculateDate);
+    amount.addEventListener("input", calculateDate);
+    unit.addEventListener("change", calculateDate);
+
+    document.querySelectorAll(".date-actions button").forEach(button => {
+        button.addEventListener("click", function () {
+            amount.value = this.dataset.amount;
+            unit.value = this.dataset.unit;
+            calculateDate();
+        });
+    });
+
+    clearButton.addEventListener("click", function () {
+        baseDate.value = "";
+        operation.value = "add";
+        amount.value = "10";
+        unit.value = "days";
+
+        resetResults();
+
+        statusText.textContent = "Select a date to calculate";
+        baseDate.focus();
+    });
+
+    // Initialize the calculator.
+    calculateDate();
+</script>
+
+</body>
+</html>

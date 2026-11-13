@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Convert numbers into English words instantly with the free DailyTools Number to Words Converter. Supports Indian and International number systems, decimals and negative numbers.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Number to Words Converter - Convert Numbers into Words | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 12px;
+        }
+
+        .number-input,
+        .system-select {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 14px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            outline: none;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .number-input:focus,
+        .system-select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-hint {
+            display: block;
+            color: #88889a;
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .example-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 12px;
+        }
+
+        .example-buttons button {
+            border: 1px solid #e5e3ff;
+            background: #f8f7ff;
+            color: #635bff;
+            padding: 8px 13px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .example-buttons button:hover {
+            background: #eae8ff;
+        }
+
+        .output-label {
+            margin-top: 25px;
+        }
+
+        .output-box {
+            width: 100%;
+            min-height: 125px;
+            padding: 16px;
+            border: 1px solid #e9e9f1;
+            border-radius: 12px;
+            background: #f8f8ff;
+            color: #33334a;
+            font-family: inherit;
+            font-size: 16px;
+            line-height: 1.8;
+            resize: vertical;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .output-box:focus {
+            border-color: #635bff;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        .counter-actions .convert-btn {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .counter-actions .convert-btn:hover {
+            background: #5148e5;
+        }
+
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 23px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
+            .counter-box {
+                padding: 18px;
+            }
+
+            .counter-stats {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .counter-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                width: 100%;
+            }
+
+            .action-buttons button {
+                flex: 1;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE NUMBER TOOL</span>
+
+            <h1>Number to Words <span>Converter.</span></h1>
+
+            <p>
+                Convert numbers into English words instantly.
+                Choose the Indian or International number system
+                and copy your converted result.
+            </p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+
+            <div class="counter-box">
+
+                <div class="input-group">
+                    <label for="numberInput">Enter Number</label>
+
+                    <input
+                        type="text"
+                        id="numberInput"
+                        class="number-input"
+                        placeholder="Example: 125000"
+                        inputmode="decimal"
+                        autocomplete="off"
+                    >
+
+                    <span class="input-hint">
+                        Enter a whole number or decimal number.
+                        Commas are also accepted.
+                    </span>
+
+                    <div class="example-buttons">
+                        <button type="button" data-number="125">125</button>
+                        <button type="button" data-number="1500">1,500</button>
+                        <button type="button" data-number="125000">1,25,000</button>
+                        <button type="button" data-number="2500000">25,00,000</button>
+                        <button type="button" data-number="1234.56">1234.56</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="numberSystem">Number System</label>
+
+                    <select id="numberSystem" class="system-select">
+                        <option value="indian">Indian System (Lakh, Crore)</option>
+                        <option value="international">International System (Million, Billion)</option>
+                    </select>
+                </div>
+
+                <label for="wordOutput" class="output-label">
+                    Number in Words
+                </label>
+
+                <textarea
+                    id="wordOutput"
+                    class="output-box"
+                    readonly
+                    placeholder="Your converted number will appear here..."
+                ></textarea>
+
+                <div class="counter-actions">
+
+                    <span id="statusText" role="status" aria-live="polite">
+                        Enter a number to get started.
+                    </span>
+
+                    <div class="action-buttons">
+                        <button type="button" class="convert-btn" id="convertButton">
+                            Convert to Words
+                        </button>
+
+                        <button type="button" id="copyButton">
+                            Copy Words
+                        </button>
+
+                        <button type="button" id="resetButton">
+                            Reset
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+
+                    <div class="stat-card">
+                        <strong id="digitCount">0</strong>
+                        <span>DIGITS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="wordCount">0</strong>
+                        <span>WORDS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="numberType">-</strong>
+                        <span>NUMBER TYPE</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Number to Words Converter?</h2>
+
+                    <p>
+                        A Number to Words Converter is an online tool
+                        that changes numerical values into their written
+                        English form. For example, the number 125 becomes
+                        "One Hundred Twenty-Five".
+                    </p>
+
+                    <p>
+                        Writing numbers in words is useful for preparing
+                        documents, checking written amounts, educational
+                        exercises and other number-related tasks.
+                    </p>
+
+                    <p>
+                        This DailyTools converter supports both the Indian
+                        and International numbering systems. It can also
+                        convert decimal and negative numbers.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Number to Words Converter</h2>
+
+                    <p>
+                        Follow these simple steps to convert a number
+                        into English words:
+                    </p>
+
+                    <ol>
+                        <li>Enter a number in the Enter Number field.</li>
+                        <li>Choose the Indian or International number system.</li>
+                        <li>Click the Convert to Words button.</li>
+                        <li>Read the converted result in the output box.</li>
+                        <li>Click Copy Words to copy the result.</li>
+                        <li>Click Reset to clear the input and output.</li>
+                    </ol>
+
+                    <p>
+                        You can enter numbers with or without commas.
+                        Decimal values and negative values are also supported.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Indian and International Number Systems</h2>
+
+                    <p>
+                        Large numbers are grouped differently in the Indian
+                        and International numbering systems. Select the
+                        system that matches the format you need.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Indian Number System</h3>
+                            <p>
+                                Uses Thousand, Lakh, Crore, Arab and Kharab.
+                                For example, 1,00,000 is one lakh and
+                                1,00,00,000 is one crore.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>International Number System</h3>
+                            <p>
+                                Uses Thousand, Million, Billion, Trillion
+                                and larger groups. For example, 1,000,000
+                                is one million.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>How Number to Words Conversion Works</h2>
+
+                    <p>
+                        The converter separates a number into smaller
+                        groups based on its place values. Each group
+                        is converted into words and combined with
+                        the appropriate number scale.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Example: 1,25,450</strong></p>
+                        <p>1 Lakh = One Lakh</p>
+                        <p>25 Thousand = Twenty-Five Thousand</p>
+                        <p>450 = Four Hundred Fifty</p>
+                        <p>
+                            <strong>Result:</strong>
+                            One Lakh Twenty-Five Thousand Four Hundred Fifty
+                        </p>
+                    </div>
+
+                    <p>
+                        Decimal digits are read individually after
+                        the word "Point". For example, 12.45 becomes
+                        "Twelve Point Four Five".
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Examples of Numbers Written in Words</h2>
+
+                    <p>
+                        Here are some examples of common numbers
+                        and their English word representations.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Number: 25</strong></p>
+                        <p>Twenty-Five</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Number: 150</strong></p>
+                        <p>One Hundred Fifty</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Number: 2,500</strong></p>
+                        <p>Two Thousand Five Hundred</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Number: 75,000</strong></p>
+                        <p>Seventy-Five Thousand</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Number: 10,00,000 (Indian System)</strong></p>
+                        <p>Ten Lakh</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Number: 1,000,000 (International System)</strong></p>
+                        <p>One Million</p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding Decimal and Negative Numbers</h2>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Decimal Numbers</h3>
+                            <p>
+                                Numbers containing a decimal point are
+                                converted by reading each digit after
+                                the decimal point separately. For example,
+                                10.25 becomes Ten Point Two Five.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Negative Numbers</h3>
+                            <p>
+                                A negative number is converted by adding
+                                the word "Minus" before the number.
+                                For example, -25 becomes Minus Twenty-Five.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Accurate Number Conversion</h2>
+
+                    <ul>
+                        <li>Check the number before converting it.</li>
+                        <li>Choose the correct number system for your required format.</li>
+                        <li>Use commas if they make large numbers easier to read.</li>
+                        <li>Check decimal digits carefully.</li>
+                        <li>Use the Copy Words button to copy the converted result.</li>
+                        <li>Remember that decimal digits are read separately after the decimal point.</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Number to Words Converter free?</h3>
+                        <p>
+                            Yes. The DailyTools Number to Words Converter
+                            is free to use and does not require an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. Can I convert large numbers into words?</h3>
+                        <p>
+                            Yes. The converter supports large numbers
+                            using the Indian and International numbering
+                            systems, within its supported number range.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. What is the difference between Indian and International systems?</h3>
+                        <p>
+                            The Indian system uses lakh and crore,
+                            while the International system uses million
+                            and billion.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. Can I convert decimal numbers?</h3>
+                        <p>
+                            Yes. Enter a decimal number such as 12.45.
+                            The converter reads the digits after the
+                            decimal point individually.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Can I convert negative numbers?</h3>
+                        <p>
+                            Yes. Negative values are converted with
+                            the word "Minus" before the number.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Can I copy the converted words?</h3>
+                        <p>
+                            Yes. Click the Copy Words button to copy
+                            the converted text to your clipboard.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Does the converter accept commas?</h3>
+                        <p>
+                            Yes. You can enter numbers with commas
+                            or without commas.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Does this tool convert numbers into currency words?</h3>
+                        <p>
+                            No. This tool converts numbers into general
+                            English words. It does not automatically add
+                            currency names such as Rupees or Paise.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const numberInput = document.getElementById("numberInput");
+    const numberSystem = document.getElementById("numberSystem");
+    const wordOutput = document.getElementById("wordOutput");
+
+    const convertButton = document.getElementById("convertButton");
+    const copyButton = document.getElementById("copyButton");
+    const resetButton = document.getElementById("resetButton");
+
+    const statusText = document.getElementById("statusText");
+
+    const digitCount = document.getElementById("digitCount");
+    const wordCount = document.getElementById("wordCount");
+    const numberType = document.getElementById("numberType");
+
+    const ones = [
+        "Zero", "One", "Two", "Three", "Four",
+        "Five", "Six", "Seven", "Eight", "Nine"
+    ];
+
+    const teens = [
+        "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen",
+        "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"
+    ];
+
+    const tens = [
+        "", "", "Twenty", "Thirty", "Forty",
+        "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
+    ];
+
+    const indianScales = [
+        "", "Thousand", "Lakh", "Crore", "Arab",
+        "Kharab", "Neel", "Padma", "Shankh"
+    ];
+
+    const internationalScales = [
+        "", "Thousand", "Million", "Billion", "Trillion",
+        "Quadrillion", "Quintillion"
+    ];
+
+    function convertUnderThousand(number) {
+        if (number === 0) {
+            return "";
+        }
+
+        const parts = [];
+
+        if (number >= 100) {
+            parts.push(ones[Math.floor(number / 100)] + " Hundred");
+            number %= 100;
+        }
+
+        if (number >= 20) {
+            let text = tens[Math.floor(number / 10)];
+
+            if (number % 10 !== 0) {
+                text += "-" + ones[number % 10];
+            }
+
+            parts.push(text);
+        } else if (number >= 10) {
+            parts.push(teens[number - 10]);
+        } else if (number > 0) {
+            parts.push(ones[number]);
+        }
+
+        return parts.join(" ");
+    }
+
+    function convertIndianInteger(digits) {
+        let groups = [];
+
+        if (digits.length > 3) {
+            groups.unshift(digits.slice(-3));
+            digits = digits.slice(0, -3);
+
+            while (digits.length > 0) {
+                groups.unshift(digits.slice(-2));
+                digits = digits.slice(0, -2);
+            }
+        } else {
+            groups.unshift(digits);
+        }
+
+        const parts = [];
+
+        for (let i = 0; i < groups.length; i++) {
+            const value = Number(groups[i]);
+            const scaleIndex = groups.length - 1 - i;
+
+            if (value === 0) {
+                continue;
+            }
+
+            if (scaleIndex >= indianScales.length) {
+                throw new Error("Number is too large for the Indian system.");
+            }
+
+            let words = convertUnderThousand(value);
+
+            if (indianScales[scaleIndex]) {
+                words += " " + indianScales[scaleIndex];
+            }
+
+            parts.push(words);
+        }
+
+        return parts.length ? parts.join(" ") : "Zero";
+    }
+
+    function convertInternationalInteger(digits) {
+        const groups = [];
+
+        while (digits.length > 0) {
+            groups.unshift(digits.slice(-3));
+            digits = digits.slice(0, -3);
+        }
+
+        const parts = [];
+
+        for (let i = 0; i < groups.length; i++) {
+            const value = Number(groups[i]);
+            const scaleIndex = groups.length - 1 - i;
+
+            if (value === 0) {
+                continue;
+            }
+
+            if (scaleIndex >= internationalScales.length) {
+                throw new Error("Number is too large for the International system.");
+            }
+
+            let words = convertUnderThousand(value);
+
+            if (internationalScales[scaleIndex]) {
+                words += " " + internationalScales[scaleIndex];
+            }
+
+            parts.push(words);
+        }
+
+        return parts.length ? parts.join(" ") : "Zero";
+    }
+
+    function convertNumberToWords(value, system) {
+        let cleaned = value.replace(/,/g, "").trim();
+
+        if (!/^-?\d+(\.\d+)?$/.test(cleaned)) {
+            throw new Error("Please enter a valid number.");
+        }
+
+        const isNegative = cleaned.startsWith("-");
+
+        if (isNegative) {
+            cleaned = cleaned.substring(1);
+        }
+
+        let parts = cleaned.split(".");
+        let integerPart = parts[0];
+        const decimalPart = parts[1] || "";
+
+        integerPart = integerPart.replace(/^0+(?=\d)/, "");
+
+        if (integerPart.length > 21) {
+            throw new Error("Please enter a number with up to 21 integer digits.");
+        }
+
+        if (decimalPart.length > 15) {
+            throw new Error("Please enter up to 15 decimal digits.");
+        }
+
+        let words;
+
+        if (system === "indian") {
+            words = convertIndianInteger(integerPart);
+        } else {
+            words = convertInternationalInteger(integerPart);
+        }
+
+        if (decimalPart.length > 0) {
+            const decimalWords = decimalPart
+                .split("")
+                .map(digit => ones[Number(digit)])
+                .join(" ");
+
+            words += " Point " + decimalWords;
+        }
+
+        if (isNegative && cleaned !== "0" && !/^0\.0*$/.test(cleaned)) {
+            words = "Minus " + words;
+        }
+
+        return words;
+    }
+
+    function updateStats(originalValue, words) {
+        const digits = originalValue.replace(/[^0-9]/g, "");
+        const count = words.trim().split(/\s+/).filter(Boolean).length;
+
+        digitCount.textContent = digits.length;
+        wordCount.textContent = count;
+
+        if (originalValue.includes(".")) {
+            numberType.textContent = "Decimal";
+        } else if (originalValue.startsWith("-")) {
+            numberType.textContent = "Negative";
+        } else {
+            numberType.textContent = "Whole";
+        }
+    }
+
+    function convert() {
+        const value = numberInput.value.trim();
+
+        if (!value) {
+            wordOutput.value = "";
+            digitCount.textContent = "0";
+            wordCount.textContent = "0";
+            numberType.textContent = "-";
+            statusText.textContent = "Please enter a number first.";
+            numberInput.focus();
+            return;
+        }
+
+        try {
+            const words = convertNumberToWords(
+                value,
+                numberSystem.value
+            );
+
+            wordOutput.value = words;
+
+            updateStats(value, words);
+
+            statusText.textContent = "Number converted successfully.";
+        } catch (error) {
+            wordOutput.value = "";
+
+            digitCount.textContent = "0";
+            wordCount.textContent = "0";
+            numberType.textContent = "-";
+
+            statusText.textContent = error.message;
+        }
+    }
+
+    async function copyWords() {
+        const text = wordOutput.value.trim();
+
+        if (!text) {
+            statusText.textContent = "Convert a number before copying.";
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(text);
+            statusText.textContent = "Words copied successfully!";
+        } catch (error) {
+            wordOutput.select();
+
+            const copied = document.execCommand("copy");
+
+            statusText.textContent = copied
+                ? "Words copied successfully!"
+                : "Copy failed. Please select and copy the text manually.";
+        }
+    }
+
+    function resetConverter() {
+        numberInput.value = "";
+        numberSystem.value = "indian";
+        wordOutput.value = "";
+
+        digitCount.textContent = "0";
+        wordCount.textContent = "0";
+        numberType.textContent = "-";
+
+        statusText.textContent = "Enter a number to get started.";
+
+        numberInput.focus();
+    }
+
+    convertButton.addEventListener("click", convert);
+    copyButton.addEventListener("click", copyWords);
+    resetButton.addEventListener("click", resetConverter);
+
+    numberInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            convert();
+        }
+    });
+
+    numberSystem.addEventListener("change", function() {
+        if (numberInput.value.trim()) {
+            convert();
+        }
+    });
+
+    document.querySelectorAll(".example-buttons button").forEach(function(button) {
+        button.addEventListener("click", function() {
+            numberInput.value = button.dataset.number;
+            convert();
+        });
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free Compound Interest Calculator by DailyTools to calculate compound interest and final amount based on principal, annual interest rate, time and compounding frequency.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Compound Interest Calculator Online | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .calculator-section {
+            padding: 65px 0 80px;
+        }
+
+        .calculator-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 9px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            background: #fff;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .input-help {
+            display: block;
+            margin-top: 7px;
+            font-size: 12px;
+            color: #77778a;
+        }
+
+        .calculator-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .calculate-button,
+        .clear-button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 9px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .calculate-button {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .calculate-button:hover {
+            background: #5046e5;
+        }
+
+        .clear-button {
+            background: #f0efff;
+            color: #635bff;
+        }
+
+        .clear-button:hover {
+            background: #e5e3ff;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 18px;
+            padding: 12px 15px;
+            background: #fff4f4;
+            border: 1px solid #ffdada;
+            border-radius: 9px;
+            color: #b63a3a;
+            font-size: 14px;
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid #e9e9f1;
+        }
+
+        .result-box h2 {
+            font-size: 20px;
+            color: #17172b;
+            margin-bottom: 18px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .result-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .result-card span {
+            display: block;
+            color: #77778a;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .result-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 27px;
+            overflow-wrap: anywhere;
+        }
+
+        .formula-note {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            color: #55556a;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .calculator-section {
+                padding: 40px 0 55px;
+            }
+
+            .calculator-box {
+                padding: 18px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .calculator-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .calculate-button,
+            .clear-button {
+                width: 100%;
+                padding: 12px 10px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .result-card strong {
+                font-size: 24px;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE FINANCE TOOL</span>
+
+            <h1>Compound Interest <span>Calculator.</span></h1>
+
+            <p>
+                Calculate compound interest, accumulated interest and final
+                amount using your principal, annual interest rate, time period
+                and compounding frequency.
+            </p>
+        </div>
+    </section>
+
+    <section class="calculator-section">
+        <div class="container">
+
+            <div class="calculator-box">
+
+                <div class="input-grid">
+
+                    <div class="form-group">
+                        <label for="principal">Principal Amount</label>
+                        <input
+                            type="number"
+                            id="principal"
+                            placeholder="For example: 10000"
+                            min="0"
+                            step="any"
+                        >
+                        <span class="input-help">
+                            Enter the initial amount.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate">Annual Interest Rate (%)</label>
+                        <input
+                            type="number"
+                            id="rate"
+                            placeholder="For example: 8"
+                            min="0"
+                            step="any"
+                        >
+                        <span class="input-help">
+                            Enter the yearly interest rate.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Time Period (Years)</label>
+                        <input
+                            type="number"
+                            id="time"
+                            placeholder="For example: 5"
+                            min="0"
+                            step="any"
+                        >
+                        <span class="input-help">
+                            Enter the duration in years.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frequency">Compounding Frequency</label>
+                        <select id="frequency">
+                            <option value="1">Annually (Once a year)</option>
+                            <option value="2">Half-Yearly (Twice a year)</option>
+                            <option value="4" selected>Quarterly (4 times a year)</option>
+                            <option value="12">Monthly (12 times a year)</option>
+                            <option value="365">Daily (365 times a year)</option>
+                        </select>
+                        <span class="input-help">
+                            Select how often interest is compounded.
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="calculator-actions">
+                    <button type="button" class="calculate-button" id="calculateButton">
+                        Calculate Interest
+                    </button>
+
+                    <button type="button" class="clear-button" id="clearButton">
+                        Clear
+                    </button>
+                </div>
+
+                <div class="error-message" id="errorMessage" role="alert"></div>
+
+                <div class="result-box" id="resultBox">
+                    <h2>Your Results</h2>
+
+                    <div class="result-grid">
+
+                        <div class="result-card">
+                            <span>COMPOUND INTEREST</span>
+                            <strong id="interestResult">0.00</strong>
+                        </div>
+
+                        <div class="result-card">
+                            <span>FINAL AMOUNT</span>
+                            <strong id="totalResult">0.00</strong>
+                        </div>
+
+                        <div class="result-card">
+                            <span>INITIAL PRINCIPAL</span>
+                            <strong id="principalResult">0.00</strong>
+                        </div>
+
+                        <div class="result-card">
+                            <span>TOTAL GROWTH</span>
+                            <strong id="growthResult">0.00%</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="formula-note" id="formulaResult">
+                        Your calculation details will appear here.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is Compound Interest?</h2>
+
+                    <p>
+                        Compound interest is calculated on the original
+                        principal amount as well as the interest accumulated
+                        from previous periods. This means that interest can
+                        earn additional interest over time.
+                    </p>
+
+                    <p>
+                        The final amount depends on the principal, annual
+                        interest rate, investment duration and compounding
+                        frequency. More frequent compounding can produce a
+                        different result compared with annual compounding,
+                        assuming the same rate and duration.
+                    </p>
+
+                    <p>
+                        The DailyTools Compound Interest Calculator helps
+                        calculate the accumulated interest and final amount
+                        using these values.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Compound Interest Calculator</h2>
+
+                    <ol>
+                        <li>Enter the initial principal amount.</li>
+                        <li>Enter the annual interest rate as a percentage.</li>
+                        <li>Enter the time period in years.</li>
+                        <li>Select the compounding frequency from the dropdown.</li>
+                        <li>Select Calculate Interest to view the results.</li>
+                        <li>Review the compound interest and final amount.</li>
+                    </ol>
+
+                    <p>
+                        Select Clear to reset all inputs and start a new
+                        calculation.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Compound Interest Formula</h2>
+
+                    <p>
+                        The standard compound interest formula is:
+                    </p>
+
+                    <div class="example-box">
+                        <p>
+                            <strong>A = P × (1 + r/n)<sup>nt</sup></strong>
+                        </p>
+
+                        <p>
+                            Compound Interest = A − P
+                        </p>
+
+                        <p>
+                            A is the final amount, P is the principal, r is
+                            the annual interest rate in decimal form, n is
+                            the number of compounding periods per year and
+                            t is the time in years.
+                        </p>
+                    </div>
+
+                    <p>
+                        The calculator converts the percentage interest rate
+                        into decimal form before applying the formula.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding Compounding Frequency</h2>
+
+                    <p>
+                        Compounding frequency describes how often accumulated
+                        interest is added to the principal balance.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Annually</h3>
+                            <p>
+                                Interest is added once at the end of each year.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Half-Yearly</h3>
+                            <p>
+                                Interest is calculated and added twice each year.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Quarterly</h3>
+                            <p>
+                                Interest is compounded four times per year,
+                                once every three months.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Monthly</h3>
+                            <p>
+                                Interest is added twelve times per year.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Daily</h3>
+                            <p>
+                                Interest is compounded using 365 periods per year.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Compound Interest Calculation Example</h2>
+
+                    <p>
+                        Suppose an initial amount of 10,000 earns an annual
+                        interest rate of 8% for 5 years, compounded annually.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Principal:</strong> 10,000</p>
+                        <p><strong>Annual Interest Rate:</strong> 8%</p>
+                        <p><strong>Time Period:</strong> 5 years</p>
+                        <p><strong>Compounding Frequency:</strong> Annually</p>
+
+                        <p>
+                            A = 10,000 × (1 + 0.08/1)<sup>1 × 5</sup>
+                        </p>
+
+                        <p>
+                            <strong>Final Amount = 14,693.28</strong>
+                        </p>
+
+                        <p>
+                            <strong>Compound Interest = 4,693.28</strong>
+                        </p>
+                    </div>
+
+                    <p>
+                        The accumulated interest is added to the balance
+                        during each compounding period, so the amount used
+                        to calculate later interest can increase.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Simple Interest vs. Compound Interest</h2>
+
+                    <p>
+                        Simple interest is calculated only on the original
+                        principal. Compound interest is calculated on the
+                        principal plus accumulated interest from earlier
+                        periods.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Simple Interest</h3>
+                            <p>
+                                The interest calculation is based on the
+                                original principal throughout the entire
+                                selected period.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Compound Interest</h3>
+                            <p>
+                                The calculation includes previously accumulated
+                                interest, allowing the balance to grow over time.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Factors That Affect Compound Interest</h2>
+
+                    <ul>
+                        <li>
+                            <strong>Principal:</strong> The initial amount
+                            used in the calculation.
+                        </li>
+
+                        <li>
+                            <strong>Interest Rate:</strong> The annual
+                            percentage applied to the balance.
+                        </li>
+
+                        <li>
+                            <strong>Time:</strong> The number of years
+                            the amount earns interest.
+                        </li>
+
+                        <li>
+                            <strong>Compounding Frequency:</strong> How
+                            often accumulated interest is added to the balance.
+                        </li>
+                    </ul>
+
+                    <p>
+                        Changing any of these values can change the final
+                        amount and accumulated interest.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Compound Interest Calculator free?</h3>
+                        <p>
+                            Yes. The DailyTools Compound Interest Calculator
+                            is free to use and does not require an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. What is the compound interest formula?</h3>
+                        <p>
+                            The formula is A = P × (1 + r/n) raised to the
+                            power of nt. Compound interest is the final
+                            amount minus the original principal.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. What is the difference between simple and compound interest?</h3>
+                        <p>
+                            Simple interest is calculated on the original
+                            principal, while compound interest includes
+                            previously accumulated interest.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. What does compounding frequency mean?</h3>
+                        <p>
+                            It describes how many times interest is added
+                            to the balance during one year.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Does monthly compounding differ from annual compounding?</h3>
+                        <p>
+                            Yes. With the same nominal annual rate and
+                            duration, monthly compounding generally produces
+                            a slightly higher final amount than annual
+                            compounding.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Can I enter decimal values?</h3>
+                        <p>
+                            Yes. The calculator accepts decimal values for
+                            the principal, interest rate and time period.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Does this calculator include additional deposits?</h3>
+                        <p>
+                            No. This calculator assumes a single initial
+                            principal amount and does not include recurring
+                            deposits or withdrawals.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Are the results guaranteed investment returns?</h3>
+                        <p>
+                            No. The results are mathematical estimates based
+                            on the values entered. Actual financial products
+                            may have fees, taxes, changing rates and other
+                            conditions.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const principalInput = document.getElementById("principal");
+    const rateInput = document.getElementById("rate");
+    const timeInput = document.getElementById("time");
+    const frequencyInput = document.getElementById("frequency");
+
+    const calculateButton = document.getElementById("calculateButton");
+    const clearButton = document.getElementById("clearButton");
+
+    const resultBox = document.getElementById("resultBox");
+    const errorMessage = document.getElementById("errorMessage");
+
+    const interestResult = document.getElementById("interestResult");
+    const totalResult = document.getElementById("totalResult");
+    const principalResult = document.getElementById("principalResult");
+    const growthResult = document.getElementById("growthResult");
+    const formulaResult = document.getElementById("formulaResult");
+
+    function formatNumber(number) {
+        return number.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function calculateInterest() {
+        const principal = parseFloat(principalInput.value);
+        const rate = parseFloat(rateInput.value);
+        const time = parseFloat(timeInput.value);
+        const frequency = parseInt(frequencyInput.value, 10);
+
+        errorMessage.style.display = "none";
+
+        if (
+            principalInput.value.trim() === "" ||
+            rateInput.value.trim() === "" ||
+            timeInput.value.trim() === "" ||
+            !Number.isFinite(principal) ||
+            !Number.isFinite(rate) ||
+            !Number.isFinite(time) ||
+            principal < 0 ||
+            rate < 0 ||
+            time < 0 ||
+            !Number.isFinite(frequency) ||
+            frequency <= 0
+        ) {
+            resultBox.style.display = "none";
+            errorMessage.textContent =
+                "Please enter valid values greater than or equal to zero.";
+            errorMessage.style.display = "block";
+            return;
+        }
+
+        const decimalRate = rate / 100;
+
+        const totalAmount = principal *
+            Math.pow(1 + decimalRate / frequency, frequency * time);
+
+        const compoundInterest = totalAmount - principal;
+
+        const growth = principal > 0
+            ? (compoundInterest / principal) * 100
+            : 0;
+
+        interestResult.textContent = formatNumber(compoundInterest);
+        totalResult.textContent = formatNumber(totalAmount);
+        principalResult.textContent = formatNumber(principal);
+        growthResult.textContent = formatNumber(growth) + "%";
+
+        formulaResult.innerHTML =
+            "<strong>Calculation:</strong> " +
+            formatNumber(principal) +
+            " × (1 + " +
+            rate +
+            "% / " +
+            frequency +
+            ")<sup>" +
+            (frequency * time) +
+            "</sup>" +
+            "<br><strong>Compound Interest:</strong> " +
+            formatNumber(compoundInterest);
+
+        resultBox.style.display = "block";
+    }
+
+    function clearCalculator() {
+        principalInput.value = "";
+        rateInput.value = "";
+        timeInput.value = "";
+        frequencyInput.value = "4";
+
+        resultBox.style.display = "none";
+        errorMessage.style.display = "none";
+
+        principalInput.focus();
+    }
+
+    calculateButton.addEventListener("click", calculateInterest);
+    clearButton.addEventListener("click", clearCalculator);
+
+    [principalInput, rateInput, timeInput].forEach(function(input) {
+        input.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                calculateInterest();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

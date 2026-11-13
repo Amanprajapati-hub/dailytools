@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Calculate the number of days between two dates with the free DailyTools Days Between Dates Calculator. Find total days, weeks, weekdays and weekends instantly.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Days Between Dates Calculator - Calculate Days Online | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .date-field {
+            min-width: 0;
+        }
+
+        .date-field input {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 14px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .date-field input:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .inclusive-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            color: #66667a;
+            font-size: 14px;
+        }
+
+        .inclusive-option input {
+            width: 17px;
+            height: 17px;
+            accent-color: #635bff;
+            cursor: pointer;
+        }
+
+        .inclusive-option label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 30px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
+            .counter-box {
+                padding: 18px;
+            }
+
+            .date-inputs {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .stat-card strong {
+                font-size: 25px;
+            }
+
+            .counter-actions {
+                align-items: center;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE DATE TOOL</span>
+
+            <h1>Days Between <span>Dates.</span></h1>
+
+            <p>
+                Calculate the number of days between two dates instantly.
+                Find total days, weeks, weekdays and weekends with this free calculator.
+            </p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+
+            <div class="counter-box">
+
+                <div class="date-inputs">
+
+                    <div class="date-field">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate">
+                    </div>
+
+                    <div class="date-field">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate">
+                    </div>
+
+                </div>
+
+                <div class="inclusive-option">
+                    <input type="checkbox" id="inclusiveDays">
+                    <label for="inclusiveDays">
+                        Include both start date and end date
+                    </label>
+                </div>
+
+                <div class="counter-actions">
+                    <span id="statusText" role="status" aria-live="polite">
+                        Select two dates to calculate
+                    </span>
+
+                    <button type="button" id="clearButton">
+                        Clear Dates
+                    </button>
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+
+                    <div class="stat-card">
+                        <strong id="totalDays">0</strong>
+                        <span>TOTAL DAYS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="totalWeeks">0</strong>
+                        <span>WEEKS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="weekdays">0</strong>
+                        <span>WEEKDAYS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="weekends">0</strong>
+                        <span>WEEKEND DAYS</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Days Between Dates Calculator?</h2>
+
+                    <p>
+                        A Days Between Dates Calculator is an online date tool
+                        that calculates the time difference between two calendar
+                        dates. Instead of counting days manually, you can select
+                        a start date and an end date to get the result instantly.
+                    </p>
+
+                    <p>
+                        The calculator displays the total number of days,
+                        the equivalent number of weeks, weekdays and weekend
+                        days between your selected dates.
+                    </p>
+
+                    <p>
+                        It also includes an optional setting to count both
+                        the start date and end date in the final result.
+                        This makes it easy to understand different date-counting
+                        methods.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Days Between Dates Calculator</h2>
+
+                    <p>
+                        Follow these simple steps to calculate the difference
+                        between two dates:
+                    </p>
+
+                    <ol>
+                        <li>Select your starting date from the Start Date field.</li>
+                        <li>Select your ending date from the End Date field.</li>
+                        <li>The calculator automatically displays the date difference.</li>
+                        <li>Review the total days, weeks, weekdays and weekend days.</li>
+                        <li>Select Include both start date and end date if you want an inclusive count.</li>
+                        <li>Use Clear Dates to reset the calculator and enter new dates.</li>
+                    </ol>
+
+                    <p>
+                        You do not need to press a separate calculate button.
+                        Results update automatically whenever you change
+                        either date or the inclusive counting option.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Calculator Results</h2>
+
+                    <p>
+                        The calculator provides four measurements to help
+                        you understand the time between your selected dates.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Total Days</h3>
+                            <p>
+                                Shows the complete number of calendar days
+                                between the selected dates. The inclusive
+                                option adds both selected dates to the count.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weeks</h3>
+                            <p>
+                                Converts the total number of days into weeks.
+                                The result is displayed as a decimal value
+                                when the number of days is not a complete week.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weekdays</h3>
+                            <p>
+                                Counts Monday through Friday within the
+                                selected date range, according to the
+                                inclusive or exclusive setting.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weekend Days</h3>
+                            <p>
+                                Counts Saturdays and Sundays within the
+                                selected date range. These are included
+                                in the total calendar days.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Inclusive vs. Exclusive Date Counting</h2>
+
+                    <p>
+                        There are two common ways to calculate the number
+                        of days between dates. The difference is whether
+                        the selected start and end dates are included
+                        in the final count.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Exclusive Counting</h3>
+                            <p>
+                                Counts the days after the start date up to
+                                the end date. The start date is not included
+                                in the result.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Inclusive Counting</h3>
+                            <p>
+                                Includes both the start date and end date.
+                                This produces one additional day compared
+                                with exclusive counting when both dates
+                                are valid.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example:</strong></p>
+
+                        <p>
+                            Start Date: January 1, 2026
+                        </p>
+
+                        <p>
+                            End Date: January 5, 2026
+                        </p>
+
+                        <p>
+                            Exclusive result: 4 days.
+                        </p>
+
+                        <p>
+                            Inclusive result: 5 days.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>How Are Days Between Dates Calculated?</h2>
+
+                    <p>
+                        The basic calculation uses the difference between
+                        the two calendar dates. The date difference is
+                        converted into days by dividing the time difference
+                        by the number of milliseconds in one day.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Basic Formula:</strong></p>
+
+                        <p>
+                            Number of Days = End Date − Start Date
+                        </p>
+
+                        <p>
+                            For inclusive counting, add one day to the
+                            exclusive result.
+                        </p>
+
+                        <p>
+                            Inclusive Days = Exclusive Days + 1
+                        </p>
+                    </div>
+
+                    <p>
+                        The calculator uses calendar-based date calculations
+                        to handle different month lengths and leap years.
+                        This helps avoid errors caused by manually assuming
+                        that every month has the same number of days.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Examples of Date Difference Calculations</h2>
+
+                    <p>
+                        These examples explain how the calculator handles
+                        different date ranges.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Example 1: A Short Date Range</strong></p>
+
+                        <p>
+                            Start Date: March 1, 2026
+                        </p>
+
+                        <p>
+                            End Date: March 8, 2026
+                        </p>
+
+                        <p>
+                            Exclusive difference: 7 days, or exactly 1 week.
+                        </p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 2: A Full Month</strong></p>
+
+                        <p>
+                            Start Date: April 1, 2026
+                        </p>
+
+                        <p>
+                            End Date: May 1, 2026
+                        </p>
+
+                        <p>
+                            Exclusive difference: 30 days.
+                        </p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 3: A Leap Year</strong></p>
+
+                        <p>
+                            Start Date: February 28, 2024
+                        </p>
+
+                        <p>
+                            End Date: March 1, 2024
+                        </p>
+
+                        <p>
+                            Exclusive difference: 2 days because 2024
+                            includes February 29.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Accurate Date Calculations</h2>
+
+                    <ul>
+                        <li>
+                            Double-check both dates before reviewing the result.
+                        </li>
+
+                        <li>
+                            Make sure the end date is not earlier than the start date.
+                        </li>
+
+                        <li>
+                            Choose inclusive counting when both selected
+                            dates should be part of the total.
+                        </li>
+
+                        <li>
+                            Remember that weekdays and weekend days together
+                            make up the total calendar days.
+                        </li>
+
+                        <li>
+                            Keep leap years in mind because February has
+                            29 days during a leap year.
+                        </li>
+
+                        <li>
+                            Review the date range whenever you change
+                            either input.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Days Between Dates Calculator free?</h3>
+
+                        <p>
+                            Yes. The DailyTools Days Between Dates Calculator
+                            is free to use. You can calculate date differences
+                            without creating an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. Does the calculator include the start date?</h3>
+
+                        <p>
+                            By default, the calculator uses exclusive
+                            counting. Select the Include both start date
+                            and end date option to count both dates.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can I calculate days across different months?</h3>
+
+                        <p>
+                            Yes. You can select dates from different months
+                            or years. The calculator automatically accounts
+                            for the number of days in each month.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. Does the calculator handle leap years?</h3>
+
+                        <p>
+                            Yes. Leap years are handled automatically.
+                            February 29 is included when it falls within
+                            the selected date range.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. What happens if the end date is before the start date?</h3>
+
+                        <p>
+                            The calculator will ask you to select an end
+                            date that is the same as or later than the
+                            start date.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. What is the difference between weekdays and weekends?</h3>
+
+                        <p>
+                            Weekdays are Monday through Friday. Weekend
+                            days are Saturday and Sunday. Together, they
+                            account for all calendar days in the selected range.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Can I calculate the difference between dates in different years?</h3>
+
+                        <p>
+                            Yes. Select any valid start and end dates,
+                            including dates from different years.
+                            The calculator will calculate the complete
+                            difference between them.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Does the calculator update automatically?</h3>
+
+                        <p>
+                            Yes. Results update automatically when you
+                            select or change either date or toggle
+                            the inclusive counting option.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const startDate = document.getElementById("startDate");
+    const endDate = document.getElementById("endDate");
+    const inclusiveDays = document.getElementById("inclusiveDays");
+
+    const totalDays = document.getElementById("totalDays");
+    const totalWeeks = document.getElementById("totalWeeks");
+    const weekdays = document.getElementById("weekdays");
+    const weekends = document.getElementById("weekends");
+
+    const clearButton = document.getElementById("clearButton");
+    const statusText = document.getElementById("statusText");
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+
+    function parseDate(dateString) {
+        if (!dateString) {
+            return null;
+        }
+
+        const parts = dateString.split("-").map(Number);
+
+        if (parts.length !== 3) {
+            return null;
+        }
+
+        const [year, month, day] = parts;
+
+        const date = new Date(Date.UTC(year, month - 1, day));
+
+        // Verify that the selected date is valid.
+        if (
+            date.getUTCFullYear() !== year ||
+            date.getUTCMonth() !== month - 1 ||
+            date.getUTCDate() !== day
+        ) {
+            return null;
+        }
+
+        return date;
+    }
+
+    function resetResults() {
+        totalDays.textContent = "0";
+        totalWeeks.textContent = "0";
+        weekdays.textContent = "0";
+        weekends.textContent = "0";
+    }
+
+    function updateCalculation() {
+        const start = parseDate(startDate.value);
+        const end = parseDate(endDate.value);
+
+        if (!startDate.value || !endDate.value) {
+            resetResults();
+
+            statusText.textContent = "Select two dates to calculate";
+            return;
+        }
+
+        if (!start || !end) {
+            resetResults();
+
+            statusText.textContent = "Please enter valid dates";
+            return;
+        }
+
+        if (end < start) {
+            resetResults();
+
+            statusText.textContent =
+                "End date must be the same as or later than start date";
+
+            return;
+        }
+
+        const startTime = start.getTime();
+        const endTime = end.getTime();
+
+        const differenceInDays =
+            (endTime - startTime) / millisecondsPerDay;
+
+        const numberOfDays = differenceInDays +
+            (inclusiveDays.checked ? 1 : 0);
+
+        let weekdayCount = 0;
+        let weekendCount = 0;
+
+        // Count weekdays and weekends using UTC calendar dates.
+        const countingEnd = inclusiveDays.checked
+            ? endTime + millisecondsPerDay
+            : endTime;
+
+        for (
+            let currentTime = startTime;
+            currentTime < countingEnd;
+            currentTime += millisecondsPerDay
+        ) {
+            const currentDate = new Date(currentTime);
+            const dayOfWeek = currentDate.getUTCDay();
+
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                weekendCount++;
+            } else {
+                weekdayCount++;
+            }
+        }
+
+        const weeks = numberOfDays / 7;
+
+        totalDays.textContent = numberOfDays.toLocaleString("en-IN");
+
+        totalWeeks.textContent = weeks.toLocaleString("en-IN", {
+            maximumFractionDigits: 2
+        });
+
+        weekdays.textContent = weekdayCount.toLocaleString("en-IN");
+
+        weekends.textContent = weekendCount.toLocaleString("en-IN");
+
+        statusText.textContent = "Date difference calculated successfully";
+    }
+
+    startDate.addEventListener("change", updateCalculation);
+    endDate.addEventListener("change", updateCalculation);
+    inclusiveDays.addEventListener("change", updateCalculation);
+
+    clearButton.addEventListener("click", function () {
+        startDate.value = "";
+        endDate.value = "";
+        inclusiveDays.checked = false;
+
+        resetResults();
+
+        statusText.textContent = "Select two dates to calculate";
+
+        startDate.focus();
+    });
+
+    // Initialize the calculator.
+    updateCalculation();
+</script>
+
+</body>
+</html>

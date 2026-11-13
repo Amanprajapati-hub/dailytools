@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free online Word Frequency Counter by DailyTools to count how often each word appears in your text. Analyze word frequency, sort results and copy the data easily.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Word Frequency Counter Online | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .frequency-section {
+            padding: 65px 0 80px;
+        }
+
+        .frequency-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .frequency-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 12px;
+        }
+
+        #textInput {
+            width: 100%;
+            min-height: 240px;
+            resize: vertical;
+            padding: 18px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #33334a;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        #textInput:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .frequency-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .option-group label {
+            margin-bottom: 8px;
+        }
+
+        .option-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            color: #33334a;
+            background: #fff;
+            outline: none;
+        }
+
+        .option-group select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .frequency-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+        }
+
+        .frequency-actions button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .analyze-button {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .analyze-button:hover {
+            background: #5046e5;
+        }
+
+        .clear-button {
+            background: #f0efff;
+            color: #635bff;
+        }
+
+        .clear-button:hover {
+            background: #e5e3ff;
+        }
+
+        .results-section {
+            margin-top: 30px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 14px;
+        }
+
+        .results-header h2 {
+            font-size: 20px;
+            color: #17172b;
+        }
+
+        .copy-button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 8px 14px;
+            border-radius: 7px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: #e5e3ff;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .summary-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .summary-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 24px;
+            margin-bottom: 5px;
+            overflow-wrap: anywhere;
+        }
+
+        .summary-card span {
+            color: #77778a;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .frequency-list {
+            border: 1px solid #e9e9f1;
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .frequency-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 100px;
+            gap: 15px;
+            padding: 14px 16px;
+            border-bottom: 1px solid #eeeeF5;
+            align-items: center;
+        }
+
+        .frequency-row:last-child {
+            border-bottom: none;
+        }
+
+        .frequency-word {
+            color: #25253d;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .frequency-count {
+            color: #635bff;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .empty-results {
+            padding: 25px;
+            color: #77778a;
+            text-align: center;
+        }
+
+        .tool-status {
+            margin-top: 12px;
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .frequency-section {
+                padding: 40px 0 55px;
+            }
+
+            .frequency-box {
+                padding: 18px;
+            }
+
+            #textInput {
+                min-height: 200px;
+                padding: 14px;
+            }
+
+            .frequency-options {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .frequency-actions button {
+                width: 100%;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .summary-card {
+                padding: 13px 6px;
+            }
+
+            .summary-card strong {
+                font-size: 20px;
+            }
+
+            .frequency-row {
+                grid-template-columns: minmax(0, 1fr) 75px;
+                padding: 12px;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+
+            <h1>Word Frequency <span>Counter.</span></h1>
+
+            <p>
+                Analyze your text and see how often each word appears.
+                Sort the results by frequency or alphabetically.
+            </p>
+        </div>
+    </section>
+
+    <section class="frequency-section">
+        <div class="container">
+
+            <div class="frequency-box">
+
+                <label for="textInput">Enter or paste your text</label>
+
+                <textarea
+                    id="textInput"
+                    placeholder="Type or paste your text here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div class="frequency-options">
+
+                    <div class="option-group">
+                        <label for="sortOption">Sort results by</label>
+                        <select id="sortOption">
+                            <option value="frequency">Highest frequency</option>
+                            <option value="alphabetical">Alphabetical order</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="minimumCount">Show words appearing at least</label>
+                        <select id="minimumCount">
+                            <option value="1">1 time</option>
+                            <option value="2">2 times</option>
+                            <option value="3">3 times</option>
+                            <option value="5">5 times</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="frequency-actions">
+                    <button type="button" class="analyze-button" id="analyzeButton">
+                        Analyze Text
+                    </button>
+
+                    <button type="button" class="clear-button" id="clearButton">
+                        Clear Text
+                    </button>
+                </div>
+
+                <div class="results-section">
+
+                    <div class="results-header">
+                        <h2>Word Frequency Results</h2>
+
+                        <button type="button" class="copy-button" id="copyButton">
+                            Copy Results
+                        </button>
+                    </div>
+
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <strong id="totalWords">0</strong>
+                            <span>TOTAL WORDS</span>
+                        </div>
+
+                        <div class="summary-card">
+                            <strong id="uniqueWords">0</strong>
+                            <span>UNIQUE WORDS</span>
+                        </div>
+
+                        <div class="summary-card">
+                            <strong id="topFrequency">0</strong>
+                            <span>TOP FREQUENCY</span>
+                        </div>
+                    </div>
+
+                    <div class="frequency-list" id="frequencyList">
+                        <div class="empty-results">
+                            Enter some text and select Analyze Text to see word frequencies.
+                        </div>
+                    </div>
+
+                    <p class="tool-status" id="statusText" role="status" aria-live="polite">
+                        Ready to analyze your text.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Word Frequency Counter?</h2>
+
+                    <p>
+                        A Word Frequency Counter analyzes a piece of text and
+                        shows how many times each individual word appears. It
+                        turns a block of writing into an organized list that
+                        makes repeated words easier to identify.
+                    </p>
+
+                    <p>
+                        The DailyTools Word Frequency Counter counts the total
+                        number of words, identifies the number of unique words
+                        and displays the highest frequency found in the text.
+                        You can also sort the results by frequency or
+                        alphabetically.
+                    </p>
+
+                    <p>
+                        The tool treats uppercase and lowercase versions of the
+                        same word as one word, helping produce cleaner and more
+                        consistent results.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Word Frequency Counter</h2>
+
+                    <ol>
+                        <li>Enter or paste the text into the input box.</li>
+                        <li>Choose how you want the results to be sorted.</li>
+                        <li>Select the minimum number of appearances to display.</li>
+                        <li>Click Analyze Text to create the frequency list.</li>
+                        <li>Review the word counts and summary statistics.</li>
+                        <li>Select Copy Results if you want to copy the list.</li>
+                    </ol>
+
+                    <p>
+                        You can edit the text and analyze it again whenever you
+                        want to generate updated results.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Results</h2>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Total Words</h3>
+                            <p>
+                                Shows the total number of words found in the
+                                text, including repeated words.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Unique Words</h3>
+                            <p>
+                                Shows how many different words appear in the
+                                text after repeated words are combined.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Top Frequency</h3>
+                            <p>
+                                Shows the highest number of times any single
+                                word appears in the analyzed text.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Minimum Count</h3>
+                            <p>
+                                Lets you filter the results so that only words
+                                meeting your selected frequency are displayed.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Word Frequency Example</h2>
+
+                    <div class="example-box">
+                        <p><strong>Example text:</strong></p>
+
+                        <p>
+                            Tools make everyday tasks easier. DailyTools makes
+                            useful tools simple.
+                        </p>
+
+                        <p><strong>Possible results:</strong></p>
+
+                        <p>
+                            tools — 2<br>
+                            make — 2<br>
+                            everyday — 1<br>
+                            tasks — 1<br>
+                            easier — 1<br>
+                            dailytools — 1<br>
+                            useful — 1<br>
+                            simple — 1
+                        </p>
+                    </div>
+
+                    <p>
+                        Punctuation does not create separate words in the
+                        results. For example, “tools,” and “tools” are counted
+                        as the same word.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How Word Frequency Is Calculated</h2>
+
+                    <p>
+                        The tool first separates the entered text into
+                        individual words. Common punctuation is removed and
+                        words are converted to a consistent lowercase format.
+                        Each matching word is then counted.
+                    </p>
+
+                    <p>
+                        For example, the words “Example”, “example” and
+                        “EXAMPLE” are combined into one entry because they
+                        contain the same letters when case differences are
+                        ignored.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Reading Word Frequency Results</h2>
+
+                    <ul>
+                        <li>Start with the highest-frequency words to identify repeated terms.</li>
+                        <li>Use alphabetical sorting to find a specific word quickly.</li>
+                        <li>Increase the minimum count to focus on frequently repeated words.</li>
+                        <li>Review the original text if an unexpected word appears in the results.</li>
+                        <li>Analyze the updated version again after making changes.</li>
+                        <li>Use the Copy Results button to save the frequency list elsewhere.</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Word Frequency Counter free?</h3>
+                        <p>
+                            Yes. You can analyze text and view word frequency
+                            results without creating an account or paying a fee.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. Are uppercase and lowercase words counted together?</h3>
+                        <p>
+                            Yes. The tool treats words with the same spelling as
+                            one entry regardless of whether they use uppercase
+                            or lowercase letters.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Does punctuation affect the word count?</h3>
+                        <p>
+                            Common punctuation around words is removed during
+                            analysis, helping the tool count matching words
+                            together.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. What does unique words mean?</h3>
+                        <p>
+                            Unique words are the different words found in your
+                            text. A word that appears multiple times is counted
+                            only once in the unique word total.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Can I sort the results alphabetically?</h3>
+                        <p>
+                            Yes. Choose Alphabetical Order from the sort menu
+                            before analyzing your text.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Can I hide words with a low frequency?</h3>
+                        <p>
+                            Yes. Select a higher minimum count to display only
+                            words that appear at least the chosen number of times.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Can I copy the frequency results?</h3>
+                        <p>
+                            Yes. Select Copy Results to copy the displayed word
+                            frequency list.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+    const sortOption = document.getElementById("sortOption");
+    const minimumCount = document.getElementById("minimumCount");
+    const analyzeButton = document.getElementById("analyzeButton");
+    const clearButton = document.getElementById("clearButton");
+    const copyButton = document.getElementById("copyButton");
+    const frequencyList = document.getElementById("frequencyList");
+    const totalWords = document.getElementById("totalWords");
+    const uniqueWords = document.getElementById("uniqueWords");
+    const topFrequency = document.getElementById("topFrequency");
+    const statusText = document.getElementById("statusText");
+
+    let currentResults = [];
+
+    function analyzeText() {
+        const text = textInput.value.trim();
+
+        if (!text) {
+            frequencyList.innerHTML =
+                '<div class="empty-results">Please enter some text to analyze.</div>';
+
+            totalWords.textContent = "0";
+            uniqueWords.textContent = "0";
+            topFrequency.textContent = "0";
+            currentResults = [];
+            statusText.textContent = "Please enter some text before analyzing.";
+            textInput.focus();
+            return;
+        }
+
+        /*
+         * Match letters and numbers while supporting many Unicode languages.
+         * Apostrophes inside words are preserved.
+         */
+        const words = text
+            .toLowerCase()
+            .match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) || [];
+
+        const frequencies = new Map();
+
+        words.forEach(function (word) {
+            frequencies.set(word, (frequencies.get(word) || 0) + 1);
+        });
+
+        const minimum = Number.parseInt(minimumCount.value, 10);
+
+        currentResults = Array.from(frequencies.entries())
+            .map(function ([word, count]) {
+                return { word, count };
+            })
+            .filter(function (item) {
+                return item.count >= minimum;
+            });
+
+        if (sortOption.value === "alphabetical") {
+            currentResults.sort(function (a, b) {
+                return a.word.localeCompare(b.word);
+            });
+        } else {
+            currentResults.sort(function (a, b) {
+                if (b.count !== a.count) {
+                    return b.count - a.count;
+                }
+
+                return a.word.localeCompare(b.word);
+            });
+        }
+
+        totalWords.textContent = words.length;
+        uniqueWords.textContent = frequencies.size;
+
+        const highestCount = frequencies.size
+            ? Math.max(...frequencies.values())
+            : 0;
+
+        topFrequency.textContent = highestCount;
+
+        displayResults();
+
+        statusText.textContent =
+            `${currentResults.length} ${currentResults.length === 1 ? "word matches" : "words match"} your current filter.`;
+    }
+
+    function displayResults() {
+        if (!currentResults.length) {
+            frequencyList.innerHTML =
+                '<div class="empty-results">No words match the selected minimum frequency.</div>';
+            return;
+        }
+
+        frequencyList.innerHTML = "";
+
+        currentResults.forEach(function (item) {
+            const row = document.createElement("div");
+            row.className = "frequency-row";
+
+            const word = document.createElement("span");
+            word.className = "frequency-word";
+            word.textContent = item.word;
+
+            const count = document.createElement("span");
+            count.className = "frequency-count";
+            count.textContent =
+                `${item.count} ${item.count === 1 ? "time" : "times"}`;
+
+            row.appendChild(word);
+            row.appendChild(count);
+            frequencyList.appendChild(row);
+        });
+    }
+
+    analyzeButton.addEventListener("click", analyzeText);
+
+    clearButton.addEventListener("click", function () {
+        textInput.value = "";
+        sortOption.value = "frequency";
+        minimumCount.value = "1";
+
+        totalWords.textContent = "0";
+        uniqueWords.textContent = "0";
+        topFrequency.textContent = "0";
+
+        currentResults = [];
+
+        frequencyList.innerHTML =
+            '<div class="empty-results">Enter some text and select Analyze Text to see word frequencies.</div>';
+
+        statusText.textContent = "Ready to analyze your text.";
+        textInput.focus();
+    });
+
+    copyButton.addEventListener("click", async function () {
+        if (!currentResults.length) {
+            statusText.textContent = "There are no results available to copy.";
+            return;
+        }
+
+        const textToCopy = currentResults
+            .map(function (item) {
+                return `${item.word} — ${item.count}`;
+            })
+            .join("\n");
+
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+            copyButton.textContent = "Copied!";
+            statusText.textContent = "The frequency results have been copied.";
+
+            setTimeout(function () {
+                copyButton.textContent = "Copy Results";
+            }, 2000);
+        } catch (error) {
+            const temporaryArea = document.createElement("textarea");
+            temporaryArea.value = textToCopy;
+            document.body.appendChild(temporaryArea);
+            temporaryArea.select();
+            document.execCommand("copy");
+            temporaryArea.remove();
+
+            statusText.textContent = "The frequency results have been copied.";
+        }
+    });
+</script>
+
+</body>
+</html>

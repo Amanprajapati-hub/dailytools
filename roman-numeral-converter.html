@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free online Roman Numeral Converter by DailyTools to convert numbers into Roman numerals and Roman numerals into numbers instantly.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Roman Numeral Converter Online | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        #romanInput {
+            width: 100%;
+            min-height: 60px;
+            padding: 18px 20px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 18px;
+            line-height: 1.8;
+            outline: none;
+            color: #33334a;
+            box-sizing: border-box;
+        }
+
+        #romanInput:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .input-help {
+            display: block;
+            margin-top: 10px;
+            color: #77778a;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 16px;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        .counter-actions .convert-button {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .counter-actions .convert-button:hover {
+            background: #5148e8;
+        }
+
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 30px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
+            .counter-box {
+                padding: 18px;
+            }
+
+            #romanInput {
+                min-height: 55px;
+                padding: 14px;
+            }
+
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .stat-card strong {
+                font-size: 25px;
+            }
+
+            .counter-actions {
+                align-items: center;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE NUMBER TOOL</span>
+
+            <h1>Roman Numeral <span>Converter.</span></h1>
+
+            <p>
+                Convert numbers into Roman numerals and Roman numerals into
+                regular numbers. Enter your value to get an instant result.
+            </p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+
+            <div class="counter-box">
+
+                <label for="romanInput">Enter a Number or Roman Numeral</label>
+
+                <input
+                    type="text"
+                    id="romanInput"
+                    placeholder="Example: 2026 or MMXXVI"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-describedby="statusText inputHelp"
+                >
+
+                <span class="input-help" id="inputHelp">
+                    Enter a whole number between 1 and 3999, or a valid Roman numeral.
+                    The converter automatically detects the input type.
+                </span>
+
+                <div class="counter-actions">
+                    <span id="statusText" role="status" aria-live="polite">
+                        Ready to convert
+                    </span>
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button type="button" class="convert-button" id="convertButton">
+                            Convert
+                        </button>
+
+                        <button type="button" id="copyButton">
+                            Copy Result
+                        </button>
+
+                        <button type="button" id="clearButton">
+                            Clear Text
+                        </button>
+                    </div>
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+
+                    <div class="stat-card">
+                        <strong id="resultValue">—</strong>
+                        <span>CONVERTED RESULT</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="inputLength">0</strong>
+                        <span>INPUT LENGTH</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="resultLength">0</strong>
+                        <span>RESULT LENGTH</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="conversionType">—</strong>
+                        <span>CONVERSION TYPE</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Roman Numeral Converter?</h2>
+
+                    <p>
+                        A Roman Numeral Converter is an online tool that changes
+                        regular numbers into Roman numerals and converts Roman
+                        numerals back into standard numbers. It makes number
+                        conversion simple without requiring manual calculations.
+                    </p>
+
+                    <p>
+                        Roman numerals originated in ancient Rome. Instead of
+                        using digits like 1, 2 and 3, this number system uses
+                        letters such as I, V, X, L, C, D and M to represent
+                        different numerical values.
+                    </p>
+
+                    <p>
+                        The DailyTools Roman Numeral Converter supports both
+                        conversion directions. It automatically identifies
+                        whether you enter a regular number or a Roman numeral
+                        and displays the corresponding result.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Roman Numeral Converter</h2>
+
+                    <p>
+                        You can convert values in either direction using
+                        the same input field. Follow these simple steps:
+                    </p>
+
+                    <ol>
+                        <li>Enter a regular number or Roman numeral in the input box.</li>
+                        <li>For regular numbers, enter a whole number between 1 and 3999.</li>
+                        <li>For Roman numerals, enter letters such as XIV, XL or MMXXVI.</li>
+                        <li>Click the Convert button or simply type to see the result automatically.</li>
+                        <li>Check the converted result and conversion type in the statistics.</li>
+                        <li>Use Copy Result to copy the converted value.</li>
+                        <li>Select Clear Text to start a new conversion.</li>
+                    </ol>
+                </div>
+
+                <div class="content-block">
+                    <h2>Basic Roman Numeral Symbols</h2>
+
+                    <p>
+                        The Roman numeral system uses seven basic symbols.
+                        Each symbol represents a specific numerical value.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>I = 1</h3>
+                            <p>Represents one unit.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>V = 5</h3>
+                            <p>Represents five units.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>X = 10</h3>
+                            <p>Represents ten units.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>L = 50</h3>
+                            <p>Represents fifty units.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>C = 100</h3>
+                            <p>Represents one hundred units.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>D = 500</h3>
+                            <p>Represents five hundred units.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>M = 1000</h3>
+                            <p>Represents one thousand units.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Important Roman Numeral Rules</h2>
+
+                    <p>
+                        Roman numerals follow specific rules for combining
+                        symbols. Understanding these rules helps explain
+                        how different values are represented.
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Addition:</strong> When a smaller value
+                            comes after a larger value, the values are added.
+                            For example, VI = 6.
+                        </li>
+
+                        <li>
+                            <strong>Subtraction:</strong> When a smaller value
+                            comes before a larger value, it is subtracted.
+                            For example, IV = 4.
+                        </li>
+
+                        <li>
+                            <strong>Repeated symbols:</strong> I, X, C and M
+                            can generally be repeated up to three times in a row.
+                        </li>
+
+                        <li>
+                            <strong>Subtractive combinations:</strong> IV, IX,
+                            XL, XC, CD and CM are standard subtractive pairs.
+                        </li>
+
+                        <li>
+                            <strong>Number range:</strong> Standard Roman
+                            numeral notation in this converter supports
+                            whole numbers from 1 to 3999.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Roman Numeral Conversion Examples</h2>
+
+                    <p>
+                        These examples show how regular numbers are written
+                        using Roman numerals.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>1</strong> = I</p>
+                        <p><strong>2</strong> = II</p>
+                        <p><strong>3</strong> = III</p>
+                        <p><strong>4</strong> = IV</p>
+                        <p><strong>5</strong> = V</p>
+                        <p><strong>9</strong> = IX</p>
+                        <p><strong>10</strong> = X</p>
+                        <p><strong>14</strong> = XIV</p>
+                        <p><strong>19</strong> = XIX</p>
+                        <p><strong>40</strong> = XL</p>
+                        <p><strong>49</strong> = XLIX</p>
+                        <p><strong>90</strong> = XC</p>
+                        <p><strong>99</strong> = XCIX</p>
+                        <p><strong>400</strong> = CD</p>
+                        <p><strong>900</strong> = CM</p>
+                        <p><strong>2026</strong> = MMXXVI</p>
+                        <p><strong>3999</strong> = MMMCMXCIX</p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Number to Roman vs. Roman to Number</h2>
+
+                    <p>
+                        These are the two directions supported by the converter.
+                        Both use the same input field, and the tool detects
+                        the format automatically.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Number to Roman</h3>
+                            <p>
+                                Enter a standard number such as 25.
+                                The converter returns XXV.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Roman to Number</h3>
+                            <p>
+                                Enter a Roman numeral such as XXV.
+                                The converter returns 25.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Roman Numeral Converter free?</h3>
+
+                        <p>
+                            Yes. The DailyTools Roman Numeral Converter
+                            is free to use. You can convert numbers in
+                            either direction without creating an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. What is the largest number supported?</h3>
+
+                        <p>
+                            The converter supports standard Roman numeral
+                            values from 1 to 3999.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can I convert Roman numerals into regular numbers?</h3>
+
+                        <p>
+                            Yes. Enter a valid Roman numeral such as XIV
+                            or MMXXVI, and the tool will automatically
+                            convert it into a regular number.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. What does IV mean in Roman numerals?</h3>
+
+                        <p>
+                            IV represents 4. The smaller value I comes
+                            before V, so 1 is subtracted from 5.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Are lowercase Roman numerals accepted?</h3>
+
+                        <p>
+                            Yes. You can enter lowercase Roman numerals.
+                            The converter automatically changes them
+                            into uppercase before processing.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Is there a Roman numeral symbol for zero?</h3>
+
+                        <p>
+                            Traditional Roman numerals do not have a
+                            standard symbol for zero. This converter
+                            accepts numbers starting from 1.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Does the converter accept invalid Roman numerals?</h3>
+
+                        <p>
+                            No. It checks the standard Roman numeral format
+                            and rejects invalid combinations such as IIII,
+                            VV, IC and XM.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Can I copy the conversion result?</h3>
+
+                        <p>
+                            Yes. After converting a value, click Copy Result
+                            to copy it to your clipboard.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const romanInput = document.getElementById("romanInput");
+
+    const resultValue = document.getElementById("resultValue");
+    const inputLength = document.getElementById("inputLength");
+    const resultLength = document.getElementById("resultLength");
+    const conversionType = document.getElementById("conversionType");
+
+    const statusText = document.getElementById("statusText");
+
+    const convertButton = document.getElementById("convertButton");
+    const copyButton = document.getElementById("copyButton");
+    const clearButton = document.getElementById("clearButton");
+
+    let lastResult = "";
+
+    const romanValues = [
+        [1000, "M"],
+        [900, "CM"],
+        [500, "D"],
+        [400, "CD"],
+        [100, "C"],
+        [90, "XC"],
+        [50, "L"],
+        [40, "XL"],
+        [10, "X"],
+        [9, "IX"],
+        [5, "V"],
+        [4, "IV"],
+        [1, "I"]
+    ];
+
+    const romanMap = {
+        I: 1,
+        V: 5,
+        X: 10,
+        L: 50,
+        C: 100,
+        D: 500,
+        M: 1000
+    };
+
+    function numberToRoman(number) {
+        let result = "";
+
+        for (const [value, symbol] of romanValues) {
+            while (number >= value) {
+                result += symbol;
+                number -= value;
+            }
+        }
+
+        return result;
+    }
+
+    function romanToNumber(roman) {
+        let total = 0;
+
+        for (let i = 0; i < roman.length; i++) {
+            const current = romanMap[roman[i]];
+            const next = romanMap[roman[i + 1]] || 0;
+
+            if (current < next) {
+                total -= current;
+            } else {
+                total += current;
+            }
+        }
+
+        return total;
+    }
+
+    function isValidRoman(roman) {
+        if (!roman || !/^[IVXLCDM]+$/.test(roman)) {
+            return false;
+        }
+
+        const value = romanToNumber(roman);
+
+        if (value < 1 || value > 3999) {
+            return false;
+        }
+
+        return numberToRoman(value) === roman;
+    }
+
+    function resetResults() {
+        resultValue.textContent = "—";
+        inputLength.textContent = "0";
+        resultLength.textContent = "0";
+        conversionType.textContent = "—";
+        lastResult = "";
+    }
+
+    function convertValue() {
+        const input = romanInput.value.trim();
+
+        if (!input) {
+            resetResults();
+            statusText.textContent = "Ready to convert";
+            return;
+        }
+
+        inputLength.textContent = Array.from(input).length;
+
+        let result = "";
+        let type = "";
+
+        // Regular number to Roman numeral.
+        if (/^\d+$/.test(input)) {
+            const number = Number(input);
+
+            if (!Number.isSafeInteger(number) || number < 1 || number > 3999) {
+                resetResults();
+                inputLength.textContent = Array.from(input).length;
+                statusText.textContent = "Please enter a whole number between 1 and 3999.";
+                return;
+            }
+
+            result = numberToRoman(number);
+            type = "To Roman";
+        }
+
+        // Roman numeral to regular number.
+        else {
+            const roman = input.toUpperCase();
+
+            if (!isValidRoman(roman)) {
+                resetResults();
+                inputLength.textContent = Array.from(input).length;
+                statusText.textContent = "Invalid input. Enter a number from 1 to 3999 or a valid Roman numeral.";
+                return;
+            }
+
+            result = String(romanToNumber(roman));
+            type = "To Number";
+        }
+
+        lastResult = result;
+
+        resultValue.textContent = result;
+        resultLength.textContent = Array.from(result).length;
+        conversionType.textContent = type;
+
+        statusText.textContent = "Conversion completed successfully.";
+    }
+
+    async function copyResult() {
+        if (!lastResult) {
+            statusText.textContent = "Please convert a value before copying.";
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(lastResult);
+            statusText.textContent = "Result copied successfully!";
+        } catch (error) {
+            statusText.textContent = "Copy is unavailable. Please select and copy the result manually.";
+        }
+    }
+
+    function clearAll() {
+        romanInput.value = "";
+        resetResults();
+        statusText.textContent = "Ready to convert";
+        romanInput.focus();
+    }
+
+    // Automatically convert while typing.
+    romanInput.addEventListener("input", convertValue);
+
+    // Manual conversion button.
+    convertButton.addEventListener("click", convertValue);
+
+    // Copy converted result.
+    copyButton.addEventListener("click", copyResult);
+
+    // Clear input and results.
+    clearButton.addEventListener("click", clearAll);
+
+    // Allow Enter key to trigger conversion.
+    romanInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            convertValue();
+        }
+    });
+
+    // Initial state.
+    resetResults();
+</script>
+
+</body>
+</html>

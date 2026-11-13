@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free online Text Repeater by DailyTools to repeat any text multiple times with your preferred separator. Generate, copy and clear repeated text easily.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Text Repeater Online - Repeat Text Easily | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .repeater-section {
+            padding: 65px 0 80px;
+        }
+
+        .repeater-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 10px;
+        }
+
+        .form-group textarea,
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            background: #fff;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+
+        .form-group textarea:focus,
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .repeater-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .custom-separator {
+            display: none;
+        }
+
+        .custom-separator.show {
+            display: block;
+        }
+
+        .repeater-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .repeater-actions button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .generate-button {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .generate-button:hover {
+            background: #5046e5;
+        }
+
+        .clear-button {
+            background: #f0efff;
+            color: #635bff;
+        }
+
+        .clear-button:hover {
+            background: #e5e3ff;
+        }
+
+        .output-section {
+            margin-top: 28px;
+        }
+
+        .output-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .output-heading label {
+            font-weight: 700;
+            color: #17172b;
+        }
+
+        .copy-button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 8px 14px;
+            border-radius: 7px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: #e5e3ff;
+        }
+
+        #outputText {
+            width: 100%;
+            min-height: 200px;
+            resize: vertical;
+            padding: 16px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #33334a;
+            background: #f8f8ff;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .tool-status {
+            margin-top: 12px;
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .repeater-section {
+                padding: 40px 0 55px;
+            }
+
+            .repeater-box {
+                padding: 18px;
+            }
+
+            .repeater-options {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .repeater-actions button {
+                width: 100%;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+
+            <h1>Text <span>Repeater.</span></h1>
+
+            <p>
+                Repeat any text multiple times with a separator of your choice.
+                Generate the repeated text instantly and copy the result when finished.
+            </p>
+        </div>
+    </section>
+
+    <section class="repeater-section">
+        <div class="container">
+
+            <div class="repeater-box">
+
+                <div class="form-group">
+                    <label for="textInput">Enter the text you want to repeat</label>
+                    <textarea
+                        id="textInput"
+                        placeholder="Type or paste your text here..."
+                    ></textarea>
+                </div>
+
+                <div class="repeater-options">
+
+                    <div class="form-group">
+                        <label for="repeatCount">Number of repetitions</label>
+                        <input
+                            type="number"
+                            id="repeatCount"
+                            value="5"
+                            min="1"
+                            max="1000"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="separator">Choose a separator</label>
+                        <select id="separator">
+                            <option value="newline">New Line</option>
+                            <option value="space">Space</option>
+                            <option value="comma">Comma</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group custom-separator" id="customSeparatorGroup">
+                    <label for="customSeparator">Custom separator</label>
+                    <input
+                        type="text"
+                        id="customSeparator"
+                        placeholder="For example: | or -"
+                    >
+                </div>
+
+                <div class="repeater-actions">
+                    <button type="button" class="generate-button" id="generateButton">
+                        Repeat Text
+                    </button>
+
+                    <button type="button" class="clear-button" id="clearButton">
+                        Clear
+                    </button>
+                </div>
+
+                <div class="output-section">
+
+                    <div class="output-heading">
+                        <label for="outputText">Repeated text</label>
+
+                        <button type="button" class="copy-button" id="copyButton">
+                            Copy Output
+                        </button>
+                    </div>
+
+                    <textarea
+                        id="outputText"
+                        placeholder="Your repeated text will appear here..."
+                        readonly
+                    ></textarea>
+
+                    <p class="tool-status" id="statusText" role="status" aria-live="polite">
+                        Enter text and choose how many times you want to repeat it.
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Text Repeater?</h2>
+
+                    <p>
+                        A text repeater is a simple online tool that creates
+                        multiple copies of the same text automatically. Instead
+                        of manually copying and pasting the same words several
+                        times, you can enter the text once and choose the number
+                        of repetitions you need.
+                    </p>
+
+                    <p>
+                        This Text Repeater also lets you control how each copy
+                        is separated. You can place each repetition on a new
+                        line, add a space between copies, use commas or enter
+                        your own custom separator.
+                    </p>
+
+                    <p>
+                        The generated result appears in the output box, where
+                        you can review and copy the completed text.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Text Repeater</h2>
+
+                    <ol>
+                        <li>Enter or paste the text you want to repeat.</li>
+                        <li>Enter the number of times you want the text repeated.</li>
+                        <li>Choose a separator between each copy of the text.</li>
+                        <li>Select Custom if you want to enter your own separator.</li>
+                        <li>Click the Repeat Text button to generate the result.</li>
+                        <li>Review the output and select Copy Output when you are ready.</li>
+                    </ol>
+
+                    <p>
+                        You can change the text, repeat count or separator at
+                        any time and generate a new result.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Choose How Your Text Is Separated</h2>
+
+                    <p>
+                        The separator controls what appears between each repeated
+                        copy of your text. Different separators can create
+                        different output formats.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>New Line</h3>
+                            <p>
+                                Places every repeated copy on its own line,
+                                creating a clear vertical list.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Space</h3>
+                            <p>
+                                Keeps all repeated copies together with a
+                                single space between each one.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Comma</h3>
+                            <p>
+                                Separates each copy with a comma and space,
+                                creating a simple comma-separated result.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Custom</h3>
+                            <p>
+                                Lets you enter your own separator, such as
+                                a dash, vertical bar or another character.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Text Repeater Examples</h2>
+
+                    <div class="example-box">
+                        <p><strong>Example 1: New Line Separator</strong></p>
+
+                        <p>
+                            Text: Hello<br>
+                            Repeat count: 3
+                        </p>
+
+                        <p>
+                            Output:<br>
+                            Hello<br>
+                            Hello<br>
+                            Hello
+                        </p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 2: Comma Separator</strong></p>
+
+                        <p>
+                            Text: DailyTools<br>
+                            Repeat count: 3
+                        </p>
+
+                        <p>
+                            Output:<br>
+                            DailyTools, DailyTools, DailyTools
+                        </p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 3: Custom Separator</strong></p>
+
+                        <p>
+                            Text: Example<br>
+                            Repeat count: 4<br>
+                            Custom separator: |
+                        </p>
+
+                        <p>
+                            Output:<br>
+                            Example | Example | Example | Example
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding Repeat Count</h2>
+
+                    <p>
+                        The repeat count determines the total number of copies
+                        created by the tool. If you enter a repeat count of 5,
+                        the original text will appear five times in the final
+                        output.
+                    </p>
+
+                    <p>
+                        The DailyTools Text Repeater allows repeat counts from
+                        1 to 1,000. Keeping a reasonable repeat count can make
+                        the generated output easier to review and manage.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Creating Clean Repeated Text</h2>
+
+                    <ul>
+                        <li>Check your original text before generating the output.</li>
+                        <li>Choose a separator that makes the final result easy to read.</li>
+                        <li>Use a new line separator when each copy should appear separately.</li>
+                        <li>Use a custom separator when you need a specific format.</li>
+                        <li>Review the generated output before copying or sharing it.</li>
+                        <li>Use the Clear button to quickly start with a new text entry.</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the DailyTools Text Repeater free?</h3>
+                        <p>
+                            Yes. You can repeat text and generate output without
+                            creating an account or paying a usage fee.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. How many times can I repeat text?</h3>
+                        <p>
+                            You can select a repeat count from 1 to 1,000 using
+                            the number field.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can I choose a custom separator?</h3>
+                        <p>
+                            Yes. Select Custom from the separator menu and enter
+                            the character or text you want to place between each
+                            repeated copy.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. Can I copy the generated text?</h3>
+                        <p>
+                            Yes. After generating the output, select the Copy
+                            Output button to copy the repeated text.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Does the tool change my original text?</h3>
+                        <p>
+                            No. The text you enter remains in the input box.
+                            The repeated version is created separately in the
+                            output area.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Can I clear everything and start again?</h3>
+                        <p>
+                            Yes. Select the Clear button to remove the entered
+                            text, generated output and reset the tool.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+    const repeatCount = document.getElementById("repeatCount");
+    const separator = document.getElementById("separator");
+    const customSeparator = document.getElementById("customSeparator");
+    const customSeparatorGroup = document.getElementById("customSeparatorGroup");
+    const outputText = document.getElementById("outputText");
+    const generateButton = document.getElementById("generateButton");
+    const clearButton = document.getElementById("clearButton");
+    const copyButton = document.getElementById("copyButton");
+    const statusText = document.getElementById("statusText");
+
+    separator.addEventListener("change", function () {
+        if (separator.value === "custom") {
+            customSeparatorGroup.classList.add("show");
+        } else {
+            customSeparatorGroup.classList.remove("show");
+        }
+    });
+
+    function getSeparator() {
+        switch (separator.value) {
+            case "space":
+                return " ";
+
+            case "comma":
+                return ", ";
+
+            case "custom":
+                return customSeparator.value;
+
+            case "newline":
+            default:
+                return "\n";
+        }
+    }
+
+    function generateText() {
+        const text = textInput.value;
+        const count = Number.parseInt(repeatCount.value, 10);
+
+        if (!text.trim()) {
+            outputText.value = "";
+            statusText.textContent = "Please enter some text before repeating it.";
+            textInput.focus();
+            return;
+        }
+
+        if (!Number.isInteger(count) || count < 1 || count > 1000) {
+            outputText.value = "";
+            statusText.textContent = "Please enter a repeat count between 1 and 1,000.";
+            repeatCount.focus();
+            return;
+        }
+
+        const selectedSeparator = getSeparator();
+        outputText.value = Array(count).fill(text).join(selectedSeparator);
+
+        statusText.textContent =
+            `Your text was repeated ${count} ${count === 1 ? "time" : "times"}.`;
+    }
+
+    generateButton.addEventListener("click", generateText);
+
+    clearButton.addEventListener("click", function () {
+        textInput.value = "";
+        repeatCount.value = "5";
+        separator.value = "newline";
+        customSeparator.value = "";
+        customSeparatorGroup.classList.remove("show");
+        outputText.value = "";
+        statusText.textContent =
+            "Enter text and choose how many times you want to repeat it.";
+        textInput.focus();
+    });
+
+    copyButton.addEventListener("click", async function () {
+        if (!outputText.value) {
+            statusText.textContent = "Generate some repeated text before copying.";
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(outputText.value);
+            copyButton.textContent = "Copied!";
+            statusText.textContent = "The repeated text has been copied.";
+
+            setTimeout(function () {
+                copyButton.textContent = "Copy Output";
+            }, 2000);
+        } catch (error) {
+            outputText.select();
+            document.execCommand("copy");
+            statusText.textContent = "The repeated text has been copied.";
+        }
+    });
+</script>
+
+</body>
+</html>

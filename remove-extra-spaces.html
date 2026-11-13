@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free Remove Extra Spaces tool by DailyTools to clean unnecessary spaces from your text and create a neat, readable result instantly.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Remove Extra Spaces Online - Clean Text Instantly | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .tool-section {
+            padding: 65px 0 80px;
+        }
+
+        .tool-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        .text-area {
+            width: 100%;
+            min-height: 210px;
+            resize: vertical;
+            padding: 18px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #33334a;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .text-area:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .tool-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .primary-action,
+        .secondary-action {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .primary-action {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .primary-action:hover {
+            background: #5048e5;
+        }
+
+        .secondary-action {
+            background: #f0efff;
+            color: #635bff;
+        }
+
+        .secondary-action:hover {
+            background: #e5e3ff;
+        }
+
+        .result-section {
+            margin-top: 28px;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .result-header h2 {
+            color: #17172b;
+            font-size: 18px;
+        }
+
+        .copy-button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 9px 15px;
+            border-radius: 8px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: #e5e3ff;
+        }
+
+        .result-box {
+            min-height: 140px;
+            padding: 18px;
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 12px;
+            color: #4f5065;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .result-placeholder {
+            color: #85869a;
+        }
+
+        .status-text {
+            min-height: 20px;
+            margin-top: 12px;
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .tool-section {
+                padding: 40px 0 55px;
+            }
+
+            .tool-box {
+                padding: 18px;
+            }
+
+            .text-area {
+                min-height: 190px;
+                padding: 14px;
+            }
+
+            .tool-actions {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .primary-action,
+            .secondary-action {
+                width: 100%;
+            }
+
+            .result-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .copy-button {
+                width: 100%;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE TEXT TOOL</span>
+
+            <h1>Remove Extra <span>Spaces.</span></h1>
+
+            <p>
+                Clean unnecessary spaces from your text and create a neat,
+                readable result in just one click.
+            </p>
+        </div>
+    </section>
+
+    <section class="tool-section">
+        <div class="container">
+
+            <div class="tool-box">
+
+                <label for="textInput" class="input-label">
+                    Enter or paste your text
+                </label>
+
+                <textarea
+                    id="textInput"
+                    class="text-area"
+                    placeholder="Paste or type text with extra spaces here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div class="tool-actions">
+                    <button type="button" class="primary-action" id="cleanButton">
+                        Remove Extra Spaces
+                    </button>
+
+                    <button type="button" class="secondary-action" id="clearButton">
+                        Clear Text
+                    </button>
+                </div>
+
+                <div class="status-text" id="statusText" role="status" aria-live="polite"></div>
+
+                <div class="result-section">
+                    <div class="result-header">
+                        <h2>Cleaned Text</h2>
+
+                        <button type="button" class="copy-button" id="copyButton">
+                            Copy Result
+                        </button>
+                    </div>
+
+                    <div class="result-box" id="resultBox">
+                        <span class="result-placeholder">
+                                                              Your cleaned text will appear here.
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Remove Extra Spaces Tool?</h2>
+
+                    <p>
+                        A Remove Extra Spaces tool cleans text by reducing
+                        unnecessary whitespace. It can turn multiple spaces
+                        between words into a single space and remove unwanted
+                        spaces from the beginning and end of the text.
+                    </p>
+
+                    <p>
+                        Extra spaces can appear when text is copied from
+                        documents, websites or other applications. Cleaning
+                        the text makes it look more consistent and easier
+                        to read.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Remove Extra Spaces Tool</h2>
+
+                    <p>
+                        Cleaning your text only takes a few simple steps:
+                    </p>
+
+                    <ol>
+                        <li>Type or paste your text into the input box.</li>
+                        <li>Select the Remove Extra Spaces button.</li>
+                        <li>Review the cleaned version in the result area.</li>
+                        <li>Select Copy Result to copy the cleaned text.</li>
+                        <li>Use Clear Text when you want to start with new content.</li>
+                    </ol>
+                </div>
+
+                <div class="content-block">
+                    <h2>How the Tool Cleans Your Text</h2>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Multiple Spaces</h3>
+                            <p>
+                                Consecutive spaces between words are reduced
+                                to a single space for a cleaner result.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Leading Spaces</h3>
+                            <p>
+                                Unnecessary whitespace at the beginning of
+                                the text is removed.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Trailing Spaces</h3>
+                            <p>
+                                Extra whitespace at the end of the text is
+                                removed from the final result.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Readable Output</h3>
+                            <p>
+                                The cleaned text keeps your words in a more
+                                consistent and readable format.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Examples of Extra Space Removal</h2>
+
+                    <div class="example-box">
+                        <p><strong>Example 1: Multiple spaces</strong></p>
+
+                        <p>
+                            Before: <strong>DailyTools&nbsp;&nbsp;&nbsp;&nbsp;makes&nbsp;&nbsp;&nbsp;tasks easier.</strong>
+                        </p>
+
+                        <p>
+                            After: <strong>DailyTools makes tasks easier.</strong>
+                        </p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 2: Spaces at the beginning and end</strong></p>
+
+                        <p>
+                            Before: <strong>&nbsp;&nbsp;&nbsp;Clean this text&nbsp;&nbsp;&nbsp;</strong>
+                        </p>
+
+                        <p>
+                            After: <strong>Clean this text</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Cleaner Text</h2>
+
+                    <ul>
+                        <li>Review the cleaned result before copying it to another document.</li>
+                        <li>Keep a copy of the original text if its exact spacing is important.</li>
+                        <li>Use consistent spacing to make paragraphs easier to read.</li>
+                        <li>Check copied text for formatting changes after pasting.</li>
+                        <li>Use the Copy Result button to quickly move the cleaned text elsewhere.</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Remove Extra Spaces tool free?</h3>
+
+                        <p>
+                            Yes. You can use this tool to clean text without
+                            creating an account or paying a fee.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. Does the tool remove spaces between all words?</h3>
+
+                        <p>
+                            No. The tool keeps a single space between words
+                            while removing unnecessary consecutive spaces.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can I copy the cleaned result?</h3>
+
+                        <p>
+                            Yes. Select the Copy Result button to copy the
+                            cleaned text to your clipboard.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. Will the original text change automatically?</h3>
+
+                        <p>
+                            No. The cleaned version appears separately in
+                            the result area so you can compare it with the
+                            original text.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Does the tool remove spaces at the beginning and end?</h3>
+
+                        <p>
+                            Yes. Leading and trailing whitespace is removed
+                            from the cleaned result.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Can I clean a large amount of text?</h3>
+
+                        <p>
+                            Yes. You can paste multiple paragraphs into the
+                            text area and clean the unnecessary spaces.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const textInput = document.getElementById("textInput");
+    const cleanButton = document.getElementById("cleanButton");
+    const clearButton = document.getElementById("clearButton");
+    const copyButton = document.getElementById("copyButton");
+    const resultBox = document.getElementById("resultBox");
+    const statusText = document.getElementById("statusText");
+
+    let cleanedText = "";
+
+    function cleanText() {
+        const originalText = textInput.value;
+
+        if (!originalText.trim()) {
+            cleanedText = "";
+            resultBox.innerHTML = `
+                <span class="result-placeholder">
+                    Your cleaned text will appear here.
+                </span>
+            `;
+            statusText.textContent = "Please enter some text first.";
+            return;
+        }
+
+        cleanedText = originalText
+            .trim()
+            .replace(/[ \t]+/g, " ")
+            .replace(/ *\n */g, "\n")
+            .replace(/\n{3,}/g, "\n\n");
+
+        resultBox.textContent = cleanedText;
+        statusText.textContent = "Extra spaces removed successfully.";
+    }
+
+    cleanButton.addEventListener("click", cleanText);
+
+    clearButton.addEventListener("click", function () {
+        textInput.value = "";
+        cleanedText = "";
+
+        resultBox.innerHTML = `
+            <span class="result-placeholder">
+                Your cleaned text will appear here.
+            </span>
+        `;
+
+        statusText.textContent = "";
+        textInput.focus();
+    });
+
+    copyButton.addEventListener("click", async function () {
+        if (!cleanedText) {
+            statusText.textContent = "There is no cleaned text to copy.";
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(cleanedText);
+            statusText.textContent = "Cleaned text copied successfully.";
+
+            copyButton.textContent = "Copied!";
+
+            setTimeout(function () {
+                copyButton.textContent = "Copy Result";
+            }, 1500);
+        } catch (error) {
+            statusText.textContent = "Unable to copy automatically. Please copy the text manually.";
+        }
+    });
+</script>
+
+</body>
+</html>

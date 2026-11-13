@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Calculate the time duration between two times with the free DailyTools Time Duration Calculator. Find total hours, minutes, seconds and decimal hours instantly.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Time Duration Calculator - Calculate Hours & Minutes | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .time-field {
+            min-width: 0;
+        }
+
+        .time-field input {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 14px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            outline: none;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .time-field input:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .duration-options {
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #66667a;
+            font-size: 14px;
+        }
+
+        .duration-options input {
+            width: 17px;
+            height: 17px;
+            accent-color: #635bff;
+            cursor: pointer;
+        }
+
+        .duration-options label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #f0efff;
+            color: #635bff;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        .counter-actions button:hover {
+            background: #e5e3ff;
+        }
+
+        .counter-actions .calculate-btn {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .counter-actions .calculate-btn:hover {
+            background: #5148e5;
+        }
+
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 25px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
+            .counter-box {
+                padding: 18px;
+            }
+
+            .time-inputs {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .stat-card strong {
+                font-size: 23px;
+            }
+
+            .counter-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                width: 100%;
+            }
+
+            .action-buttons button {
+                flex: 1;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE TIME TOOL</span>
+
+            <h1>Time Duration <span>Calculator.</span></h1>
+
+            <p>
+                Calculate the time difference between two times.
+                Find total hours, minutes, seconds and decimal hours instantly.
+            </p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+
+            <div class="counter-box">
+
+                <div class="time-inputs">
+
+                    <div class="time-field">
+                        <label for="startTime">Start Time</label>
+                        <input type="time" id="startTime" step="1" value="00:00:00">
+                    </div>
+
+                    <div class="time-field">
+                        <label for="endTime">End Time</label>
+                        <input type="time" id="endTime" step="1" value="00:00:00">
+                    </div>
+
+                </div>
+
+                <div class="duration-options">
+                    <input type="checkbox" id="nextDay">
+                    <label for="nextDay">
+                        End time is on the next day
+                    </label>
+                </div>
+
+                <div class="counter-actions">
+
+                    <span id="statusText" role="status" aria-live="polite">
+                        Enter start and end times, then calculate.
+                    </span>
+
+                    <div class="action-buttons">
+                        <button type="button" class="calculate-btn" id="calculateButton">
+                            Calculate Duration
+                        </button>
+
+                        <button type="button" id="resetButton">
+                            Reset
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+
+                    <div class="stat-card">
+                        <strong id="totalHours">0</strong>
+                        <span>TOTAL HOURS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="totalMinutes">0</strong>
+                        <span>TOTAL MINUTES</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="totalSeconds">0</strong>
+                        <span>TOTAL SECONDS</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <strong id="decimalHours">0</strong>
+                        <span>DECIMAL HOURS</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is a Time Duration Calculator?</h2>
+
+                    <p>
+                        A Time Duration Calculator is an online tool that
+                        measures the amount of time between a starting time
+                        and an ending time. It converts the difference into
+                        hours, minutes and seconds.
+                    </p>
+
+                    <p>
+                        Enter two times and click Calculate Duration to get
+                        the result. The calculator also displays the duration
+                        in decimal hours, which is useful for numerical calculations.
+                    </p>
+
+                    <p>
+                        The DailyTools Time Duration Calculator supports
+                        time ranges that cross midnight through its next-day
+                        option.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Time Duration Calculator</h2>
+
+                    <p>
+                        Follow these simple steps to calculate the duration
+                        between two times:
+                    </p>
+
+                    <ol>
+                        <li>Enter the starting time in the Start Time field.</li>
+                        <li>Enter the ending time in the End Time field.</li>
+                        <li>Select End time is on the next day if the time range crosses midnight.</li>
+                        <li>Click the Calculate Duration button.</li>
+                        <li>Review the total hours, minutes and seconds.</li>
+                        <li>Click Reset to restore the calculator to its default values.</li>
+                    </ol>
+
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Four Time Duration Results</h2>
+
+                    <p>
+                        Each result represents the same time duration
+                        in a different unit.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Total Hours</h3>
+                            <p>
+                                Shows the complete duration converted
+                                into hours. The result can include
+                                fractional hours.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Total Minutes</h3>
+                            <p>
+                                Shows the complete duration in minutes.
+                                Every hour contains 60 minutes.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Total Seconds</h3>
+                            <p>
+                                Converts the entire duration into seconds.
+                                Every minute contains 60 seconds.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Decimal Hours</h3>
+                            <p>
+                                Displays the duration as a decimal number
+                                of hours. For example, 90 minutes equals
+                                1.5 hours.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding Time Duration Formulas</h2>
+
+                    <p>
+                        A time duration is calculated by subtracting
+                        the starting time from the ending time.
+                        The resulting difference can then be converted
+                        into different time units.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Basic Formula:</strong></p>
+                        <p>Duration = End Time − Start Time</p>
+
+                        <p><strong>Convert to Minutes:</strong></p>
+                        <p>Total Minutes = Total Seconds ÷ 60</p>
+
+                        <p><strong>Convert to Hours:</strong></p>
+                        <p>Total Hours = Total Seconds ÷ 3600</p>
+                    </div>
+
+                    <p>
+                        When the end time belongs to the next calendar day,
+                        24 hours are added to the ending time before
+                        calculating the difference.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Examples of Time Duration Calculations</h2>
+
+                    <p>
+                        These examples explain how the calculator
+                        converts a time range into different units.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Example 1: One Hour Duration</strong></p>
+                        <p>Start Time: 09:00:00</p>
+                        <p>End Time: 10:00:00</p>
+                        <p>Duration: 1 hour</p>
+                        <p>Minutes: 60</p>
+                        <p>Seconds: 3,600</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 2: One and a Half Hours</strong></p>
+                        <p>Start Time: 08:00:00</p>
+                        <p>End Time: 09:30:00</p>
+                        <p>Duration: 1 hour 30 minutes</p>
+                        <p>Minutes: 90</p>
+                        <p>Decimal Hours: 1.5</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p><strong>Example 3: Overnight Duration</strong></p>
+                        <p>Start Time: 22:00:00</p>
+                        <p>End Time: 02:00:00</p>
+                        <p>Next Day Option: Enabled</p>
+                        <p>Duration: 4 hours</p>
+                        <p>Minutes: 240</p>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding Decimal Hours</h2>
+
+                    <p>
+                        Decimal hours express a time duration as a number
+                        with a decimal point instead of separate hours
+                        and minutes. This makes time easier to use
+                        in mathematical calculations.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>30 Minutes</h3>
+                            <p>30 minutes is equal to 0.5 decimal hours.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>15 Minutes</h3>
+                            <p>15 minutes is equal to 0.25 decimal hours.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>45 Minutes</h3>
+                            <p>45 minutes is equal to 0.75 decimal hours.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>90 Minutes</h3>
+                            <p>90 minutes is equal to 1.5 decimal hours.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Accurate Time Calculations</h2>
+
+                    <ul>
+                        <li>Check that both starting and ending times are entered correctly.</li>
+                        <li>Use the next-day option when the ending time falls after midnight.</li>
+                        <li>Remember that one hour contains 60 minutes.</li>
+                        <li>Remember that one minute contains 60 seconds.</li>
+                        <li>Use decimal hours when working with numerical time calculations.</li>
+                        <li>Click Calculate Duration after entering or changing the times.</li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is the Time Duration Calculator free?</h3>
+                        <p>
+                            Yes. The DailyTools Time Duration Calculator
+                            is free to use. You can calculate time
+                            differences without creating an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. Can I calculate time in hours and minutes?</h3>
+                        <p>
+                            Yes. Enter your starting and ending times
+                            and click Calculate Duration. The calculator
+                            displays total hours, minutes and seconds.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can this calculator handle overnight time?</h3>
+                        <p>
+                            Yes. Enable the End time is on the next day
+                            option when your ending time falls after
+                            midnight.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. What are decimal hours?</h3>
+                        <p>
+                            Decimal hours represent time as a decimal
+                            number. For example, 1 hour and 30 minutes
+                            is equal to 1.5 hours.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. How many minutes are in one hour?</h3>
+                        <p>
+                            One hour contains 60 minutes. To convert
+                            hours into minutes, multiply the number
+                            of hours by 60.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. How many seconds are in one minute?</h3>
+                        <p>
+                            One minute contains 60 seconds. One hour
+                            contains 3,600 seconds.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Do I need to click Calculate Duration?</h3>
+                        <p>
+                            Yes. Enter both times and click Calculate Duration
+                            to display the updated results.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Can I calculate a duration of zero?</h3>
+                        <p>
+                            Yes. If the starting and ending times
+                            are identical and the next-day option
+                            is not selected, the duration is zero.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const startTime = document.getElementById("startTime");
+    const endTime = document.getElementById("endTime");
+    const nextDay = document.getElementById("nextDay");
+
+    const totalHours = document.getElementById("totalHours");
+    const totalMinutes = document.getElementById("totalMinutes");
+    const totalSeconds = document.getElementById("totalSeconds");
+    const decimalHours = document.getElementById("decimalHours");
+
+    const calculateButton = document.getElementById("calculateButton");
+    const resetButton = document.getElementById("resetButton");
+    const statusText = document.getElementById("statusText");
+
+    function parseTime(value) {
+        if (!value) {
+            return null;
+        }
+
+        const parts = value.split(":").map(Number);
+
+        if (parts.length < 2 || parts.length > 3) {
+            return null;
+        }
+
+        const [hours, minutes, seconds = 0] = parts;
+
+        if (
+            !Number.isInteger(hours) ||
+            !Number.isInteger(minutes) ||
+            !Number.isInteger(seconds) ||
+            hours < 0 || hours > 23 ||
+            minutes < 0 || minutes > 59 ||
+            seconds < 0 || seconds > 59
+        ) {
+            return null;
+        }
+
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+    function resetResults() {
+        totalHours.textContent = "0";
+        totalMinutes.textContent = "0";
+        totalSeconds.textContent = "0";
+        decimalHours.textContent = "0";
+    }
+
+    function calculateDuration() {
+        const start = parseTime(startTime.value);
+        const end = parseTime(endTime.value);
+
+        if (!startTime.value || !endTime.value) {
+            resetResults();
+            statusText.textContent = "Please enter both start and end times.";
+            return;
+        }
+
+        if (start === null || end === null) {
+            resetResults();
+            statusText.textContent = "Please enter valid times.";
+            return;
+        }
+
+        let difference = end - start;
+
+        if (nextDay.checked) {
+            difference += 24 * 60 * 60;
+        } else if (difference < 0) {
+            resetResults();
+
+            statusText.textContent =
+                "End time is earlier. Select the next-day option.";
+
+            return;
+        }
+
+        const hours = Math.floor(difference / 3600);
+        const minutes = Math.floor((difference % 3600) / 60);
+        const seconds = difference % 60;
+
+        const minutesTotal = difference / 60;
+        const hoursDecimal = difference / 3600;
+
+        totalHours.textContent = hours.toLocaleString("en-IN");
+        totalMinutes.textContent = minutesTotal.toLocaleString("en-IN");
+        totalSeconds.textContent = difference.toLocaleString("en-IN");
+
+        decimalHours.textContent = hoursDecimal.toLocaleString("en-IN", {
+            maximumFractionDigits: 4
+        });
+
+        statusText.textContent =
+            `Duration: ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+    }
+
+    function resetCalculator() {
+        startTime.value = "00:00:00";
+        endTime.value = "00:00:00";
+        nextDay.checked = false;
+
+        resetResults();
+
+        statusText.textContent =
+            "Calculator reset. Enter your start and end times.";
+
+        startTime.focus();
+    }
+
+    calculateButton.addEventListener("click", calculateDuration);
+    resetButton.addEventListener("click", resetCalculator);
+
+    // Allow Enter key to calculate duration.
+    [startTime, endTime].forEach(function (field) {
+        field.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                calculateDuration();
+            }
+        });
+    });
+
+    // Initial calculator state.
+    resetResults();
+</script>
+
+</body>
+</html>

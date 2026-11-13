@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Use our free Random Name Picker to select a random winner from a list of names. Perfect for classrooms, giveaways, contests, and more.">
+    <meta name="keywords" content="random name picker, pick a random name, name selector, random winner picker, free name picker">
+    <meta name="author" content="DailyTools">
+    <title>Random Name Picker - Pick a Random Winner Online | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 55px 20px;
+            background: #f8fafc;
+        }
+
+        .counter-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .counter-box {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+
+        .counter-box h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .counter-description {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        #nameInput {
+            width: 100%;
+            min-height: 190px;
+            padding: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        #nameInput:focus {
+            border-color: #635bff;
+        }
+
+        .input-help {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        .picker-options {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .picker-options label {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .picker-options input[type="number"] {
+            width: 85px;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .picker-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .counter-actions button {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .counter-actions button:first-child {
+            background: #635bff;
+            color: #ffffff;
+        }
+
+        .counter-actions button:first-child:hover {
+            background: #5148e5;
+        }
+
+        .counter-actions button:not(:first-child) {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .counter-actions button:not(:first-child):hover {
+            background: #cbd5e1;
+        }
+
+        .winner-section {
+            margin-top: 28px;
+            padding: 25px;
+            background: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .winner-section h3 {
+            color: #475569;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .winner-name {
+            color: #635bff;
+            font-size: 30px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+            min-height: 42px;
+        }
+
+        .winner-placeholder {
+            color: #94a3b8;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            padding: 20px 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            overflow-wrap: anywhere;
+        }
+
+        .history-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .history-section h3 {
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        #historyList {
+            list-style-position: inside;
+            color: #475569;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .history-empty {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .tool-content {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .content-block {
+            margin-bottom: 35px;
+        }
+
+        .content-block h2 {
+            color: #1e293b;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .content-block h3 {
+            color: #334155;
+            font-size: 19px;
+            margin: 20px 0 10px;
+        }
+
+        .content-block p,
+        .content-block li {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            padding-left: 22px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+        }
+
+        .example-box {
+            padding: 18px;
+            background: #f1f5f9;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .faq-item {
+            padding: 18px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .faq-item h3 {
+            color: #1e293b;
+            margin: 0 0 10px;
+            font-size: 17px;
+        }
+
+        .faq-item p {
+            color: #64748b;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .counter-section {
+                padding: 35px 15px;
+            }
+
+            .counter-box {
+                padding: 22px 16px;
+            }
+
+            .counter-stats {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .winner-name {
+                font-size: 24px;
+            }
+
+            .counter-actions button {
+                flex: 1;
+                padding: 12px 14px;
+            }
+
+            .picker-options {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="tools.html" class="active">All Tools</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <a href="tools.html" class="nav-button">Explore Tools</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="counter-section">
+            <div class="counter-container">
+
+                <div class="counter-box">
+                    <h2>Random Name Picker</h2>
+                    <p class="counter-description">
+                        Enter a list of names and randomly pick a winner in seconds.
+                    </p>
+
+                    <label for="nameInput" class="input-label">Enter Your Names</label>
+
+                    <textarea
+                        id="nameInput"
+                        placeholder="Enter one name per line or separate names with commas...
+
+Example:
+Alex
+Emma
+John
+Sophia
+Michael"
+                    ></textarea>
+
+                    <p class="input-help">
+                        Enter one name per line or separate multiple names using commas.
+                    </p>
+
+                    <div class="picker-options">
+                        <label for="winnerCount">Number of winners:</label>
+                        <input
+                            type="number"
+                            id="winnerCount"
+                            min="1"
+                            max="100"
+                            value="1"
+                        >
+
+                        <label class="picker-checkbox">
+                            <input type="checkbox" id="removeDuplicates" checked>
+                            Remove duplicate names
+                        </label>
+                    </div>
+
+                    <div class="counter-actions">
+                        <button type="button" id="pickButton">Pick Random Name</button>
+                        <button type="button" id="copyButton">Copy Winner</button>
+                        <button type="button" id="clearButton">Clear All</button>
+                    </div>
+
+                    <div class="winner-section" aria-live="polite">
+                        <h3 id="winnerHeading">Your Random Winner</h3>
+                        <div id="winnerName" class="winner-name winner-placeholder">
+                            Your winner will appear here
+                        </div>
+                    </div>
+
+                    <div class="counter-stats">
+                        <div class="stat-card">
+                            <h3>Total Names</h3>
+                            <p id="totalNames">0</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>Winners Selected</h3>
+                            <p id="selectedCount">0</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>Names Remaining</h3>
+                            <p id="remainingNames">0</p>
+                        </div>
+                    </div>
+
+                    <div class="history-section">
+                        <h3>Pick History</h3>
+                        <ol id="historyList">
+                            <li class="history-empty">No winners selected yet.</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="tool-content">
+
+            <div class="content-block">
+                <h2>What Is a Random Name Picker?</h2>
+                <p>
+                    A Random Name Picker is a simple online tool that selects
+                    one or more names randomly from a list. Instead of manually
+                    choosing someone, you can enter names and let the tool make
+                    a random selection.
+                </p>
+                <p>
+                    This free Random Name Picker makes it easy to select
+                    classroom participants, giveaway winners, team members,
+                    contest entries, or names for everyday activities.
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h2>How to Use the Random Name Picker</h2>
+                <ol>
+                    <li>Enter all the names in the text area.</li>
+                    <li>Write each name on a separate line or separate names with commas.</li>
+                    <li>Choose how many winners you want to select.</li>
+                    <li>Keep the duplicate removal option enabled if you want unique entries.</li>
+                    <li>Click the Pick Random Name button.</li>
+                    <li>Your randomly selected winner or winners will appear below.</li>
+                    <li>Use Copy Winner to copy the selected result.</li>
+                </ol>
+            </div>
+
+            <div class="content-block">
+                <h2>Features of This Random Name Picker</h2>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Random Selection</h3>
+                        <p>Choose names randomly from your entered list.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Multiple Winners</h3>
+                        <p>Select several winners in a single pick.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Duplicate Removal</h3>
+                        <p>Remove repeated names before selecting winners.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Pick History</h3>
+                        <p>View previously selected names during your session.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Copy Results</h3>
+                        <p>Copy the selected winner names with one click.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Simple Interface</h3>
+                        <p>Use the tool directly in your browser without registration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Random Name Picker Example</h2>
+                <p>
+                    Imagine you have five participants and need to select
+                    one winner for a small giveaway.
+                </p>
+
+                <div class="example-box">
+                    <strong>Names entered:</strong><br>
+                    Alex, Emma, John, Sophia, Michael<br><br>
+
+                    <strong>Number of winners:</strong> 1<br><br>
+
+                    <strong>Possible result:</strong> Emma<br><br>
+
+                    The result is an example only. Every new selection can produce
+                    a different winner.
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Tips for Fair Random Name Selection</h2>
+                <ul>
+                    <li>Check your list carefully before starting.</li>
+                    <li>Use the duplicate removal option to avoid repeated entries.</li>
+                    <li>Make sure every participant is included correctly.</li>
+                    <li>Choose the number of winners before picking.</li>
+                    <li>For public contests, consider recording the selection process.</li>
+                </ul>
+                <p>
+                    This tool provides a random selection for everyday use.
+                    It is not a certified or independently audited drawing system
+                    for regulated contests.
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <h3>1. Is this Random Name Picker free?</h3>
+                    <p>
+                        Yes. You can use this Random Name Picker for free
+                        without creating an account.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>2. Can I pick multiple winners?</h3>
+                    <p>
+                        Yes. Enter the number of winners you want and click
+                        Pick Random Name. The tool will select that many
+                        unique entries when enough names are available.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>3. Can I enter names separated by commas?</h3>
+                    <p>
+                        Yes. You can enter names on separate lines or
+                        separate them using commas.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>4. Does the tool remove duplicate names?</h3>
+                    <p>
+                        Yes. The duplicate removal option is enabled by default.
+                        You can turn it off if you want repeated entries to
+                        have separate chances of being selected.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>5. Can I copy the selected winner?</h3>
+                    <p>
+                        Yes. Click the Copy Winner button to copy your
+                        selected name or names.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>6. Are my names saved?</h3>
+                    <p>
+                        No. This tool processes your entries in your browser.
+                        The names are not saved to a website account or
+                        database by this page.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>7. Can I use this tool for classroom activities?</h3>
+                    <p>
+                        Yes. Teachers can use it to select students for
+                        questions, activities, groups, and classroom games.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <a href="index.html" class="logo">
+                    Daily<span>Tools.</span>
+                </a>
+                <p>Everyday tools, made simple.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="tools.html">All Tools</a>
+                <a href="about.html">About</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>© 2026 DailyTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const nameInput = document.getElementById("nameInput");
+        const winnerCountInput = document.getElementById("winnerCount");
+        const removeDuplicatesInput = document.getElementById("removeDuplicates");
+
+        const pickButton = document.getElementById("pickButton");
+        const copyButton = document.getElementById("copyButton");
+        const clearButton = document.getElementById("clearButton");
+
+        const winnerName = document.getElementById("winnerName");
+        const winnerHeading = document.getElementById("winnerHeading");
+
+        const totalNamesElement = document.getElementById("totalNames");
+        const selectedCountElement = document.getElementById("selectedCount");
+        const remainingNamesElement = document.getElementById("remainingNames");
+
+        const historyList = document.getElementById("historyList");
+
+        let selectedWinners = [];
+        let pickHistory = [];
+
+        function getNames() {
+            let names = nameInput.value
+                .split(/[\n,]+/)
+                .map(name => name.trim())
+                .filter(name => name.length > 0);
+
+            if (removeDuplicatesInput.checked) {
+                const uniqueNames = new Map();
+
+                names.forEach(name => {
+                    const key = name.toLocaleLowerCase();
+                    if (!uniqueNames.has(key)) {
+                        uniqueNames.set(key, name);
+                    }
+                });
+
+                names = Array.from(uniqueNames.values());
+            }
+
+            return names;
+        }
+
+        function updateStats() {
+            const names = getNames();
+
+            totalNamesElement.textContent = names.length;
+            selectedCountElement.textContent = selectedWinners.length;
+            remainingNamesElement.textContent = Math.max(
+                0,
+                names.length - selectedWinners.length
+            );
+        }
+
+        function updateHistory() {
+            historyList.innerHTML = "";
+
+            if (pickHistory.length === 0) {
+                const item = document.createElement("li");
+                item.className = "history-empty";
+                item.textContent = "No winners selected yet.";
+                historyList.appendChild(item);
+                return;
+            }
+
+            pickHistory.forEach(name => {
+                const item = document.createElement("li");
+                item.textContent = name;
+                historyList.appendChild(item);
+            });
+        }
+
+        function resetWinnerDisplay() {
+            winnerHeading.textContent = "Your Random Winner";
+            winnerName.textContent = "Your winner will appear here";
+            winnerName.classList.add("winner-placeholder");
+        }
+
+        function pickRandomName() {
+            const names = getNames();
+
+            if (names.length === 0) {
+                alert("Please enter at least one name.");
+                nameInput.focus();
+                return;
+            }
+
+            const count = Number(winnerCountInput.value);
+
+            if (
+                !Number.isInteger(count) ||
+                count < 1 ||
+                count > 100
+            ) {
+                alert("Please enter a valid number of winners between 1 and 100.");
+                winnerCountInput.focus();
+                return;
+            }
+
+            if (count > names.length) {
+                alert(
+                    "You can select a maximum of " +
+                    names.length +
+                    " winner(s) from the current list."
+                );
+                winnerCountInput.focus();
+                return;
+            }
+
+            const availableNames = [...names];
+            selectedWinners = [];
+
+            for (let i = 0; i < count; i++) {
+                const randomIndex = Math.floor(
+                    Math.random() * availableNames.length
+                );
+
+                const winner = availableNames.splice(randomIndex, 1)[0];
+                selectedWinners.push(winner);
+                pickHistory.unshift(winner);
+            }
+
+            winnerName.classList.remove("winner-placeholder");
+
+            if (selectedWinners.length === 1) {
+                winnerHeading.textContent = "Congratulations!";
+                winnerName.textContent = selectedWinners[0];
+            } else {
+                winnerHeading.textContent = "Your Selected Winners";
+                winnerName.textContent = selectedWinners.join(", ");
+            }
+
+            updateStats();
+            updateHistory();
+        }
+
+        async function copyWinner() {
+            if (selectedWinners.length === 0) {
+                alert("Please pick a winner first.");
+                return;
+            }
+
+            const textToCopy = selectedWinners.join("\n");
+
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+                alert("Winner copied successfully!");
+            } catch (error) {
+                const tempTextArea = document.createElement("textarea");
+                tempTextArea.value = textToCopy;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+
+                const copied = document.execCommand("copy");
+                tempTextArea.remove();
+
+                if (copied) {
+                    alert("Winner copied successfully!");
+                } else {
+                    alert("Unable to copy. Please copy the result manually.");
+                }
+            }
+        }
+
+        function clearAll() {
+            nameInput.value = "";
+            winnerCountInput.value = 1;
+            removeDuplicatesInput.checked = true;
+
+            selectedWinners = [];
+            pickHistory = [];
+
+            resetWinnerDisplay();
+            updateStats();
+            updateHistory();
+        }
+
+        nameInput.addEventListener("input", () => {
+            selectedWinners = [];
+            resetWinnerDisplay();
+            updateStats();
+        });
+
+        winnerCountInput.addEventListener("input", () => {
+            selectedWinners = [];
+            resetWinnerDisplay();
+            updateStats();
+        });
+
+        removeDuplicatesInput.addEventListener("change", () => {
+            selectedWinners = [];
+            resetWinnerDisplay();
+            updateStats();
+        });
+
+        pickButton.addEventListener("click", pickRandomName);
+        copyButton.addEventListener("click", copyWinner);
+        clearButton.addEventListener("click", clearAll);
+
+        updateStats();
+        updateHistory();
+    </script>
+
+</body>
+</html>

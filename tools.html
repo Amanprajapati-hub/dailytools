@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Explore DailyTools, a growing collection of free online tools for text editing, calculations, password generation, unit conversion, QR codes and everyday productivity.">
+    <meta name="description" content="Explore DailyTools, a growing collection of 30 free online tools for text editing, calculations, finance, date calculations, conversions, generators and everyday productivity.">
+    <meta name="keywords" content="free online tools, text tools, calculators, finance calculators, date calculators, converters, password generator, QR code generator, productivity tools">
     <meta name="robots" content="index, follow">
 
     <title>All Free Online Tools | DailyTools</title>
@@ -28,14 +29,123 @@
 
         .tools-heading {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: space-between;
-            gap: 20px;
+            gap: 30px;
             margin-bottom: 30px;
         }
 
         .tools-heading p {
             margin-top: 8px;
+        }
+
+        /* TOOL SEARCH */
+        .tool-search {
+            width: 100%;
+            max-width: 420px;
+            flex-shrink: 0;
+        }
+
+        .tool-search-box {
+            position: relative;
+        }
+
+        .tool-search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        #toolSearch {
+            width: 100%;
+            padding: 15px 18px 15px 50px;
+            font: inherit;
+            color: var(--text);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #toolSearch:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        #toolSearch::placeholder {
+            color: var(--text);
+            opacity: 0.6;
+        }
+
+        .search-result-info {
+            margin-top: 8px;
+            text-align: right;
+            font-size: 0.82rem;
+            color: var(--text);
+        }
+
+        /* CATEGORY FILTER */
+        .category-filter-info {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 17px 20px;
+            margin-bottom: 25px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .category-filter-info.active {
+            display: flex;
+        }
+
+        .category-filter-info p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .category-filter-info strong {
+            color: var(--primary);
+        }
+
+        .show-all-tools {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: background 0.2s ease;
+        }
+
+        .show-all-tools:hover {
+            background: var(--border);
+        }
+
+        .no-tools-message {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+        }
+
+        .no-tools-message h3 {
+            margin-bottom: 8px;
         }
 
         .tools-grid {
@@ -92,10 +202,35 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             .tools-heading {
                 align-items: flex-start;
                 flex-direction: column;
+                gap: 20px;
+            }
+
+            .tool-search {
+                max-width: 100%;
+            }
+
+            .search-result-info {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #toolSearch {
+                padding: 14px 15px 14px 46px;
+            }
+
+            .tool-search-icon {
+                left: 16px;
+            }
+
+            .category-filter-info {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 14px;
             }
 
             /* Two cards in each row */
@@ -241,8 +376,8 @@
 
                 <p>
                     Discover free and easy-to-use online tools for
-                    calculations, text editing, conversions, productivity,
-                    and everyday digital tasks.
+                    calculations, text editing, date and time tasks,
+                    conversions, generators, and everyday productivity.
                 </p>
 
             </div>
@@ -254,24 +389,53 @@
 
                 <div class="tools-intro">
                     <p>
-                        Welcome to the DailyTools collection. Whether you
-                        need to calculate a percentage, convert text,
-                        generate a password, or create a QR code, you
-                        can find useful utilities here to help complete
-                        everyday tasks more conveniently.
+                        Welcome to the DailyTools collection. Explore useful
+                        tools for working with text, performing calculations,
+                        managing dates and time, converting information,
+                        generating useful content, and completing everyday
+                        digital tasks more conveniently.
                     </p>
                 </div>
 
+                <!-- TOOLS HEADING WITH SIDE SEARCH -->
                 <div class="tools-heading">
+
                     <div>
                         <h2>Browse Our Tools</h2>
                         <p>
                             Choose a tool based on what you want to accomplish.
                         </p>
                     </div>
+
+                    <!-- TOOL SEARCH -->
+                    <div class="tool-search">
+                        <div class="tool-search-box">
+                            <span class="tool-search-icon">🔍</span>
+                            <input
+                                type="search"
+                                id="toolSearch"
+                                placeholder="Search for a tool..."
+                                aria-label="Search for a tool"
+                                autocomplete="off"
+                            >
+                        </div>
+
+                        <p class="search-result-info" id="searchResultInfo">
+                            Showing all available tools.
+                        </p>
+                    </div>
+
                 </div>
 
-                <div class="tools-grid">
+                <!-- CATEGORY FILTER INFORMATION -->
+                <div class="category-filter-info" id="categoryFilterInfo">
+                    <p id="categoryFilterText"></p>
+                    <a href="tools.html" class="show-all-tools" id="showAllTools">
+                        Show All Tools
+                    </a>
+                </div>
+
+                <div class="tools-grid" id="toolsGrid">
 
                     <!-- WORD COUNTER -->
                     <a href="word-counter.html" class="tool-card">
@@ -291,12 +455,111 @@
                         <span class="tool-link">Open Tool →</span>
                     </a>
 
+                    <!-- TEXT REVERSER -->
+                    <a href="text-reverser.html" class="tool-card">
+                        <div class="tool-icon">↔</div>
+                        <span class="tool-category">TEXT TOOLS</span>
+                        <h3>Text Reverser</h3>
+                        <p>Reverse text, words, or characters quickly and easily.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- REMOVE EXTRA SPACES -->
+                    <a href="remove-extra-spaces.html" class="tool-card">
+                        <div class="tool-icon">⌫</div>
+                        <span class="tool-category">TEXT TOOLS</span>
+                        <h3>Remove Extra Spaces</h3>
+                        <p>Clean up unnecessary spaces from your text.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- TEXT REPEATER -->
+                    <a href="text-repeater.html" class="tool-card">
+                        <div class="tool-icon">↻</div>
+                        <span class="tool-category">TEXT TOOLS</span>
+                        <h3>Text Repeater</h3>
+                        <p>Repeat text multiple times with simple options.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- WORD FREQUENCY COUNTER -->
+                    <a href="word-frequency-counter.html" class="tool-card">
+                        <div class="tool-icon">#</div>
+                        <span class="tool-category">TEXT TOOLS</span>
+                        <h3>Word Frequency Counter</h3>
+                        <p>Find how often individual words appear in your text.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- LOREM IPSUM GENERATOR -->
+                    <a href="lorem-ipsum-generator.html" class="tool-card">
+                        <div class="tool-icon">¶</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>Lorem Ipsum Generator</h3>
+                        <p>Generate placeholder text for designs and projects.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
                     <!-- PASSWORD GENERATOR -->
                     <a href="password-generator.html" class="tool-card">
                         <div class="tool-icon">✳</div>
                         <span class="tool-category">GENERATORS</span>
                         <h3>Password Generator</h3>
                         <p>Generate random passwords with custom options.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- RANDOM NUMBER GENERATOR -->
+                    <a href="random-number-generator.html" class="tool-card">
+                        <div class="tool-icon">⚄</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>Random Number Generator</h3>
+                        <p>Generate random numbers within your chosen range.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- RANDOM NAME PICKER -->
+                    <a href="random-name-picker.html" class="tool-card">
+                        <div class="tool-icon">🎯</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>Random Name Picker</h3>
+                        <p>Pick a random name from your custom list.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- USERNAME GENERATOR -->
+                    <a href="username-generator.html" class="tool-card">
+                        <div class="tool-icon">👤</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>Username Generator</h3>
+                        <p>Generate creative username ideas quickly and easily.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- UUID GENERATOR -->
+                    <a href="uuid-generator.html" class="tool-card">
+                        <div class="tool-icon">⚙</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>UUID Generator</h3>
+                        <p>Generate unique identifiers for projects and applications.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- DICE ROLLER -->
+                    <a href="dice-roller.html" class="tool-card">
+                        <div class="tool-icon">🎲</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>Dice Roller</h3>
+                        <p>Roll virtual dice and generate random results instantly.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- QR CODE GENERATOR -->
+                    <a href="qr-code-generator.html" class="tool-card">
+                        <div class="tool-icon">📱</div>
+                        <span class="tool-category">GENERATORS</span>
+                        <h3>QR Code Generator</h3>
+                        <p>Create QR codes from text and website links.</p>
                         <span class="tool-link">Open Tool →</span>
                     </a>
 
@@ -318,12 +581,21 @@
                         <span class="tool-link">Open Tool →</span>
                     </a>
 
-                    <!-- RANDOM NUMBER GENERATOR -->
-                    <a href="random-number-generator.html" class="tool-card">
-                        <div class="tool-icon">⚄</div>
-                        <span class="tool-category">GENERATORS</span>
-                        <h3>Random Number Generator</h3>
-                        <p>Generate random numbers within your chosen range.</p>
+                    <!-- AVERAGE CALCULATOR -->
+                    <a href="average-calculator.html" class="tool-card">
+                        <div class="tool-icon">÷</div>
+                        <span class="tool-category">CALCULATORS</span>
+                        <h3>Average Calculator</h3>
+                        <p>Calculate the average of multiple numbers quickly.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- BMI CALCULATOR -->
+                    <a href="bmi-calculator.html" class="tool-card">
+                        <div class="tool-icon">⚖</div>
+                        <span class="tool-category">CALCULATORS</span>
+                        <h3>BMI Calculator</h3>
+                        <p>Calculate your body mass index using height and weight.</p>
                         <span class="tool-link">Open Tool →</span>
                     </a>
 
@@ -345,6 +617,60 @@
                         <span class="tool-link">Open Tool →</span>
                     </a>
 
+                    <!-- EMI CALCULATOR -->
+                    <a href="emi-calculator.html" class="tool-card">
+                        <div class="tool-icon">💳</div>
+                        <span class="tool-category">FINANCE TOOLS</span>
+                        <h3>EMI Calculator</h3>
+                        <p>Estimate monthly loan payments using your loan details.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- SIMPLE INTEREST CALCULATOR -->
+                    <a href="simple-interest-calculator.html" class="tool-card">
+                        <div class="tool-icon">₹</div>
+                        <span class="tool-category">FINANCE TOOLS</span>
+                        <h3>Simple Interest Calculator</h3>
+                        <p>Calculate simple interest based on principal, rate, and time.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- COMPOUND INTEREST CALCULATOR -->
+                    <a href="compound-interest-calculator.html" class="tool-card">
+                        <div class="tool-icon">📈</div>
+                        <span class="tool-category">FINANCE TOOLS</span>
+                        <h3>Compound Interest Calculator</h3>
+                        <p>Estimate compound interest and investment growth over time.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- DATE CALCULATOR -->
+                    <a href="date-calculator.html" class="tool-card">
+                        <div class="tool-icon">📅</div>
+                        <span class="tool-category">DATE & TIME</span>
+                        <h3>Date Calculator</h3>
+                        <p>Add or subtract days from a selected date.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- DAYS BETWEEN DATES CALCULATOR -->
+                    <a href="days-between-dates-calculator.html" class="tool-card">
+                        <div class="tool-icon">🗓</div>
+                        <span class="tool-category">DATE & TIME</span>
+                        <h3>Days Between Dates</h3>
+                        <p>Calculate the number of days between two dates.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- TIME DURATION CALCULATOR -->
+                    <a href="time-duration-calculator.html" class="tool-card">
+                        <div class="tool-icon">⏱</div>
+                        <span class="tool-category">DATE & TIME</span>
+                        <h3>Time Duration Calculator</h3>
+                        <p>Calculate the duration between two selected times.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
                     <!-- UNIT CONVERTER -->
                     <a href="unit-converter.html" class="tool-card">
                         <div class="tool-icon">📏</div>
@@ -354,14 +680,38 @@
                         <span class="tool-link">Open Tool →</span>
                     </a>
 
-                    <!-- QR CODE GENERATOR -->
-                    <a href="qr-code-generator.html" class="tool-card">
-                        <div class="tool-icon">📱</div>
-                        <span class="tool-category">GENERATORS</span>
-                        <h3>QR Code Generator</h3>
-                        <p>Create QR codes from text and website links.</p>
+                    <!-- NUMBER TO WORDS CONVERTER -->
+                    <a href="number-to-words-converter.html" class="tool-card">
+                        <div class="tool-icon">🔢</div>
+                        <span class="tool-category">CONVERTERS</span>
+                        <h3>Number to Words</h3>
+                        <p>Convert numbers into their written word format.</p>
                         <span class="tool-link">Open Tool →</span>
                     </a>
+
+                    <!-- ROMAN NUMERAL CONVERTER -->
+                    <a href="roman-numeral-converter.html" class="tool-card">
+                        <div class="tool-icon">Ⅻ</div>
+                        <span class="tool-category">CONVERTERS</span>
+                        <h3>Roman Numeral Converter</h3>
+                        <p>Convert numbers to Roman numerals and back.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- DECIMAL TO BINARY CONVERTER -->
+                    <a href="decimal-to-binary-converter.html" class="tool-card">
+                        <div class="tool-icon">01</div>
+                        <span class="tool-category">CONVERTERS</span>
+                        <h3>Decimal to Binary</h3>
+                        <p>Convert decimal numbers into binary values quickly.</p>
+                        <span class="tool-link">Open Tool →</span>
+                    </a>
+
+                    <!-- NO RESULTS -->
+                    <div class="no-tools-message" id="noToolsMessage">
+                        <h3>No tools found</h3>
+                        <p>Try searching for a different tool or keyword.</p>
+                    </div>
 
                 </div>
 
@@ -372,19 +722,45 @@
                         <h2>Tools for Everyday Tasks</h2>
 
                         <p>
-                            Online utilities can make many small tasks
-                            quicker and easier. From checking the length
-                            of a document to calculating a discount or
-                            converting measurements, the right tool
-                            can save time and reduce manual effort.
+                            Many everyday tasks involve working with text,
+                            numbers, dates, measurements, or digital information.
+                            A useful online tool can help simplify these tasks
+                            and reduce the time spent performing repetitive
+                            calculations or manual conversions.
                         </p>
 
                         <p>
-                            DailyTools brings different types of
-                            utilities together so visitors can find
-                            practical features without needing to
-                            install additional desktop software
-                            for common tasks.
+                            DailyTools brings a variety of practical utilities
+                            together in one place. Whether you need to check a
+                            piece of writing, calculate a value, compare dates,
+                            convert information, or generate something useful,
+                            you can choose a tool designed for that specific task.
+                        </p>
+                    </div>
+
+                    <div class="tools-info-block">
+                        <h2>Find the Right Tool for Your Task</h2>
+
+                        <p>
+                            Different tasks require different types of tools.
+                            The DailyTools collection is organized around common
+                            everyday needs, making it easier to find a suitable
+                            utility.
+                        </p>
+
+                        <ul>
+                            <li><strong>Text Tools:</strong> Work with written content by counting words, changing letter cases, reversing text, removing extra spaces, or checking word frequency.</li>
+                            <li><strong>Calculators:</strong> Perform common calculations such as percentages, averages, age calculations, and other numerical tasks.</li>
+                            <li><strong>Finance Tools:</strong> Estimate GST, discounts, loan payments, and interest amounts using your chosen values.</li>
+                            <li><strong>Date & Time Tools:</strong> Calculate dates, compare the number of days between dates, and work out time durations.</li>
+                            <li><strong>Converters:</strong> Convert measurements, numbers, Roman numerals, and other information into a different format.</li>
+                            <li><strong>Generators:</strong> Create passwords, usernames, random selections, placeholder text, QR codes, and other useful digital content.</li>
+                        </ul>
+
+                        <p>
+                            Each tool has its own purpose and controls, so you
+                            can select the one that best matches the task you
+                            want to complete.
                         </p>
                     </div>
 
@@ -392,40 +768,67 @@
                         <h2>How to Use DailyTools</h2>
 
                         <p>
-                            Getting started with our tools is simple.
-                            Most tools follow a straightforward process:
+                            Most DailyTools utilities are designed to be simple
+                            and straightforward. While each tool works differently,
+                            the general process is usually easy to follow:
                         </p>
 
                         <ul>
                             <li>Browse the collection and choose the tool you need.</li>
-                            <li>Open its dedicated page and read the instructions.</li>
-                            <li>Enter the required text, numbers, dates, or other inputs.</li>
-                            <li>Select the available options where necessary.</li>
-                            <li>Use the result displayed by the tool.</li>
+                            <li>Open the tool's dedicated page and review the available instructions.</li>
+                            <li>Enter the required text, numbers, dates, or other information.</li>
+                            <li>Select any options that are relevant to your task.</li>
+                            <li>Review the result and use it where appropriate.</li>
                         </ul>
 
                         <p>
-                            Individual tools may have different controls
-                            and steps depending on their purpose.
+                            Some tools provide instant results as you enter
+                            information, while others may require you to select
+                            an option or click a button to complete the task.
                         </p>
                     </div>
 
                     <div class="tools-info-block">
-                        <h2>Free Online Tools Without Unnecessary Complexity</h2>
+                        <h2>Tips for Getting Accurate Results</h2>
 
                         <p>
-                            We aim to make our tools straightforward
-                            and accessible through commonly used
-                            web browsers. Our goal is to provide
-                            useful features with clear controls
-                            and understandable results.
+                            The quality of a result often depends on the
+                            information entered into a tool. Taking a moment
+                            to check your input can help you get a more useful
+                            and accurate result.
+                        </p>
+
+                        <ul>
+                            <li>Check that numbers, dates, and measurements are entered correctly.</li>
+                            <li>Select the correct units before using a conversion tool.</li>
+                            <li>Review financial values and calculation settings before relying on the result.</li>
+                            <li>Make sure text is complete when using text analysis or editing tools.</li>
+                            <li>Use generated content as a starting point and review it before using it in an important project.</li>
+                        </ul>
+
+                        <p>
+                            For important financial, professional, legal, or
+                            personal decisions, consider verifying results with
+                            an appropriate qualified source or professional.
+                        </p>
+                    </div>
+
+                    <div class="tools-info-block">
+                        <h2>A Growing Collection of Useful Tools</h2>
+
+                        <p>
+                            DailyTools is designed as a growing collection of
+                            practical online utilities. Our aim is to continue
+                            improving existing tools while adding new features
+                            that can help with common digital and everyday tasks.
                         </p>
 
                         <p>
-                            We continue to improve the website and
-                            expand the collection with additional
-                            utilities that can help visitors with
-                            everyday digital activities.
+                            As the collection grows, visitors can explore tools
+                            across different categories instead of searching
+                            for separate websites for every small task. We focus
+                            on keeping the experience clear, practical, and
+                            easy to access through a modern web browser.
                         </p>
                     </div>
 
@@ -433,18 +836,23 @@
                         <h2>Using Tools Responsibly</h2>
 
                         <p>
-                            Always review the results produced by
-                            an online tool before relying on them
-                            for important decisions. Results may
-                            depend on the information entered
-                            and the functionality of the individual tool.
+                            Online tools are intended to provide convenient
+                            assistance with everyday tasks. Always review the
+                            information and results produced by a tool before
+                            relying on them for an important decision.
                         </p>
 
                         <p>
-                            Avoid entering sensitive or confidential
-                            information unless you have checked
-                            how the particular tool processes it.
-                            For further details, please read our
+                            Results may depend on the information you enter,
+                            the options you select, and the specific purpose
+                            of the individual tool. Avoid entering sensitive
+                            or confidential information unless you understand
+                            how that information is handled.
+                        </p>
+
+                        <p>
+                            For more information about the website, please
+                            read our
                             <a href="privacy-policy.html">Privacy Policy</a>
                             and
                             <a href="terms-of-service.html">Terms of Service</a>.
@@ -455,10 +863,11 @@
                         <h2>Have a Question or Suggestion?</h2>
 
                         <p>
-                            If you have feedback about an existing
-                            tool, experience a technical issue,
-                            or want to suggest a useful feature,
-                            we welcome your feedback.
+                            Feedback helps us improve DailyTools and build a
+                            more useful collection of online utilities. If you
+                            experience a technical issue, have a question about
+                            an existing tool, or would like to suggest a useful
+                            feature, we would be happy to hear from you.
                         </p>
 
                         <p>
@@ -504,6 +913,142 @@
         </div>
 
     </footer>
+
+    <!-- CATEGORY FILTER AND TOOL SEARCH SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const searchInput = document.getElementById("toolSearch");
+            const toolCards = document.querySelectorAll("#toolsGrid .tool-card");
+            const noToolsMessage = document.getElementById("noToolsMessage");
+            const searchResultInfo = document.getElementById("searchResultInfo");
+
+            const categoryFilterInfo = document.getElementById("categoryFilterInfo");
+            const categoryFilterText = document.getElementById("categoryFilterText");
+
+            const categories = {
+                "text-tools": "TEXT TOOLS",
+                "generators": "GENERATORS",
+                "calculators": "CALCULATORS",
+                "finance-tools": "FINANCE TOOLS",
+                "date-time": "DATE & TIME",
+                "converters": "CONVERTERS"
+            };
+
+            const params = new URLSearchParams(window.location.search);
+            const requestedCategory = params.get("category");
+
+            const activeCategory = categories[requestedCategory] || "";
+
+            // Show selected category information
+            if (activeCategory) {
+                categoryFilterInfo.classList.add("active");
+
+                categoryFilterText.innerHTML =
+                    'Showing category: <strong>' +
+                    activeCategory +
+                    '</strong>';
+            }
+
+            // Filter tools by category and search text
+            function filterTools() {
+
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleTools = 0;
+
+                toolCards.forEach(function (card) {
+
+                    const searchableContent = card.textContent.toLowerCase();
+
+                    const cardCategory = card
+                        .querySelector(".tool-category")
+                        .textContent
+                        .trim()
+                        .toUpperCase();
+
+                    const matchesCategory =
+                        !activeCategory || cardCategory === activeCategory;
+
+                    const matchesSearch =
+                        searchableContent.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        card.style.display = "";
+                        visibleTools++;
+                    } else {
+                        card.style.display = "none";
+                    }
+
+                });
+
+                // Show or hide no-results message
+                if (visibleTools === 0) {
+
+                    noToolsMessage.style.display = "block";
+
+                    if (searchTerm) {
+                        noToolsMessage.querySelector("p").textContent =
+                            "Try another search term or choose a different category.";
+                    } else {
+                        noToolsMessage.querySelector("p").textContent =
+                            "No tools are currently available in this category.";
+                    }
+
+                } else {
+                    noToolsMessage.style.display = "none";
+                }
+
+                // Update result information
+                if (searchTerm && visibleTools === 0) {
+
+                    searchResultInfo.textContent = "No matching tools found.";
+
+                } else if (searchTerm) {
+
+                    searchResultInfo.textContent =
+                        visibleTools +
+                        (visibleTools === 1
+                            ? " matching tool found."
+                            : " matching tools found.");
+
+                } else if (activeCategory) {
+
+                    searchResultInfo.textContent =
+                        visibleTools +
+                        (visibleTools === 1
+                            ? " tool in this category."
+                            : " tools in this category.");
+
+                } else {
+
+                    searchResultInfo.textContent =
+                        visibleTools + " tools available.";
+
+                }
+
+                // Update category heading when searching
+                if (activeCategory && searchTerm) {
+                    categoryFilterText.innerHTML =
+                        'Searching in: <strong>' +
+                        activeCategory +
+                        '</strong>';
+                } else if (activeCategory) {
+                    categoryFilterText.innerHTML =
+                        'Showing category: <strong>' +
+                        activeCategory +
+                        '</strong>';
+                }
+
+            }
+
+            // Apply category filter on page load
+            filterTools();
+
+            // Apply search while typing
+            searchInput.addEventListener("input", filterTools);
+
+        });
+    </script>
 
 </body>
 </html>

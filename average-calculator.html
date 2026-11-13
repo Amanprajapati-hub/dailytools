@@ -1,0 +1,1160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free online Average Calculator by DailyTools to calculate the average of multiple numbers. Find the mean, total sum, number count, minimum and maximum instantly.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Average Calculator Online - Calculate Mean of Numbers | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+
+        #numbersInput {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            padding: 20px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 15px;
+            line-height: 1.8;
+            outline: none;
+            color: #33334a;
+            box-sizing: border-box;
+        }
+
+        #numbersInput:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .input-help {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        .sample-buttons {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .sample-buttons span {
+            color: #77778a;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .sample-buttons button {
+            border: 1px solid #e2e0ff;
+            background: #f5f4ff;
+            color: #635bff;
+            padding: 8px 13px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .sample-buttons button:hover {
+            background: #e9e7ff;
+        }
+
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .counter-actions button {
+            border: none;
+            background: #635bff;
+            color: #fff;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .counter-actions button:hover {
+            background: #5148e8;
+        }
+
+        .counter-actions button.clear-button {
+            background: #f0efff;
+            color: #635bff;
+        }
+
+        .counter-actions button.clear-button:hover {
+            background: #e5e3ff;
+        }
+
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 30px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .main-result {
+            background: linear-gradient(135deg, #f0efff, #f8f8ff);
+            border: 1px solid #e5e3ff;
+            border-radius: 14px;
+            padding: 25px 15px;
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        .main-result span {
+            display: block;
+            color: #635bff;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .main-result strong {
+            display: block;
+            color: #29245f;
+            font-size: 40px;
+            overflow-wrap: anywhere;
+        }
+
+        .main-result p {
+            color: #77778a;
+            font-size: 13px;
+            margin: 8px 0 0;
+        }
+
+        .result-details {
+            display: none;
+        }
+
+        .calculation-breakdown {
+            margin-top: 22px;
+            padding: 18px;
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 12px;
+        }
+
+        .calculation-breakdown h3 {
+            color: #25253d;
+            font-size: 16px;
+            margin: 0 0 10px;
+        }
+
+        .calculation-breakdown p {
+            color: #66667a;
+            line-height: 1.8;
+            font-size: 14px;
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .copy-button {
+            display: block;
+            width: 100%;
+            margin-top: 16px;
+            border: 1px solid #e2e0ff;
+            background: #f0efff;
+            color: #635bff;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: #e5e3ff;
+        }
+
+        .error-message {
+            display: none;
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
+            color: #be123c;
+            padding: 13px 16px;
+            border-radius: 9px;
+            margin-top: 18px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+
+            .counter-box {
+                padding: 18px;
+            }
+
+            #numbersInput {
+                min-height: 160px;
+                padding: 14px;
+            }
+
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 17px 10px;
+            }
+
+            .stat-card strong {
+                font-size: 25px;
+            }
+
+            .counter-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                width: 100%;
+            }
+
+            .action-buttons button {
+                flex: 1;
+            }
+
+            .main-result strong {
+                font-size: 32px;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .sample-buttons {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE MATH TOOL</span>
+
+            <h1>Average <span>Calculator.</span></h1>
+
+            <p>
+                Calculate the average of multiple numbers instantly.
+                Enter your values to find the mean, total sum, number count,
+                minimum and maximum values.
+            </p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+
+            <div class="counter-box">
+
+                <label for="numbersInput">Enter Your Numbers</label>
+
+                <textarea
+                    id="numbersInput"
+                    placeholder="Example: 10, 20, 30, 40, 50"
+                    aria-describedby="inputHelp"
+                ></textarea>
+
+                <div class="input-help" id="inputHelp">
+                    <span>Separate numbers using commas, spaces or new lines.</span>
+                    <span id="numberCount">0 numbers entered</span>
+                </div>
+
+                <div class="sample-buttons">
+                    <span>Try an example:</span>
+
+                    <button type="button" data-sample="10, 20, 30, 40, 50">
+                        Basic
+                    </button>
+
+                    <button type="button" data-sample="12.5, 18.75, 20.25, 30">
+                        Decimals
+                    </button>
+
+                    <button type="button" data-sample="-10, 0, 10, 20">
+                        Negative
+                    </button>
+                </div>
+
+                <div class="counter-actions">
+                    <span id="statusText" role="status" aria-live="polite">
+                        Ready to calculate
+                    </span>
+
+                    <div class="action-buttons">
+                        <button type="button" id="calculateButton">
+                            Calculate Average
+                        </button>
+
+                        <button type="button" class="clear-button" id="clearButton">
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <div class="error-message" id="errorMessage" role="alert"></div>
+
+                <div class="result-details" id="results" aria-live="polite">
+
+                    <div class="main-result">
+                        <span>CALCULATED AVERAGE</span>
+                        <strong id="averageValue">0</strong>
+                        <p>Arithmetic Mean of Your Numbers</p>
+                    </div>
+
+                    <div class="counter-stats">
+
+                        <div class="stat-card">
+                            <strong id="sumValue">0</strong>
+                            <span>TOTAL SUM</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <strong id="countValue">0</strong>
+                            <span>NUMBER COUNT</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <strong id="minValue">0</strong>
+                            <span>MINIMUM VALUE</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <strong id="maxValue">0</strong>
+                            <span>MAXIMUM VALUE</span>
+                        </div>
+
+                    </div>
+
+                    <div class="calculation-breakdown">
+                        <h3>Calculation Breakdown</h3>
+                        <p id="calculationText"></p>
+                    </div>
+
+                    <button type="button" class="copy-button" id="copyButton">
+                        Copy Results
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is an Average Calculator?</h2>
+
+                    <p>
+                        An Average Calculator is an online mathematical tool
+                        that calculates the average of a group of numbers.
+                        It finds a single representative value by adding all
+                        the numbers together and dividing the total by the
+                        number of values.
+                    </p>
+
+                    <p>
+                        The arithmetic average is also known as the mean.
+                        It is one of the most common mathematical calculations
+                        used in everyday numerical work, education and data
+                        analysis.
+                    </p>
+
+                    <p>
+                        The DailyTools Average Calculator provides the average,
+                        total sum, number count, minimum value and maximum value
+                        in one place. Results are displayed immediately after
+                        calculation.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>How to Use the Average Calculator</h2>
+
+                    <p>
+                        Calculating an average is simple with this online tool.
+                        Follow these steps:
+                    </p>
+
+                    <ol>
+                        <li>Enter your numbers in the calculator text box.</li>
+                        <li>Separate each number using a comma, space or new line.</li>
+                        <li>Click the Calculate Average button.</li>
+                        <li>View the calculated average and additional statistics.</li>
+                        <li>Use Copy Results to copy your calculation summary.</li>
+                        <li>Select Clear All to reset the calculator and enter new values.</li>
+                    </ol>
+
+                    <p>
+                        You can enter whole numbers, decimal numbers, negative
+                        numbers and zero. The calculator processes all valid
+                        values together.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Understanding the Average Calculator Results</h2>
+
+                    <p>
+                        The calculator provides five different results.
+                        Each one gives you useful information about your
+                        entered numbers.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Average</h3>
+                            <p>
+                                Displays the arithmetic mean of all entered
+                                numbers. It represents the central value
+                                calculated from the complete set.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Total Sum</h3>
+                            <p>
+                                Shows the combined total after adding all
+                                the entered numbers together.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Number Count</h3>
+                            <p>
+                                Displays how many valid numerical values
+                                were included in the calculation.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Minimum and Maximum</h3>
+                            <p>
+                                Minimum shows the smallest entered value,
+                                while Maximum displays the largest value.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Average Formula</h2>
+
+                    <p>
+                        The arithmetic mean is calculated by adding all
+                        the values and dividing the sum by the total
+                        number of values.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Average Formula:</strong></p>
+
+                        <p>
+                            Average = Sum of All Numbers ÷ Total Number of Values
+                        </p>
+                    </div>
+
+                    <h3>Example: Calculate the Average of Five Numbers</h3>
+
+                    <p>
+                        Suppose you have the following numbers:
+                        10, 20, 30, 40 and 50.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Step 1: Add all numbers</strong></p>
+
+                        <p>
+                            10 + 20 + 30 + 40 + 50 = 150
+                        </p>
+
+                        <p><strong>Step 2: Count the numbers</strong></p>
+
+                        <p>
+                            Total Number of Values = 5
+                        </p>
+
+                        <p><strong>Step 3: Divide the sum by the count</strong></p>
+
+                        <p>
+                            Average = 150 ÷ 5 = 30
+                        </p>
+
+                        <p>
+                            <strong>Final Answer: 30</strong>
+                        </p>
+                    </div>
+
+                    <p>
+                        Therefore, the arithmetic average of 10, 20, 30,
+                        40 and 50 is 30.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Types of Numbers Supported</h2>
+
+                    <p>
+                        The calculator supports different numerical formats
+                        so that you can work with a wide range of values.
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Whole Numbers:</strong>
+                            Values such as 10, 25, 100 and 500.
+                        </li>
+
+                        <li>
+                            <strong>Decimal Numbers:</strong>
+                            Values such as 12.5, 18.75 and 25.25.
+                        </li>
+
+                        <li>
+                            <strong>Negative Numbers:</strong>
+                            Values such as -5, -10 and -25.
+                        </li>
+
+                        <li>
+                            <strong>Zero:</strong>
+                            Zero can be included as a normal numerical value.
+                        </li>
+
+                        <li>
+                            <strong>Multiple Values:</strong>
+                            You can enter several numbers separated by commas,
+                            spaces or line breaks.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Average Calculation Examples</h2>
+
+                    <h3>Example 1: Average of Test Scores</h3>
+
+                    <p>
+                        A student receives scores of 75, 80, 85, 90 and 70.
+                        The total is 400. Dividing 400 by 5 gives an average
+                        score of 80.
+                    </p>
+
+                    <h3>Example 2: Average of Decimal Values</h3>
+
+                    <p>
+                        Consider the numbers 10.5, 15.5 and 20.5.
+                        Their sum is 46.5. Dividing by 3 gives an average
+                        of 15.5.
+                    </p>
+
+                    <h3>Example 3: Average with Negative Numbers</h3>
+
+                    <p>
+                        Consider -10, 0, 10 and 20.
+                        Their sum is 20. Dividing by 4 gives an average
+                        of 5.
+                    </p>
+                </div>
+
+                <div class="content-block">
+                    <h2>Tips for Accurate Average Calculations</h2>
+
+                    <ul>
+                        <li>
+                            Check that every entered value is a valid number.
+                        </li>
+
+                        <li>
+                            Include all relevant values before calculating.
+                        </li>
+
+                        <li>
+                            Do not accidentally enter the same value twice
+                            unless it is meant to be included twice.
+                        </li>
+
+                        <li>
+                            Remember that negative numbers affect the total
+                            and can change the average.
+                        </li>
+
+                        <li>
+                            Review the number count to confirm that all
+                            intended values were included.
+                        </li>
+
+                        <li>
+                            Use the total sum and number count to verify
+                            the final average.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. What is an average?</h3>
+
+                        <p>
+                            An average is a representative value calculated
+                            by adding all the numbers in a group and dividing
+                            the sum by the total number of values. It is also
+                            called the arithmetic mean.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. How do I calculate an average manually?</h3>
+
+                        <p>
+                            Add all the numbers together and divide the result
+                            by how many numbers you have. For example, the
+                            average of 10, 20 and 30 is 20.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. Can I calculate the average of decimal numbers?</h3>
+
+                        <p>
+                            Yes. The calculator supports decimal values such
+                            as 12.5, 18.75 and 20.25.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. Does this calculator support negative numbers?</h3>
+
+                        <p>
+                            Yes. You can enter positive numbers, negative
+                            numbers and zero in the same calculation.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Can I enter numbers on separate lines?</h3>
+
+                        <p>
+                            Yes. Enter numbers separated by commas, spaces
+                            or line breaks. The calculator recognizes all
+                            these formats.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. What is the difference between average and sum?</h3>
+
+                        <p>
+                            The sum is the total after adding all the numbers.
+                            The average is the sum divided by the number of
+                            values.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. Is this Average Calculator free?</h3>
+
+                        <p>
+                            Yes. The DailyTools Average Calculator is free
+                            to use and does not require registration.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Can I copy my calculation results?</h3>
+
+                        <p>
+                            Yes. After calculating the average, select
+                            Copy Results to copy the average, sum, count,
+                            minimum and maximum values.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const numbersInput = document.getElementById("numbersInput");
+    const calculateButton = document.getElementById("calculateButton");
+    const clearButton = document.getElementById("clearButton");
+    const copyButton = document.getElementById("copyButton");
+
+    const statusText = document.getElementById("statusText");
+    const numberCount = document.getElementById("numberCount");
+    const errorMessage = document.getElementById("errorMessage");
+    const results = document.getElementById("results");
+
+    let lastResults = null;
+
+    function formatNumber(value) {
+        if (!Number.isFinite(value)) {
+            return "Not available";
+        }
+
+        const rounded = Number(value.toPrecision(12));
+
+        return rounded.toLocaleString("en-US", {
+            maximumFractionDigits: 10
+        });
+    }
+
+    function parseNumbers(text) {
+        const cleanedText = text.trim();
+
+        if (!cleanedText) {
+            return [];
+        }
+
+        const parts = cleanedText.split(/[\s,;]+/).filter(Boolean);
+
+        return parts.map(part => {
+            const validNumber =
+                /^[+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i.test(part);
+
+            return validNumber ? Number(part) : NaN;
+        });
+    }
+
+    function updateNumberCount() {
+        const numbers = parseNumbers(numbersInput.value);
+
+        const count = numbers.length;
+
+        numberCount.textContent =
+            count + (count === 1 ? " number entered" : " numbers entered");
+    }
+
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+        results.style.display = "none";
+        statusText.textContent = "Please check your input";
+    }
+
+    function hideError() {
+        errorMessage.textContent = "";
+        errorMessage.style.display = "none";
+    }
+
+    function calculateAverage() {
+        hideError();
+
+        const numbers = parseNumbers(numbersInput.value);
+
+        if (numbers.length === 0) {
+            showError("Please enter at least two numbers to calculate the average.");
+            return;
+        }
+
+        if (numbers.length < 2) {
+            showError("Please enter at least two numbers.");
+            return;
+        }
+
+        if (numbers.some(number => !Number.isFinite(number))) {
+            showError("Invalid input detected. Please enter only valid numbers.");
+            return;
+        }
+
+        let sum = 0;
+
+        for (const number of numbers) {
+            sum += number;
+
+            if (!Number.isFinite(sum)) {
+                showError("The total is too large to calculate. Please use smaller numbers.");
+                return;
+            }
+        }
+
+        const average = sum / numbers.length;
+
+        if (!Number.isFinite(average)) {
+            showError("Unable to calculate the average. Please check your numbers.");
+            return;
+        }
+
+        const minimum = Math.min(...numbers);
+        const maximum = Math.max(...numbers);
+
+        lastResults = {
+            average: average,
+            sum: sum,
+            count: numbers.length,
+            minimum: minimum,
+            maximum: maximum
+        };
+
+        document.getElementById("averageValue").textContent =
+            formatNumber(average);
+
+        document.getElementById("sumValue").textContent =
+            formatNumber(sum);
+
+        document.getElementById("countValue").textContent =
+            numbers.length.toLocaleString("en-US");
+
+        document.getElementById("minValue").textContent =
+            formatNumber(minimum);
+
+        document.getElementById("maxValue").textContent =
+            formatNumber(maximum);
+
+        document.getElementById("calculationText").textContent =
+            "Total Sum: " + formatNumber(sum) +
+            " ÷ Number Count: " + numbers.length +
+            " = Average: " + formatNumber(average);
+
+        results.style.display = "block";
+        statusText.textContent = "Calculation completed successfully";
+    }
+
+    function clearCalculator() {
+        numbersInput.value = "";
+
+        lastResults = null;
+
+        hideError();
+
+        results.style.display = "none";
+
+        statusText.textContent = "Ready to calculate";
+
+        updateNumberCount();
+
+        numbersInput.focus();
+    }
+
+    async function copyResults() {
+        if (!lastResults) {
+            return;
+        }
+
+        const summary =
+            "Average Calculator Results\n" +
+            "Average: " + formatNumber(lastResults.average) + "\n" +
+            "Total Sum: " + formatNumber(lastResults.sum) + "\n" +
+            "Number Count: " + lastResults.count + "\n" +
+            "Minimum Value: " + formatNumber(lastResults.minimum) + "\n" +
+            "Maximum Value: " + formatNumber(lastResults.maximum);
+
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(summary);
+            } else {
+                const temporaryInput = document.createElement("textarea");
+
+                temporaryInput.value = summary;
+                temporaryInput.style.position = "fixed";
+                temporaryInput.style.opacity = "0";
+
+                document.body.appendChild(temporaryInput);
+
+                temporaryInput.select();
+
+                const copied = document.execCommand("copy");
+
+                temporaryInput.remove();
+
+                if (!copied) {
+                    throw new Error("Copy failed");
+                }
+            }
+
+            copyButton.textContent = "Results Copied!";
+
+        } catch (error) {
+            copyButton.textContent = "Unable to Copy Results";
+        }
+
+        setTimeout(() => {
+            copyButton.textContent = "Copy Results";
+        }, 2000);
+    }
+
+    numbersInput.addEventListener("input", function() {
+        updateNumberCount();
+        hideError();
+        results.style.display = "none";
+        lastResults = null;
+        statusText.textContent = numbersInput.value.trim()
+            ? "Text updated - ready to calculate"
+            : "Ready to calculate";
+    });
+
+    calculateButton.addEventListener("click", calculateAverage);
+
+    clearButton.addEventListener("click", clearCalculator);
+
+    copyButton.addEventListener("click", copyResults);
+
+    document.querySelectorAll("[data-sample]").forEach(button => {
+        button.addEventListener("click", function() {
+            numbersInput.value = this.dataset.sample;
+
+            updateNumberCount();
+
+            calculateAverage();
+        });
+    });
+
+    numbersInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+            calculateAverage();
+        }
+    });
+
+    updateNumberCount();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Use the free Simple Interest Calculator by DailyTools to calculate simple interest and total amount from the principal, annual interest rate and time period.">
+
+    <meta name="robots" content="index, follow">
+
+    <title>Free Simple Interest Calculator Online | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .calculator-section {
+            padding: 65px 0 80px;
+        }
+
+        .calculator-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 9px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #dedee9;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 15px;
+            color: #33334a;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+
+        .input-help {
+            display: block;
+            margin-top: 7px;
+            font-size: 12px;
+            color: #77778a;
+        }
+
+        .calculator-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .calculate-button,
+        .clear-button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 9px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .calculate-button {
+            background: #635bff;
+            color: #fff;
+        }
+
+        .calculate-button:hover {
+            background: #5046e5;
+        }
+
+        .clear-button {
+            background: #f0efff;
+            color: #635bff;
+        }
+
+        .clear-button:hover {
+            background: #e5e3ff;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 18px;
+            padding: 12px 15px;
+            background: #fff4f4;
+            border: 1px solid #ffdada;
+            border-radius: 9px;
+            color: #b63a3a;
+            font-size: 14px;
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid #e9e9f1;
+        }
+
+        .result-box h2 {
+            font-size: 20px;
+            color: #17172b;
+            margin-bottom: 18px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .result-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .result-card span {
+            display: block;
+            color: #77778a;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .result-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 28px;
+            overflow-wrap: anywhere;
+        }
+
+        .formula-note {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            color: #55556a;
+            line-height: 1.7;
+        }
+
+        /* INFORMATION CONTENT */
+
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+
+        .content-block {
+            margin-bottom: 42px;
+        }
+
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        .content-block li {
+            margin-bottom: 9px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .calculator-section {
+                padding: 40px 0 55px;
+            }
+
+            .calculator-box {
+                padding: 18px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .calculator-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .calculate-button,
+            .clear-button {
+                width: 100%;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .result-card strong {
+                font-size: 25px;
+            }
+
+            .tool-content {
+                margin-bottom: 60px;
+            }
+
+            .content-block h2 {
+                font-size: 22px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar container">
+
+        <a href="index.html" class="logo">
+            Daily<span>Tools.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html" class="active">All Tools</a>
+            <a href="index.html#categories">Categories</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <a href="tools.html" class="nav-button">Explore Tools</a>
+
+    </nav>
+</header>
+
+<main>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+
+            <span class="eyebrow">FREE ONLINE FINANCE TOOL</span>
+
+            <h1>Simple Interest <span>Calculator.</span></h1>
+
+            <p>
+                Calculate simple interest and the total amount using the
+                principal amount, annual interest rate and time period.
+            </p>
+
+        </div>
+    </section>
+
+
+    <!-- CALCULATOR -->
+    <section class="calculator-section">
+        <div class="container">
+
+            <div class="calculator-box">
+
+                <div class="input-grid">
+
+                    <div class="form-group">
+                        <label for="principal">Principal Amount</label>
+                        <input
+                            type="number"
+                            id="principal"
+                            placeholder="For example: 10000"
+                            min="0"
+                            step="any"
+                        >
+                        <span class="input-help">
+                            Enter the original amount.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rate">Annual Interest Rate (%)</label>
+                        <input
+                            type="number"
+                            id="rate"
+                            placeholder="For example: 5"
+                            min="0"
+                            step="any"
+                        >
+                        <span class="input-help">
+                            Enter the yearly interest rate.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Time Period (Years)</label>
+                        <input
+                            type="number"
+                            id="time"
+                            placeholder="For example: 2"
+                            min="0"
+                            step="any"
+                        >
+                        <span class="input-help">
+                            Enter the time period in years.
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="calculator-actions">
+                    <button type="button" class="calculate-button" id="calculateButton">
+                        Calculate Interest
+                    </button>
+
+                    <button type="button" class="clear-button" id="clearButton">
+                        Clear
+                    </button>
+                </div>
+
+                <div class="error-message" id="errorMessage" role="alert"></div>
+
+                <div class="result-box" id="resultBox">
+
+                    <h2>Your Results</h2>
+
+                    <div class="result-grid">
+
+                        <div class="result-card">
+                            <span>SIMPLE INTEREST</span>
+                            <strong id="interestResult">0.00</strong>
+                        </div>
+
+                        <div class="result-card">
+                            <span>TOTAL AMOUNT</span>
+                            <strong id="totalResult">0.00</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="formula-note" id="formulaResult">
+                        Your calculation details will appear here.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- INFORMATION CONTENT -->
+    <section>
+        <div class="container">
+
+            <div class="tool-content">
+
+                <div class="content-block">
+                    <h2>What Is Simple Interest?</h2>
+
+                    <p>
+                        Simple interest is a method of calculating interest
+                        based on the original amount of money, the interest
+                        rate and the length of time. Unlike compound interest,
+                        simple interest is calculated only on the original
+                        principal amount.
+                    </p>
+
+                    <p>
+                        The calculation remains straightforward because the
+                        interest does not earn additional interest during the
+                        selected period. The same principal amount is used
+                        throughout the calculation.
+                    </p>
+
+                    <p>
+                        This Simple Interest Calculator helps you quickly find
+                        both the interest amount and the total amount after
+                        adding the interest to the original principal.
+                    </p>
+                </div>
+
+
+                <div class="content-block">
+                    <h2>How to Use the Simple Interest Calculator</h2>
+
+                    <p>
+                        Enter the three values required for the calculation:
+                    </p>
+
+                    <ol>
+                        <li>Enter the original principal amount.</li>
+                        <li>Enter the annual interest rate as a percentage.</li>
+                        <li>Enter the time period in years.</li>
+                        <li>Select the Calculate Interest button.</li>
+                        <li>Review the simple interest and total amount.</li>
+                    </ol>
+
+                    <p>
+                        You can select the Clear button at any time to remove
+                        the current values and begin a new calculation.
+                    </p>
+                </div>
+
+
+                <div class="content-block">
+                    <h2>Simple Interest Formula</h2>
+
+                    <p>
+                        The standard formula for calculating simple interest is:
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Simple Interest = (P × R × T) ÷ 100</strong></p>
+
+                        <p>
+                            P represents the principal amount, R represents
+                            the annual interest rate and T represents the
+                            time period in years.
+                        </p>
+                    </div>
+
+                    <p>
+                        After calculating the interest, the total amount can
+                        be found by adding the simple interest to the
+                        original principal.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Total Amount = Principal + Simple Interest</strong></p>
+                    </div>
+                </div>
+
+
+                <div class="content-block">
+                    <h2>Understanding the Calculation Values</h2>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+                            <h3>Principal Amount</h3>
+                            <p>
+                                The original amount of money used as the base
+                                for the interest calculation.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Interest Rate</h3>
+                            <p>
+                                The percentage used to calculate the interest
+                                for one year.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Time Period</h3>
+                            <p>
+                                The length of time used in the calculation,
+                                entered in years.
+                            </p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Total Amount</h3>
+                            <p>
+                                The final value after adding the calculated
+                                simple interest to the principal amount.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="content-block">
+                    <h2>Simple Interest Calculation Example</h2>
+
+                    <p>
+                        Suppose the principal amount is 10,000, the annual
+                        interest rate is 5% and the time period is 2 years.
+                    </p>
+
+                    <div class="example-box">
+                        <p><strong>Principal:</strong> 10,000</p>
+                        <p><strong>Interest Rate:</strong> 5% per year</p>
+                        <p><strong>Time:</strong> 2 years</p>
+
+                        <p>
+                            <strong>Simple Interest = (10,000 × 5 × 2) ÷ 100</strong>
+                        </p>
+
+                        <p>
+                            <strong>Simple Interest = 1,000</strong>
+                        </p>
+
+                        <p>
+                            The total amount is the principal plus the
+                            interest: 10,000 + 1,000 = <strong>11,000</strong>.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="content-block">
+                    <h2>Simple Interest and Compound Interest</h2>
+
+                    <p>
+                        Simple interest and compound interest use different
+                        methods for calculating interest. With simple interest,
+                        the calculation is based on the original principal
+                        amount for the entire period.
+                    </p>
+
+                    <p>
+                        Compound interest can include interest calculated on
+                        previously accumulated interest. As a result, compound
+                        interest may produce a different total amount over
+                        longer periods.
+                    </p>
+
+                    <p>
+                        It is important to check which interest method applies
+                        before estimating a final amount.
+                    </p>
+                </div>
+
+
+                <div class="content-block">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3>1. Is this Simple Interest Calculator free?</h3>
+                        <p>
+                            Yes. You can use this calculator to calculate
+                            simple interest and total amounts without creating
+                            an account.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>2. What is the formula for simple interest?</h3>
+                        <p>
+                            The standard formula is Principal multiplied by
+                            Rate multiplied by Time, divided by 100.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>3. What does the principal amount mean?</h3>
+                        <p>
+                            The principal is the original amount of money used
+                            as the starting point for the interest calculation.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>4. Should the interest rate be entered as a percentage?</h3>
+                        <p>
+                            Yes. Enter the annual interest rate as a percentage.
+                            For example, enter 5 for an annual interest rate
+                            of 5%.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>5. Does this calculator calculate compound interest?</h3>
+                        <p>
+                            No. This tool calculates simple interest based on
+                            the original principal amount.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>6. Can I enter decimal values?</h3>
+                        <p>
+                            Yes. The calculator accepts decimal values for the
+                            principal, interest rate and time period.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>7. How is the total amount calculated?</h3>
+                        <p>
+                            The total amount is calculated by adding the
+                            simple interest to the original principal amount.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>8. Are the calculator results guaranteed for financial decisions?</h3>
+                        <p>
+                            This tool provides a basic calculation based on
+                            the values entered. Always review applicable terms,
+                            fees and financial conditions before making an
+                            important financial decision.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="container footer-content">
+
+        <div>
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+
+            <p>Everyday tools, made simple.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tools.html">All Tools</a>
+            <a href="about.html">About</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="container copyright">
+        <p>© 2026 DailyTools. All rights reserved.</p>
+    </div>
+
+</footer>
+
+
+<script>
+    const principalInput = document.getElementById("principal");
+    const rateInput = document.getElementById("rate");
+    const timeInput = document.getElementById("time");
+
+    const calculateButton = document.getElementById("calculateButton");
+    const clearButton = document.getElementById("clearButton");
+
+    const resultBox = document.getElementById("resultBox");
+    const errorMessage = document.getElementById("errorMessage");
+
+    const interestResult = document.getElementById("interestResult");
+    const totalResult = document.getElementById("totalResult");
+    const formulaResult = document.getElementById("formulaResult");
+
+
+    function formatNumber(number) {
+        return number.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+
+    function calculateInterest() {
+        const principal = parseFloat(principalInput.value);
+        const rate = parseFloat(rateInput.value);
+        const time = parseFloat(timeInput.value);
+
+        errorMessage.style.display = "none";
+
+        if (
+            isNaN(principal) ||
+            isNaN(rate) ||
+            isNaN(time) ||
+            principal < 0 ||
+            rate < 0 ||
+            time < 0
+        ) {
+            resultBox.style.display = "none";
+            errorMessage.textContent =
+                "Please enter valid values greater than or equal to zero.";
+            errorMessage.style.display = "block";
+            return;
+        }
+
+        const interest = (principal * rate * time) / 100;
+        const totalAmount = principal + interest;
+
+        interestResult.textContent = formatNumber(interest);
+        totalResult.textContent = formatNumber(totalAmount);
+
+        formulaResult.innerHTML =
+            "<strong>Calculation:</strong> (" +
+            formatNumber(principal) +
+            " × " +
+            rate +
+            " × " +
+            time +
+            ") ÷ 100 = <strong>" +
+            formatNumber(interest) +
+            "</strong>";
+
+        resultBox.style.display = "block";
+    }
+
+
+    function clearCalculator() {
+        principalInput.value = "";
+        rateInput.value = "";
+        timeInput.value = "";
+
+        resultBox.style.display = "none";
+        errorMessage.style.display = "none";
+
+        principalInput.focus();
+    }
+
+
+    calculateButton.addEventListener("click", calculateInterest);
+    clearButton.addEventListener("click", clearCalculator);
+
+
+    [principalInput, rateInput, timeInput].forEach(function(input) {
+        input.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                calculateInterest();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

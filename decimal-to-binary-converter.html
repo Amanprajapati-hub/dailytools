@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert decimal numbers into binary numbers instantly with this free Decimal to Binary Converter. Learn binary conversion with examples and step-by-step results.">
+    <meta name="robots" content="index, follow">
+    <title>Decimal to Binary Converter - Free Online Tool | DailyTools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .counter-section {
+            padding: 65px 0 80px;
+        }
+        .counter-box {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e9e9f1;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(35, 30, 100, 0.05);
+        }
+        .counter-box label {
+            display: block;
+            font-weight: 700;
+            color: #17172b;
+            margin-bottom: 14px;
+        }
+        #decimalInput {
+            width: 100%;
+            padding: 18px 20px;
+            border: 1px solid #dedee9;
+            border-radius: 12px;
+            font: inherit;
+            font-size: 16px;
+            outline: none;
+            color: #33334a;
+            box-sizing: border-box;
+        }
+        #decimalInput:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+        }
+        .input-help {
+            color: #77778a;
+            font-size: 13px;
+            margin-top: 9px;
+        }
+        .counter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 16px;
+        }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .counter-actions button {
+            border: none;
+            background: #635bff;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .counter-actions button:hover {
+            background: #5048e5;
+        }
+        #statusText {
+            color: #77778a;
+            font-size: 13px;
+        }
+        .counter-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .stat-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px 12px;
+            text-align: center;
+            min-width: 0;
+        }
+        .stat-card strong {
+            display: block;
+            color: #635bff;
+            font-size: 25px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+        .stat-card span {
+            color: #77778a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* INFORMATION CONTENT */
+        .tool-content {
+            max-width: 850px;
+            margin: 0 auto 90px;
+        }
+        .content-block {
+            margin-bottom: 42px;
+        }
+        .content-block h2 {
+            color: #17172b;
+            font-size: 26px;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+        .content-block h3 {
+            color: #25253d;
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+        .content-block p {
+            color: #66667a;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+        .content-block ul,
+        .content-block ol {
+            color: #66667a;
+            line-height: 1.8;
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+        .content-block li {
+            margin-bottom: 9px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+        .info-card {
+            background: #f8f8ff;
+            border: 1px solid #ededf5;
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .info-card h3 {
+            margin: 0 0 8px;
+            color: #635bff;
+            font-size: 18px;
+        }
+        .info-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .example-box {
+            background: #f8f8ff;
+            border-left: 4px solid #635bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e9e9f1;
+            padding: 20px 0;
+        }
+        .faq-item:first-of-type {
+            padding-top: 5px;
+        }
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+        .faq-item p {
+            margin: 0;
+        }
+
+        @media (max-width: 650px) {
+            .counter-section {
+                padding: 40px 0 55px;
+            }
+            .counter-box {
+                padding: 18px;
+            }
+            #decimalInput {
+                padding: 14px;
+            }
+            .counter-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+            .stat-card {
+                padding: 17px 10px;
+            }
+            .stat-card strong {
+                font-size: 22px;
+            }
+            .counter-actions {
+                align-items: center;
+            }
+            .tool-content {
+                margin-bottom: 60px;
+            }
+            .content-block h2 {
+                font-size: 22px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="navbar container">
+            <a href="index.html" class="logo">
+                Daily<span>Tools.</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="tools.html" class="active">All Tools</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <a href="tools.html" class="nav-button">Explore Tools</a>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <span class="eyebrow">FREE ONLINE NUMBER TOOL</span>
+            <h1>Decimal to Binary <span>Converter.</span></h1>
+            <p>Convert decimal numbers into binary numbers instantly. Enter a decimal value and get its binary equivalent with an easy-to-understand conversion breakdown.</p>
+        </div>
+    </section>
+
+    <section class="counter-section">
+        <div class="container">
+            <div class="counter-box">
+
+                <label for="decimalInput">Enter a decimal number</label>
+                <input
+                    type="text"
+                    id="decimalInput"
+                    placeholder="Example: 25"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    aria-describedby="statusText"
+                >
+
+                <p class="input-help">Enter a positive or negative whole number or decimal value.</p>
+
+                <div class="counter-actions">
+                    <span id="statusText" role="status" aria-live="polite">Ready to convert</span>
+                    <div class="action-buttons">
+                        <button type="button" id="convertButton">Convert</button>
+                        <button type="button" id="copyButton">Copy Result</button>
+                        <button type="button" id="clearButton">Clear</button>
+                    </div>
+                </div>
+
+                <div class="counter-stats" aria-live="polite">
+                    <div class="stat-card">
+                        <strong id="binaryResult">-</strong>
+                        <span>BINARY RESULT</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong id="decimalResult">-</strong>
+                        <span>DECIMAL INPUT</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong id="binaryLength">0</strong>
+                        <span>BINARY DIGITS</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong id="numberType">-</strong>
+                        <span>NUMBER TYPE</span>
+                    </div>
+                </div>
+
+                <div class="example-box" id="stepsBox" style="display:none; margin-top:24px;">
+                    <h3 style="margin:0 0 12px; color:#25253d;">Conversion Breakdown</h3>
+                    <p id="conversionSteps" style="margin:0; white-space:pre-line;"></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <main class="tool-content">
+
+        <section class="content-block">
+            <h2>What Is a Decimal to Binary Converter?</h2>
+            <p>A Decimal to Binary Converter is an online tool that changes numbers from the decimal number system (base 10) into the binary number system (base 2). Decimal numbers use ten digits, from 0 to 9, while binary numbers use only two digits: 0 and 1.</p>
+            <p>Computers use binary because digital electronic circuits work with two basic states. This converter makes it easy to understand how ordinary decimal numbers are represented in binary.</p>
+        </section>
+
+        <section class="content-block">
+            <h2>How to Use the Decimal to Binary Converter</h2>
+            <ol>
+                <li>Enter a decimal number in the input field.</li>
+                <li>Click the Convert button.</li>
+                <li>View the binary equivalent in the result card.</li>
+                <li>Check the conversion breakdown to understand the process.</li>
+                <li>Click Copy Result to copy the binary number.</li>
+            </ol>
+        </section>
+
+        <section class="content-block">
+            <h2>Understanding Decimal and Binary Numbers</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Decimal System (Base 10)</h3>
+                    <p>The decimal system uses ten digits: 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9. It is the standard number system used in everyday calculations.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Binary System (Base 2)</h3>
+                    <p>The binary system uses only 0 and 1. Each binary position represents a power of 2, starting from 2⁰ on the right.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2>How Decimal to Binary Conversion Works</h2>
+            <p>To convert a positive whole decimal number into binary manually, repeatedly divide the number by 2. Write down each remainder and continue dividing the quotient until it becomes zero. Read the remainders from bottom to top.</p>
+
+            <div class="example-box">
+                <h3 style="margin-top:0;">Example: Convert 25 into Binary</h3>
+                <p>25 ÷ 2 = 12, remainder 1</p>
+                <p>12 ÷ 2 = 6, remainder 0</p>
+                <p>6 ÷ 2 = 3, remainder 0</p>
+                <p>3 ÷ 2 = 1, remainder 1</p>
+                <p>1 ÷ 2 = 0, remainder 1</p>
+                <p><strong>Read the remainders from bottom to top: 11001</strong></p>
+                <p>Therefore, decimal 25 = binary 11001.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2>Decimal to Binary Conversion Examples</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Small Numbers</h3>
+                    <p>0 = 0</p>
+                    <p>1 = 1</p>
+                    <p>2 = 10</p>
+                    <p>5 = 101</p>
+                </div>
+                <div class="info-card">
+                    <h3>Larger Numbers</h3>
+                    <p>10 = 1010</p>
+                    <p>15 = 1111</p>
+                    <p>25 = 11001</p>
+                    <p>100 = 1100100</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2>Important Binary Conversion Facts</h2>
+            <ul>
+                <li>Binary is a base-2 number system.</li>
+                <li>Every binary digit is called a bit.</li>
+                <li>The rightmost binary position represents 2⁰, which equals 1.</li>
+                <li>Moving left, each position doubles in value.</li>
+                <li>Eight bits together are commonly called one byte.</li>
+                <li>Decimal fractions can have repeating or long binary representations, so this converter displays a limited number of fractional binary digits.</li>
+            </ul>
+        </section>
+
+        <section class="content-block">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>1. What is binary conversion?</h3>
+                <p>Binary conversion is the process of changing a number from another number system, such as decimal, into the base-2 system that uses only 0 and 1.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>2. How do I convert decimal to binary manually?</h3>
+                <p>For a positive whole number, divide it repeatedly by 2, record each remainder, and read the remainders in reverse order.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>3. Can this tool convert decimal fractions?</h3>
+                <p>Yes. The converter supports decimal fractions and generates up to 16 binary fractional digits for a readable result.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>4. Can I convert negative decimal numbers?</h3>
+                <p>Yes. The converter displays a minus sign before the binary representation of a negative number.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>5. Why do computers use binary numbers?</h3>
+                <p>Digital computers use binary because electronic circuits can reliably represent two states, commonly described as 0 and 1.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>6. Is this Decimal to Binary Converter free?</h3>
+                <p>Yes. You can use this online converter for free without creating an account or installing software.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <a href="index.html" class="logo">
+                    Daily<span>Tools.</span>
+                </a>
+                <p>Everyday tools, made simple.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="tools.html">All Tools</a>
+                <a href="about.html">About</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>© 2026 DailyTools. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const decimalInput = document.getElementById("decimalInput");
+        const binaryResult = document.getElementById("binaryResult");
+        const decimalResult = document.getElementById("decimalResult");
+        const binaryLength = document.getElementById("binaryLength");
+        const numberType = document.getElementById("numberType");
+        const statusText = document.getElementById("statusText");
+        const conversionSteps = document.getElementById("conversionSteps");
+        const stepsBox = document.getElementById("stepsBox");
+
+        const convertButton = document.getElementById("convertButton");
+        const copyButton = document.getElementById("copyButton");
+        const clearButton = document.getElementById("clearButton");
+
+        let currentBinary = "";
+
+        function convertDecimalToBinary() {
+            const rawValue = decimalInput.value.trim();
+
+            if (rawValue === "") {
+                resetResults();
+                statusText.textContent = "Please enter a decimal number";
+                return;
+            }
+
+            const normalizedValue = rawValue.replace(/,/g, "");
+
+            if (!/^[+-]?(?:\d+\.?\d*|\.\d+)$/.test(normalizedValue)) {
+                resetResults();
+                statusText.textContent = "Please enter a valid decimal number";
+                return;
+            }
+
+            const number = Number(normalizedValue);
+
+            if (!Number.isFinite(number)) {
+                resetResults();
+                statusText.textContent = "Number is too large or invalid";
+                return;
+            }
+
+            if (Math.abs(number) > Number.MAX_SAFE_INTEGER) {
+                resetResults();
+                statusText.textContent = "Please enter a number within the safe integer range";
+                return;
+            }
+
+            const isNegative = number < 0;
+            const absoluteNumber = Math.abs(number);
+            const integerPart = Math.floor(absoluteNumber);
+            const fractionalPart = absoluteNumber - integerPart;
+
+            const integerBinary = integerPart.toString(2);
+            let fractionalBinary = "";
+            let remainder = fractionalPart;
+
+            const precision = 16;
+
+            for (let i = 0; i < precision && remainder > 0; i++) {
+                remainder *= 2;
+
+                if (remainder >= 1) {
+                    fractionalBinary += "1";
+                    remainder -= 1;
+                } else {
+                    fractionalBinary += "0";
+                }
+            }
+
+            fractionalBinary = fractionalBinary.replace(/0+$/, "");
+
+            let result = integerBinary;
+
+            if (fractionalBinary) {
+                result += "." + fractionalBinary;
+            }
+
+            if (isNegative) {
+                result = "-" + result;
+            }
+
+            currentBinary = result;
+
+            binaryResult.textContent = result;
+            decimalResult.textContent = String(number);
+            binaryLength.textContent = result.replace(/[-.]/g, "").length;
+
+            if (Number.isInteger(number)) {
+                numberType.textContent = isNegative ? "Negative" : "Whole";
+            } else {
+                numberType.textContent = isNegative ? "Negative Decimal" : "Decimal";
+            }
+
+            const steps = [];
+
+            if (Number.isInteger(absoluteNumber)) {
+                let temp = integerPart;
+
+                steps.push("Repeated division by 2:");
+
+                if (temp === 0) {
+                    steps.push("0 in decimal is 0 in binary.");
+                } else {
+                    while (temp > 0) {
+                        const quotient = Math.floor(temp / 2);
+                        const rem = temp % 2;
+
+                        steps.push(`${temp} ÷ 2 = ${quotient}, remainder ${rem}`);
+                        temp = quotient;
+                    }
+
+                    steps.push("");
+                    steps.push("Read the remainders from bottom to top.");
+                    steps.push("Binary result: " + result);
+                }
+            } else {
+                steps.push("Integer part: " + integerBinary);
+                steps.push("Fractional part: " + (fractionalBinary || "0"));
+                steps.push("Fractional conversion uses repeated multiplication by 2.");
+                steps.push("Binary result: " + result);
+
+                if (remainder > 0) {
+                    steps.push("The fractional result is limited to 16 binary digits.");
+                }
+            }
+
+            conversionSteps.textContent = steps.join("\n");
+            stepsBox.style.display = "block";
+            statusText.textContent = "Conversion completed successfully";
+        }
+
+        function resetResults() {
+            binaryResult.textContent = "-";
+            decimalResult.textContent = "-";
+            binaryLength.textContent = "0";
+            numberType.textContent = "-";
+            conversionSteps.textContent = "";
+            stepsBox.style.display = "none";
+            currentBinary = "";
+        }
+
+        // Conversion happens ONLY when the Convert button is clicked.
+        convertButton.addEventListener("click", convertDecimalToBinary);
+
+        // Typing only clears the previous result. It does not convert.
+        decimalInput.addEventListener("input", function () {
+            resetResults();
+
+            if (decimalInput.value.trim() === "") {
+                statusText.textContent = "Ready to convert";
+            } else {
+                statusText.textContent = "Click Convert to see the result";
+            }
+        });
+
+        copyButton.addEventListener("click", async function () {
+            if (!currentBinary) {
+                statusText.textContent = "Convert a number first";
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(currentBinary);
+                statusText.textContent = "Binary result copied";
+            } catch (error) {
+                statusText.textContent = "Unable to copy. Please copy the result manually.";
+            }
+        });
+
+        clearButton.addEventListener("click", function () {
+            decimalInput.value = "";
+            resetResults();
+            statusText.textContent = "Ready to convert";
+            decimalInput.focus();
+        });
+    </script>
+
+</body>
+</html>
